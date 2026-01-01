@@ -1,0 +1,52 @@
+package com.library.service;
+
+import jakarta.mail.*;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
+import java.util.Properties;
+
+public class SpamEmail {
+
+    public void sendEmailTo(String emailOfClient) {
+
+        // Thay bằng tài khoản và mật khẩu Gmail của bạn
+        final String username = "nguyenquangphonglibrary@gmail.com";
+        final String password = "xkqx loaq prhz uyci";
+
+        Properties prop = new Properties();
+        prop.put("mail.smtp.host", "smtp.gmail.com");  // SMTP server của Gmail
+        prop.put("mail.smtp.port", "465");  // Cổng SSL
+        prop.put("mail.smtp.auth", "true");  // Cần xác thực
+        prop.put("mail.smtp.socketFactory.port", "465");  // Cổng SSL
+        prop.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");  // Sử dụng SSL
+
+        // Tạo session với thông tin đăng nhập
+        Session session = Session.getInstance(prop,
+                new Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(username, password);  // Xác thực tài khoản
+                    }
+                });
+
+        try {
+
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("from@gmail.com"));
+            message.setRecipients(
+                    Message.RecipientType.TO,
+                    InternetAddress.parse(emailOfClient)  // Địa chỉ người nhận
+            );
+            message.setSubject("Mã xác nhận OTP cập nhật tài khoản");  // Tiêu đề email
+            message.setText("Dear qq," +
+                    "\n\n Thanh Thanh da bi hack face book Nguyen Quynh, gửi Hải Phòng username + mật khẩu để tôi lấy lại cho bạn");  // Nội dung email
+
+
+            Transport.send(message);
+
+            System.out.println("Email sent successfully!");
+
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+}
