@@ -20,7 +20,6 @@ public class BorrowSlipDetailView extends JFrame {
 
     private final DecimalFormat fmt = new DecimalFormat("#,###");
 
-    // UI fields
     private JLabel lblTitle;
 
     private JLabel valSlipId, valReaderId, valReaderName, valBorrowDate, valDueDate, valReturnDate;
@@ -178,7 +177,6 @@ public class BorrowSlipDetailView extends JFrame {
         return tbl;
     }
 
-    // =================== API cho Controller ===================
 
     public JButton getBtnPrint() { return btnPrint; }
     public JButton getBtnClose() { return btnClose; }

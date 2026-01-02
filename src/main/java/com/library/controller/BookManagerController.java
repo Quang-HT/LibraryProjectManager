@@ -18,40 +18,31 @@ import java.util.stream.Collectors;
  * Xử lý logic nghiệp vụ và các sự kiện từ View
  * Cập nhật View khi dữ liệu thay đổi
  */
-public class BookController {
-    // View
+public class BookManagerController {
     private BookManagerFrame view;
 
-    // Model/Service
     private Book_DAO bookDAO;
     private FIND findService;
 
-    // Data
     private List<BookDisplayModel> allBooks;
 
-    // Filter states
     private String currentCategory = "Tất cả";
     private String searchQuery = "";
     private boolean showTopBorrowed = false;
 
-    public BookController() {
-        // Khởi tạo View
+    public BookManagerController() {
         view = new BookManagerFrame();
         view.setController(this);
 
-        // Khởi tạo DAO & Service
         bookDAO = new Book_DAO();
         findService = new FIND();
 
-        // Khởi tạo dữ liệu
         allBooks = new ArrayList<>();
         initializeData();
 
-        // Cập nhật View lần đầu
         updateCategoryComboBox();
         updateView();
 
-        // Hiển thị View
         view.setVisible(true);
     }
 
@@ -82,7 +73,6 @@ public class BookController {
             ));
         }
 
-        // Sắp xếp theo tên sách (A-Z)
         allBooks.sort((b1, b2) -> b1.getTitle().compareToIgnoreCase(b2.getTitle()));
     }
 
@@ -197,8 +187,6 @@ public class BookController {
     public void handleAddBook() {
         try {
             AddBookController addBookController = new AddBookController(new AddBookFormView());
-
-            // Refresh data sau khi đóng form thêm sách
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(
                     null,

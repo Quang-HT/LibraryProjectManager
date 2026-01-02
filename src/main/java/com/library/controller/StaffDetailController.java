@@ -15,6 +15,11 @@ public class StaffDetailController {
     private final int staffId;
     private final StaffManagementView parent;
 
+    /**
+     * @param staffId
+     * @param parent
+     * Hàm Controller của Staff Detail truyền vào id Staff - StaffManagementView Chính
+     */
     public StaffDetailController(int staffId, StaffManagementView parent) {
         this.staffId = staffId;
         this.parent = parent;
@@ -24,16 +29,20 @@ public class StaffDetailController {
 
         bindEvents();
         loadStaffData();
-    }
-
-    public void showView() {
         SwingUtilities.invokeLater(() -> view.setVisible(true));
     }
 
+    /**
+     * Đăng ký sự kiện
+     * view.dispose()
+     */
     private void bindEvents() {
         view.getBtnClose().addActionListener(e -> view.dispose());
     }
 
+    /**
+     * Lấy dữ liệu nhân viên từ Database thông qua id Staff đã được truyền vào
+     */
     private void loadStaffData() {
         try {
             Staff_Entity staff = staffDAO.findById(staffId).orElse(null);

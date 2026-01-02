@@ -6,7 +6,6 @@ import com.library.model.display.BookDisplayModel;
 import com.library.service.FIND;
 import com.library.view.BookDetailForm;
 
-import javax.swing.*;
 import java.sql.Date;
 import java.util.*;
 
@@ -17,7 +16,7 @@ public class BookDetailController {
     private int bookId;
 
     private Book_DAO bookDAO;
-    private copy_DAO copyDAO;
+    private Copy_DAO copyDAO;
     private Category_DAO categoryDAO;
     private Author_DAO authorDAO;
     private Publisher_DAO publisherDAO;
@@ -31,7 +30,7 @@ public class BookDetailController {
         this.view = new BookDetailForm();
 
         this.bookDAO = new Book_DAO();
-        this.copyDAO = new copy_DAO();
+        this.copyDAO = new Copy_DAO();
         this.categoryDAO = new Category_DAO();
         this.authorDAO = new Author_DAO();
         this.publisherDAO = new Publisher_DAO();
@@ -88,7 +87,7 @@ public class BookDetailController {
             }
 
             Book_Entity book = bookOpt.get();
-            List<copy_Entity> copies = copyDAO.findByIdBook(bookId);
+            List<Copy_Entity> copies = copyDAO.findByIdBook(bookId);
 
             // Cập nhật model
             model.setBookId(bookId);
@@ -340,12 +339,12 @@ public class BookDetailController {
      */
     private void updateCopies(BookDisplayModel formData) {
         try {
-            List<copy_Entity> listCopy = copyDAO.findByIdBook(bookId);
+            List<Copy_Entity> listCopy = copyDAO.findByIdBook(bookId);
             int currentCopyCount = listCopy.size();
             int newCopyCount = formData.getCopyCount();
 
             // Cập nhật thông tin cho tất cả copies hiện có
-            for(copy_Entity c : listCopy) {
+            for(Copy_Entity c : listCopy) {
                 c.setLocation(formData.getLocation() != null ? formData.getLocation().trim() : "");
                 c.setCost(formData.getCost());
                 copyDAO.update(c);
@@ -356,7 +355,7 @@ public class BookDetailController {
                 // Xóa copies thừa (chỉ xóa những bản Available)
                 int toDelete = currentCopyCount - newCopyCount;
                 int deleted = 0;
-                for (copy_Entity c : listCopy) {
+                for (Copy_Entity c : listCopy) {
                     if (deleted >= toDelete) break;
                     if ("Available".equals(c.getStatus())) {
                         copyDAO.delete(c.getCopy_id());
@@ -372,7 +371,7 @@ public class BookDetailController {
                 // Thêm copies mới
                 int toAdd = newCopyCount - currentCopyCount;
                 for(int i = 0; i < toAdd; i++) {
-                    copy_Entity cp = new copy_Entity();
+                    Copy_Entity cp = new Copy_Entity();
                     cp.setBook_id(bookId);
                     cp.setCost(formData.getCost());
                     cp.setLocation(formData.getLocation() != null ? formData.getLocation().trim() : "");

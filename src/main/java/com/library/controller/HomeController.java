@@ -93,7 +93,7 @@ public class HomeController {
      * Tạo View để tạo Nhân viên mới
      */
     public void createNewStaff() {
-        new AddStaffController(new StaffManagementView()).showView();
+        new AddStaffController();
     }
 
     /**
@@ -128,7 +128,7 @@ public class HomeController {
      * Mở View để mở "Quản lý đầu sách"
      */
     public void openBookManagement() {
-        new BookController();
+        new BookManagerController();
         this.homeView.dispose();
     }
 
@@ -136,7 +136,7 @@ public class HomeController {
      * Mở View để mở "Quản lý Tác giả"
      */
     public void openAuthorManagement() {
-        new AuthorListController(new AuthorListView());
+        new AuthorManagerController(new AuthorListView());
         this.homeView.dispose();
     }
 

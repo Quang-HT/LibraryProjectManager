@@ -145,7 +145,7 @@ public class StaffManagementController {
      */
     private void openStaffDetails() {
         if (selectedStaff != null) {
-            new com.library.controller.StaffDetailController(selectedStaff.getStaff_id(), view).showView();
+            new com.library.controller.StaffDetailController(selectedStaff.getStaff_id(), view);
 
         } else {
             JOptionPane.showMessageDialog(view,
@@ -159,7 +159,7 @@ public class StaffManagementController {
      * Mở View tạo mới nhân viên
      */
     private void openAddStaffForm() {
-        new AddStaffController(this).showView();
+        new AddStaffController(this);
     }
 
     /**

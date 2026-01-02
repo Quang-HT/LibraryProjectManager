@@ -1,6 +1,6 @@
 package com.library.view;
 
-import com.library.controller.BookController;
+import com.library.controller.BookManagerController;
 import com.library.model.display.BookDisplayModel;
 
 import javax.swing.*;
@@ -38,7 +38,7 @@ public class BookManagerFrame extends JFrame {
     private JLabel totalBooksLabel;
 
     // Controller reference
-    private BookController bookController;
+    private BookManagerController bookManagerController;
 
     public BookManagerFrame() {
         initializeFrame();
@@ -48,8 +48,8 @@ public class BookManagerFrame extends JFrame {
     /**
      * Thiết lập controller cho view này
      */
-    public void setController(BookController controller) {
-        this.bookController = controller;
+    public void setController(BookManagerController controller) {
+        this.bookManagerController = controller;
     }
 
     private void initializeFrame() {
@@ -91,8 +91,8 @@ public class BookManagerFrame extends JFrame {
         addBookBtn.setBackground(new Color(25, 118, 210));
         addBookBtn.setForeground(Color.WHITE);
         addBookBtn.addActionListener(e -> {
-            if (bookController != null) {
-                bookController.handleAddBook();
+            if (bookManagerController != null) {
+                bookManagerController.handleAddBook();
             }
         });
         addBookBtn.addMouseListener(new MouseAdapter() {
@@ -150,8 +150,8 @@ public class BookManagerFrame extends JFrame {
         searchField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-                if (bookController != null) {
-                    bookController.handleSearchTextChanged(searchField.getText().trim());
+                if (bookManagerController != null) {
+                    bookManagerController.handleSearchTextChanged(searchField.getText().trim());
                 }
             }
         });
@@ -179,8 +179,8 @@ public class BookManagerFrame extends JFrame {
         categoryComboBox.setMaximumSize(new Dimension(230, 35));
         categoryComboBox.setAlignmentX(Component.LEFT_ALIGNMENT);
         categoryComboBox.addActionListener(e -> {
-            if (bookController != null) {
-                bookController.handleCategoryChanged((String) categoryComboBox.getSelectedItem());
+            if (bookManagerController != null) {
+                bookManagerController.handleCategoryChanged((String) categoryComboBox.getSelectedItem());
             }
         });
 
@@ -202,8 +202,8 @@ public class BookManagerFrame extends JFrame {
         topBorrowedButton.setBorder(new EmptyBorder(10, 20, 10, 20));
 
         topBorrowedButton.addActionListener(e -> {
-            if (bookController != null) {
-                bookController.handleToggleTopBorrowed();
+            if (bookManagerController != null) {
+                bookManagerController.handleToggleTopBorrowed();
             }
         });
         topBorrowedButton.addMouseListener(new MouseAdapter() {
@@ -415,8 +415,8 @@ public class BookManagerFrame extends JFrame {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (bookController != null) {
-                    bookController.handleBookClicked(book.getBookId());
+                if (bookManagerController != null) {
+                    bookManagerController.handleBookClicked(book.getBookId());
                     System.out.println(book.getBookId());
                 }
             }

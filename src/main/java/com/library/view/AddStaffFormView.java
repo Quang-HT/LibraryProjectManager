@@ -177,7 +177,6 @@ public class AddStaffFormView extends JFrame {
         return comboBox;
     }
 
-    // ===== Getters cho Controller =====
     public JTextField getTxtStaffName() { return txtStaffName; }
     public JTextField getTxtEmail() { return txtEmail; }
     public JTextField getTxtPhone() { return txtPhone; }

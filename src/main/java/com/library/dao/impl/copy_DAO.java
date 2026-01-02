@@ -1,17 +1,17 @@
 package com.library.dao.impl;
 
 import com.library.dao.AbstractDAO;
-import com.library.model.copy_Entity;
+import com.library.model.Copy_Entity;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-public class copy_DAO extends AbstractDAO<copy_Entity, Integer> {
+public class Copy_DAO extends AbstractDAO<Copy_Entity, Integer> {
 
     @Override
-    protected copy_Entity mapRow(ResultSet rs) throws SQLException {
-        copy_Entity copy = new copy_Entity();
+    protected Copy_Entity mapRow(ResultSet rs) throws SQLException {
+        Copy_Entity copy = new Copy_Entity();
         copy.setCopy_id(rs.getInt("copy_id"));
         copy.setBook_id(rs.getInt("book_Id"));
         copy.setCost(rs.getInt("cost"));
@@ -21,7 +21,7 @@ public class copy_DAO extends AbstractDAO<copy_Entity, Integer> {
     }
 
     @Override
-    public List<copy_Entity> findAll() {
+    public List<Copy_Entity> findAll() {
         return query("SELECT * FROM copy");
     }
 
@@ -31,13 +31,13 @@ public class copy_DAO extends AbstractDAO<copy_Entity, Integer> {
     }
 
     @Override
-        public Optional<copy_Entity> findById(Integer id) {
+        public Optional<Copy_Entity> findById(Integer id) {
             return querySingle("SELECT * FROM copy WHERE copy_id = ?", id);
         }
 
 
     @Override
-    public void create(copy_Entity entity) {
+    public void create(Copy_Entity entity) {
         String sql = "INSERT INTO copy (status, location, cost, book_Id) VALUES (?, ?, ?, ?)";
         executeUpdate(sql,
                 entity.getStatus(),
@@ -48,7 +48,7 @@ public class copy_DAO extends AbstractDAO<copy_Entity, Integer> {
     }
 
     @Override
-    public void update(copy_Entity entity) {
+    public void update(Copy_Entity entity) {
         String sql = """
         UPDATE copy 
         SET status = ?, location = ?, cost = ?, book_Id = ?
@@ -63,13 +63,13 @@ public class copy_DAO extends AbstractDAO<copy_Entity, Integer> {
                 entity.getCopy_id()        // vị trí thứ 6 cho WHERE
         );
     }
-    public Optional<copy_Entity> QuantityByBookId(int book_id){
+    public Optional<Copy_Entity> QuantityByBookId(int book_id){
         return querySingle("SELECT COUNT(*) FROM copy WHERE book_id=?", book_id);
     }
-    public List<copy_Entity> FindBorrow(){
+    public List<Copy_Entity> FindBorrow(){
         return query("SELECT * FROM copy WHERE status= 'Borrowed'");
     }
-    public List<copy_Entity> findByIdBook(int book_id){
+    public List<Copy_Entity> findByIdBook(int book_id){
         return query("SELECT * FROM copy WHERE book_id = ?",book_id);
     }
 }

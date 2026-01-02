@@ -243,7 +243,7 @@ public class HomeView extends JFrame {
 
         try {
             int totalBooks = new Book_DAO().findAll().size();
-            int totalCopies = new copy_DAO().findAll().size();
+            int totalCopies = new Copy_DAO().findAll().size();
             int borrowedCount = new FIND().countBorrowed();
             int monthlyBorrows = new BorrowSlip_DAO()
                     .findCountInMonth(LocalDate.now().getMonthValue(), LocalDate.now().getYear())

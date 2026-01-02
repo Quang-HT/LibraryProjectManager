@@ -3,7 +3,7 @@ package com.library.controller;
 import com.library.dao.impl.Staff_DAO;
 import com.library.model.Staff_Entity;
 import com.library.view.AddStaffFormView;
-import com.library.view.StaffManagementView;
+
 
 import javax.swing.*;
 
@@ -11,9 +11,12 @@ public class AddStaffController {
 
     private final AddStaffFormView view;
     private final Staff_DAO dao;
-    private final StaffManagementController parentController; // chuẩn nhất để gọi reload
+    private final StaffManagementController parentController;
 
-    // Nếu bạn chưa có parentController thì có thể truyền StaffManagementController thay vì View
+    /**
+     * Hàm Controller của Thêm nhân viên mới
+     * THực thi thứ tự danh sách các công việc cần thực thi
+     */
     public AddStaffController(StaffManagementController parentController) {
         this.parentController = parentController;
         this.view = new AddStaffFormView();
@@ -22,26 +25,32 @@ public class AddStaffController {
         bindEvents();
     }
 
-    // Nếu bạn vẫn muốn truyền parentView (ít chuẩn hơn) thì dùng constructor này:
-    public AddStaffController(StaffManagementView parentView) {
+    /**
+     * Hàm Controller của Thêm nhân viên mới
+     * Hàm này dùng riêng cho Button ở Home View mở chỉ View Add Staff
+     * Thực thi thứ tự danh sách các công việc cần thực thi
+     */
+    public AddStaffController() {
         this.parentController = null;
         this.view = new AddStaffFormView();
         this.dao = new Staff_DAO();
 
         bindEvents();
-    }
-
-    public void showView() {
         SwingUtilities.invokeLater(() -> view.setVisible(true));
     }
 
+    /**
+     * Đăng ký các sự kiện ActionListener với View
+     */
     private void bindEvents() {
         view.getBtnSave().addActionListener(e -> saveStaff());
         view.getBtnCancel().addActionListener(e -> view.dispose());
     }
 
+    /**
+     * Hàm nhân thông tin từ người dùng và lưu nhân viên mới
+     */
     private void saveStaff() {
-        // Validation
         String name = view.getTxtStaffName().getText().trim();
         if (name.isEmpty()) {
             view.showError("Vui lòng nhập tên nhân viên!");
@@ -99,7 +108,6 @@ public class AddStaffController {
                             "Email: " + newStaff.getEmail()
             );
 
-            // Reload list
             if (parentController != null) {
                 parentController.reloadAfterChildChanged();
             }

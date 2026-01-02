@@ -8,18 +8,29 @@ import com.library.view.AccountDetailView;
 
 import javax.swing.*;
 
-
+/**
+ * Controller quản lý màn hình chi tiết tài khoản (Account Detail).
+ * <p>
+ * Chức năng:
+ * <ul>
+ *   <li>Load dữ liệu account + staff theo accountId</li>
+ *   <li>Cho phép bật chế độ chỉnh sửa (Edit mode)</li>
+ *   <li>Lưu cập nhật (Save)</li>
+ *   <li>Hủy chỉnh sửa hoặc đóng form (Cancel/Close)</li>
+ * </ul>
+ */
 public class AccountDetailController {
 
     private final AccountDetailView view;
     private final Account_DAO accountDAO;
     private final Staff_DAO staffDAO;
-
     private final int accountId;
     private boolean isEditMode = false;
-
     private final AccountManagementController parent;
 
+    /**
+     * Khởi tạo controller chi tiết tài khoản.
+     */
     public AccountDetailController(int accountId, AccountManagementController parent) {
         this.accountId = accountId;
         this.parent = parent;
@@ -35,12 +46,19 @@ public class AccountDetailController {
         view.setVisible(true);
     }
 
+    /**
+     * Gắn sự kiện cho các nút Edit / Save / Cancel.
+     */
     private void bindEvents() {
         view.getBtnEdit().addActionListener(e -> enableEditMode());
         view.getBtnSave().addActionListener(e -> saveAccount());
         view.getBtnCancel().addActionListener(e -> cancelOrClose());
     }
 
+    /**
+     * Tải dữ liệu account và staff theo accountId, sau đó fill vào view.
+     * Nếu không tìm thấy account thì báo lỗi và đóng form.
+     */
     private void loadAccountData(int accountId) {
         try {
             Account_Entity account = accountDAO.findById(accountId).orElse(null);
@@ -83,11 +101,20 @@ public class AccountDetailController {
         }
     }
 
+    /**
+     * Bật chế độ chỉnh sửa: cho phép nhập liệu và hiển thị các control phù hợp.
+     */
     private void enableEditMode() {
         isEditMode = true;
         view.setEditMode(true);
     }
 
+    /**
+     * Validate dữ liệu và cập nhật account vào database.
+     * Sau khi lưu thành công:
+     * - tắt edit mode
+     * - gọi parent reload lại danh sách (nếu có)
+     */
     private void saveAccount() {
         String username = view.getTxtUsername().getText().trim();
         if (username.isEmpty()) {
@@ -157,6 +184,13 @@ public class AccountDetailController {
         }
     }
 
+    /**
+     * Nút Cancel có 2 hành vi:
+     * <ul>
+     *   <li>Nếu không ở edit mode: đóng form</li>
+     *   <li>Nếu đang edit mode: hỏi xác nhận, nếu đồng ý thì reload lại dữ liệu và thoát edit mode</li>
+     * </ul>
+     */
     private void cancelOrClose() {
         if (!isEditMode) {
             view.dispose();

@@ -8,6 +8,15 @@ import com.library.view.AddAccountView;
 
 import java.util.List;
 
+/**
+ * Controller xử lý chức năng THÊM TÀI KHOẢN cho nhân viên.
+ *
+ * Chức năng chính:
+ * - Load danh sách nhân viên chưa có tài khoản
+ * - Validate dữ liệu account (username, password)
+ * - Tạo tài khoản mới và lưu vào CSDL
+ * - Thông báo kết quả và cập nhật màn hình cha (nếu có)
+ */
 public class AddAccountController {
 
     private final AddAccountView view;
@@ -16,6 +25,11 @@ public class AddAccountController {
 
     private final AccountManagementController parent;
 
+    /**
+     * Constructor dùng khi mở form từ màn hình quản lý tài khoản.
+     *
+     * @param parent controller cha để callback reload dữ liệu
+     */
     public AddAccountController(AccountManagementController parent) {
         this.parent = parent;
         this.view = new AddAccountView();
@@ -27,6 +41,11 @@ public class AddAccountController {
 
         view.setVisible(true);
     }
+
+    /**
+     * Constructor mặc định (không có controller cha).
+     * Thường dùng khi mở form độc lập.
+     */
     public AddAccountController() {
         parent = null;
         this.view = new AddAccountView();
@@ -39,18 +58,28 @@ public class AddAccountController {
         view.setVisible(true);
     }
 
+    /**
+     * Gắn sự kiện cho các nút trong form.
+     */
     private void bindEvents() {
         view.getBtnSave().addActionListener(e -> saveAccount());
         view.getBtnCancel().addActionListener(e -> view.dispose());
     }
 
+    /**
+     * Load danh sách nhân viên chưa có tài khoản
+     * để hiển thị lên combobox.
+     */
     private void loadEmployeesWithoutAccount() {
         try {
             List<Staff_Entity> availableStaff = staffDAO.findStaffWithoutAccount();
             view.setStaffList(availableStaff);
 
             if (availableStaff == null || availableStaff.isEmpty()) {
-                view.showInfo("⚠️ Không có nhân viên nào chưa có tài khoản!\nVui lòng tạo nhân viên mới trước.");
+                view.showInfo(
+                        "⚠️ Không có nhân viên nào chưa có tài khoản!\n" +
+                                "Vui lòng tạo nhân viên mới trước."
+                );
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -58,7 +87,16 @@ public class AddAccountController {
         }
     }
 
+    /**
+     * Xử lý khi người dùng nhấn nút "Lưu".
+     * Bao gồm:
+     * - Validate dữ liệu nhập
+     * - Kiểm tra username trùng
+     * - Tạo tài khoản mới
+     * - Lưu vào CSDL
+     */
     private void saveAccount() {
+
         // Validate Username
         String username = view.getTxtUsername().getText().trim();
         if (username.isEmpty()) {
@@ -72,7 +110,6 @@ public class AddAccountController {
             return;
         }
 
-        // Validate Password
         char[] pw1 = view.getTxtPassword().getPassword();
         if (pw1 == null || pw1.length == 0) {
             view.showError("Vui lòng nhập password!");
@@ -86,7 +123,6 @@ public class AddAccountController {
             return;
         }
 
-        // Confirm
         String confirm = new String(view.getTxtConfirmPassword().getPassword());
         if (!password.equals(confirm)) {
             view.showError("Xác nhận password không khớp!");
@@ -94,8 +130,8 @@ public class AddAccountController {
             return;
         }
 
-        // Staff selection
-        Staff_Entity selectedStaff = (Staff_Entity) view.getCmbEmployee().getSelectedItem();
+        Staff_Entity selectedStaff =
+                (Staff_Entity) view.getCmbEmployee().getSelectedItem();
         if (selectedStaff == null) {
             view.showError("Vui lòng chọn nhân viên!");
             view.getCmbEmployee().requestFocus();
@@ -103,7 +139,6 @@ public class AddAccountController {
         }
 
         try {
-            // Check username exists
             if (accountDAO.findByName(username).isPresent()) {
                 view.showError("Username đã tồn tại! Vui lòng chọn username khác.");
                 view.getTxtUsername().requestFocus();
@@ -126,7 +161,9 @@ public class AddAccountController {
                             "Email: " + selectedStaff.getEmail()
             );
 
-            if (parent != null) parent.reloadAfterChildChanged();
+            if (parent != null)
+                parent.reloadAfterChildChanged();
+
             view.dispose();
 
         } catch (Exception ex) {

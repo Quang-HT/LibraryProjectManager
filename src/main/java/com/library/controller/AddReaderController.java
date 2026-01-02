@@ -15,9 +15,14 @@ public class AddReaderController {
     private final Runnable onReaderAdded;
 
     public AddReaderController() {
-        this(null);
+        this(null); // Gọi đến Constructer AddReaderController(Runnable onReaderAdded) và truyền cho onReaderAdded = null
     }
 
+    /**
+     * Hàm Constructer thực thi công việc theo thứ tự
+     * @param onReaderAdded
+     * Một biến để thực thi câu lệnh sau khi hàm Constructer xong việc (Runnable)
+     */
     public AddReaderController(Runnable onReaderAdded) {
         this.view = new AddReaderFormView();
         this.onReaderAdded = onReaderAdded;
@@ -26,14 +31,20 @@ public class AddReaderController {
         view.setVisible(true);
     }
 
+    /**
+     * Đăng ký các sự kiện với View
+     */
     private void bindEvents() {
         view.getBtnSave().addActionListener(e -> saveReader());
         view.getBtnClear().addActionListener(e -> clearForm());
         view.getBtnCancel().addActionListener(e -> cancelForm());
     }
 
+    /**
+     * Lấy thông tin tư người dùng nhập trên View
+     * Kiểm tra + lưu lại thông tin về người đọc
+     */
     private void saveReader() {
-        // Required: name, phone, address, gender
         if (view.getFullName().isEmpty()) {
             view.showError("Vui lòng nhập họ và tên!");
             return;
@@ -66,7 +77,6 @@ public class AddReaderController {
             return;
         }
 
-        // DOB: optional, format dd/MM/yyyy
         Date birthDateSql = null;
         String dobText = view.getDobText();
         if (!dobText.isEmpty()) {
@@ -93,15 +103,8 @@ public class AddReaderController {
             re.setEmail(email);
             re.setCccd(view.getCccd());
 
-            // ngày đăng ký = hôm nay
             re.setRegistered_date(new Date(System.currentTimeMillis()));
-
-            // ngày sinh (có thể null)
             re.setBirth_date(birthDateSql);
-
-            // Nếu DB của bạn chưa có gender/notes thì bỏ qua (không set)
-            // re.setGender(view.getGenderText());
-            // re.setNotes(view.getNotes());
 
             new Reader_DAO().create(re);
 
@@ -129,22 +132,19 @@ public class AddReaderController {
         }
     }
 
+    /**
+     * Thực thi xóa toàn bộ dữ liệu có trên form nhập dữ liệu
+     */
     private void clearForm() {
         boolean ok = view.confirm("Bạn có chắc chắn muốn xóa toàn bộ thông tin đã nhập?");
         if (ok) view.clearFormNoConfirm();
     }
 
+    /**
+     * Hủy thêm người đọc
+     */
     private void cancelForm() {
         boolean ok = view.confirm("Bạn có chắc chắn muốn hủy? Dữ liệu chưa lưu sẽ bị mất.");
         if (ok) view.dispose();
-    }
-
-    // Test
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            try { UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); }
-            catch (Exception ignored) {}
-            new AddReaderController();
-        });
     }
 }

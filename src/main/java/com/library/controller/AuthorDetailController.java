@@ -2,7 +2,7 @@ package com.library.controller;
 
 import com.library.dao.impl.Author_DAO;
 import com.library.dao.impl.Book_DAO;
-import com.library.dao.impl.copy_DAO;
+import com.library.dao.impl.Copy_DAO;
 import com.library.model.Author_Entity;
 import com.library.model.Book_Entity;
 import com.library.service.FIND;
@@ -23,8 +23,12 @@ public class AuthorDetailController {
 
     private final Author_DAO authorDAO = new Author_DAO();
     private final Book_DAO bookDAO = new Book_DAO();
-    private final copy_DAO copyDAO = new copy_DAO();
+    private final Copy_DAO copyDAO = new Copy_DAO();
 
+    /**
+     * Hàm Controller của Author Detail truyền vào ID_Author để hiển thị dữ liệu
+     * THực thi thứ tự các hàm cần thực thi
+     */
     public AuthorDetailController(int authorId) {
         this.authorId = authorId;
 
@@ -38,6 +42,9 @@ public class AuthorDetailController {
         view.setVisible(true);
     }
 
+    /**
+     * Đăng ký sự kiện với Action Listener
+     */
     private void bindEvents() {
         view.getBtnEdit().addActionListener(e -> enableEditMode());
         view.getBtnSave().addActionListener(e -> saveAuthor());
@@ -51,6 +58,10 @@ public class AuthorDetailController {
         });
     }
 
+    /**
+     * Lấy Id Author để tìm dữ liệu từ DB
+     * Đưa dữ liệu Author lên View
+     */
     private void loadAuthorData(int authorId) {
         try {
             Optional<Author_Entity> opt = authorDAO.findById(authorId);
@@ -77,6 +88,9 @@ public class AuthorDetailController {
         }
     }
 
+    /**
+     * Hiển thị các sách thuộc tác giả đó
+     */
     private void loadAuthorBooks(int authorId) {
         try {
             List<Book_Entity> books = bookDAO.findAuthorsById(authorId);
@@ -110,12 +124,18 @@ public class AuthorDetailController {
         }
     }
 
+    /**
+     * Hàm cho phép chỉnh sửa thông tin tác giả
+     */
     private void enableEditMode() {
         isEditMode = true;
         view.setFieldsEditable(true);
         view.setEditMode(true);
     }
 
+    /**
+     * Sau khi chỉnh sửa hàm saveAuthor() được gọi để lưu lại những thông tin thay đổi
+     */
     private void saveAuthor() {
         if (view.getAuthorName().isEmpty()) {
             view.showError("Vui lòng nhập tên tác giả!");
@@ -135,7 +155,6 @@ public class AuthorDetailController {
             return;
         }
 
-        // deathYear có thể rỗng
         Integer deathYear = null;
         String deathText = view.getDeathYearText();
         if (!deathText.isEmpty()) {
@@ -176,7 +195,6 @@ public class AuthorDetailController {
             view.setFieldsEditable(false);
             view.setEditMode(false);
 
-            // reload để chắc chắn đúng DB
             loadAuthorData(authorId);
 
         } catch (Exception ex) {
@@ -185,6 +203,9 @@ public class AuthorDetailController {
         }
     }
 
+    /**
+     * Hủy thay đổi và đóng form xem chi tiết tác giả
+     */
     private void cancelOrClose() {
         if (isEditMode) {
             boolean ok = view.confirm("Bạn có chắc chắn muốn hủy? Các thay đổi chưa lưu sẽ bị mất.");
@@ -199,21 +220,15 @@ public class AuthorDetailController {
         }
     }
 
+    /**
+     * Khi người dùng click vào sách thuộc sang tác của tác giả
+     * View chi tiết thông tin sách sẽ hiện lên
+     */
     private void openBookDetails() {
         Integer bookId = view.getSelectedBookIdOrNull();
         if (bookId == null) return;
 
-        // Mở form chi tiết sách (bạn đang dùng BookDetailController)
         SwingUtilities.invokeLater(() -> new BookDetailController(bookId));
     }
 
-    // Test nhanh
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            try { UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); }
-            catch (Exception ignored) {}
-
-            new AuthorDetailController(4);
-        });
-    }
 }

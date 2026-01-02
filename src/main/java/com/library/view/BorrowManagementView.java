@@ -370,6 +370,15 @@ public class BorrowManagementView extends JFrame {
     public JButton getBtnRefresh() { return btnRefresh; }
     public JButton getBtnClose() { return btnClose; }
 
+    /**
+     * Hàm này sẽ cho phép các phiếu mượn có các Option khác nhau
+     * @param viewDetails
+     * Cho phép xem chi tiết phiếu mượn
+     * @param canReturn
+     * Khi phiếu này chưa trả -> chọn vào sẽ có Option trả sách Can Return
+     * @param canPay
+     * Khi phiếu này chưa thanh toán -> chọn vào sẽ có Option thanh toán Can Pay
+     */
     public void setActionButtonsEnabled(boolean viewDetails, boolean canReturn, boolean canPay) {
         btnViewDetails.setEnabled(viewDetails);
         btnReturn.setEnabled(canReturn);

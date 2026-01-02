@@ -32,7 +32,7 @@ public class BorrowManagementController {
     private final BorrowSlip_DAO borrowDAO = new BorrowSlip_DAO();
     private final Copy_BorrowSlip_DAO copyBorrowDAO = new Copy_BorrowSlip_DAO();
     private final Reader_DAO readerDAO = new Reader_DAO();
-    private final copy_DAO copyDAO = new copy_DAO();
+    private final Copy_DAO copyDAO = new Copy_DAO();
 
     private final DecimalFormat moneyFormat = new DecimalFormat("#,###");
 
@@ -44,7 +44,10 @@ public class BorrowManagementController {
     private List<BorrowSlipVM> slipList = new ArrayList<>();
     private BorrowSlipVM selected = null;
 
-
+    /**
+     * Hàm Controller của BorrowManagement
+     * Thực hiện danh sách các hàm cần thực thi
+     */
     public BorrowManagementController() {
         this.view = new BorrowManagementView();
 
@@ -57,6 +60,9 @@ public class BorrowManagementController {
         SwingUtilities.invokeLater(() -> view.setVisible(true));
     }
 
+    /**
+     * Tạo ra các Option về năm trong 10 năm trước cho tới năm hiện tại
+     */
     private void initYearOptions() {
         int currentYear = LocalDate.now().getYear();
         String[] years = new String[11];
@@ -65,6 +71,9 @@ public class BorrowManagementController {
         view.setYearOptions(years, 10);
     }
 
+    /**
+     * Đăng ký các sự kiện
+     */
     private void bindEvents() {
         view.getBtnSearch().addActionListener(e -> applyFilter());
         view.getBtnClear().addActionListener(e -> {
@@ -88,7 +97,6 @@ public class BorrowManagementController {
             view.dispose();
         });
 
-        // selection
         view.getTable().getSelectionModel().addListSelectionListener(this::onSelect);
         view.getTable().addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent e) {
@@ -98,6 +106,9 @@ public class BorrowManagementController {
 
     }
 
+    /**
+     * Làm mới lại dữ liệu sau khi có dữ liệu nào đấy thay đổi
+     */
     private void reloadAll() {
         loadDataFromDB();
         renderTable();
@@ -106,8 +117,9 @@ public class BorrowManagementController {
         view.setActionButtonsEnabled(false, false, false);
     }
 
-    // ============================ LOAD DATA ============================
-
+    /**
+     * Đưa dữ liệu từ DB lên View để hiển thị
+      */
     private void loadDataFromDB() {
         slipList.clear();
 
@@ -146,6 +158,11 @@ public class BorrowManagementController {
         vm.setPenaltyAmount(0);
         vm.setPenaltyPaid(false);
 
+        /**
+         * Kiểm tra điều kiện ngày trả về
+         * vm.getDueDateDb == null (Xem có rỗng không)
+         * vm.getDueDateDb.isBlank() (Xem có toàn ký tứ khoảng trắng không
+         */
         if (vm.getDueDateDb() == null || vm.getDueDateDb().isBlank()) return;
 
         try {
@@ -155,16 +172,21 @@ public class BorrowManagementController {
                     : LocalDate.now();
 
             if (check.isAfter(due)) {
-                long days = ChronoUnit.DAYS.between(due, check);
+                long days = ChronoUnit.DAYS.between(due, check); // Tính khoảng cách giữa due -> check xem baon hiêu ngày
                 vm.setOverdueDays((int) days);
                 vm.setPenaltyAmount(days * penaltyRate);
                 vm.setPenaltyPaid(false);
             }
-        } catch (Exception ignore) {}
+        } catch (Exception ignore) {
+            System.out.println("Lỗi tại BorrowManagementController");
+            System.out.println("Fix ngay fix ngay");
+        }
     }
 
-    // ============================ RENDER TABLE ============================
-
+    /**
+     * Đưa dữ liệu vào thành bảng thông qua Object[]
+     * Đưa lên View để hiển thị
+     */
     private void renderTable() {
         List<Object[]> rows = new ArrayList<>();
         LocalDate today = LocalDate.now();
@@ -199,12 +221,23 @@ public class BorrowManagementController {
         view.setTableRows(rows);
     }
 
+    /**
+     *Chuyển đổi từ kiểu ngày String -> LocalDate
+     */
     private LocalDate parseDbDate(String db) {
         if (db == null || db.isBlank()) return null;
         try { return LocalDate.parse(db, dbFormatter); }
         catch (Exception e) { return null; }
     }
 
+    /**
+     *
+     * @param dueD
+     * @param returnD
+     * @param today
+     * @return
+     * Trả về trạng thái Thanh Toán Đã TT/Chưa TT/ -
+     */
     private String computePaymentStatus(LocalDate dueD, LocalDate returnD, LocalDate today) {
         if (returnD != null) return "✅ Đã TT";
         if (dueD == null) return "-";
@@ -212,6 +245,9 @@ public class BorrowManagementController {
         return "-";
     }
 
+    /**
+     * Trả về trạng thái của phiếu mượn
+     */
     private String computeStatusText(BorrowSlipVM s, LocalDate dueD, LocalDate returnD, LocalDate today) {
         if (returnD != null) {
             return s.getOverdueDays() > 0 ? "Đã trả - Trễ " + s.getOverdueDays() + " ngày" : "Đã trả - Đúng hạn";
@@ -225,7 +261,9 @@ public class BorrowManagementController {
         return "Đang mượn (còn " + remain + " ngày)";
     }
 
-
+    /**
+     * Search dữ liệu đầu vào
+     */
     private void applyFilter() {
         String searchReader = view.getSearchReader().trim().toLowerCase();
         String month = view.getSelectedMonth();
@@ -282,7 +320,9 @@ public class BorrowManagementController {
         });
     }
 
-
+    /**
+     * Cập nhật dữ liệu tổng quan các phiếu mượn
+     */
     private void updateStats() {
         int total = slipList.size();
         int active = 0, expired = 0, returned = 0;
@@ -307,7 +347,9 @@ public class BorrowManagementController {
         view.setStats(total, active, expired, returned, totalPen, unpaidPen);
     }
 
-
+    /**
+     *Hàm từ sự lựa chọn của người dùng lấy ra BorrowSlipVM
+     */
     private void onSelect(ListSelectionEvent e) {
         if (e.getValueIsAdjusting()) return;
 
@@ -318,8 +360,8 @@ public class BorrowManagementController {
             return;
         }
 
-        int rowModel = view.getTable().convertRowIndexToModel(rowView);
-        String id = view.getTableModel().getValueAt(rowModel, 0).toString();
+        int rowModel = view.getTable().convertRowIndexToModel(rowView); // Chuyển từ Row View -> RowModel để lấy vị trí index thật khi dùng filters
+        String id = view.getTableModel().getValueAt(rowModel, 0).toString(); // Từ RowModel lấy id trong cột id
 
         selected = slipList.stream().filter(s -> s.getId().equals(id)).findFirst().orElse(null);
         if (selected == null) {
@@ -332,11 +374,16 @@ public class BorrowManagementController {
         view.setActionButtonsEnabled(true, canReturn, canPay);
     }
 
-
+    /**
+     * Hàm mở xem chi tiết phiếu mượn
+     * Có 2 cách:
+     * - Cách 1: Click vào phiếu mượn 2 lần
+     * - Cách 2: Click 1 lần và ấn nút "Xem chi tiết"
+     * Hàm lấy lấy dữ liệu của phiếu đưa lên View để người dùng xem
+     */
     private void viewDetails() {
         if (selected == null) return;
 
-        // Lấy dữ liệu đang hiển thị trên bảng (đúng format dd/MM/yyyy)
         int rowView = view.getTable().getSelectedRow();
         if (rowView < 0) return;
 
@@ -348,7 +395,6 @@ public class BorrowManagementController {
         String returnDateView = model.getValueAt(rowModel, 6).toString();
         if (returnDateView.isBlank()) returnDateView = null;
 
-        // Tạo DTO cho Detail
         BorrowSlipSummary dto =
                 new BorrowSlipSummary(
                         selected.getId(),
@@ -362,11 +408,12 @@ public class BorrowManagementController {
                         selected.isPenaltyPaid()
                 );
 
-        // Gọi controller Detail (controller tự show view)
         new BorrowSlipDetailController(dto, penaltyRate);
     }
 
-
+    /**
+     * Dùng cho Button trả sách khi người dùng chọn trả sách
+     */
     private void returnBooks() {
         if (selected == null) {
             view.showError("⚠️ Bạn chưa chọn phiếu mượn nào!");
@@ -418,6 +465,9 @@ public class BorrowManagementController {
         }
     }
 
+    /**
+     * Dùng cho Button thanh toán phiếu phạt
+     */
     private void payPenalty() {
         if (selected == null || selected.getPenaltyAmount() <= 0 || selected.isPenaltyPaid()) return;
 
@@ -445,10 +495,13 @@ public class BorrowManagementController {
         }
     }
 
+    /**
+     * Mỗi khi người dùng trả sách các sách được trả sẽ được set trạng thái "Available" - Sãn sàng dử dụng cho các lần mượn khác
+     */
     private void setAvailableBook(int idBorrow) {
         List<Copy_BorrowSlip_Entity> list = copyBorrowDAO.findByIdBorrow(idBorrow);
         for (Copy_BorrowSlip_Entity cbs : list) {
-            copy_Entity copy = copyDAO.findById(cbs.getCopy_id()).orElse(null);
+            Copy_Entity copy = copyDAO.findById(cbs.getCopy_id()).orElse(null);
             if (copy != null) {
                 copy.setStatus("Available");
                 copyDAO.update(copy);
@@ -456,6 +509,9 @@ public class BorrowManagementController {
         }
     }
 
+    /**
+     * Button tính phiếu phạt cho những phiếu quá hạn
+     */
     private void autoGeneratePenalty() {
         if (view.askConfirm("Tự động tính phạt cho phiếu quá hạn?", "Xác nhận") != JOptionPane.YES_OPTION) return;
 
@@ -473,6 +529,9 @@ public class BorrowManagementController {
         view.showInfo("✅ Đã tính phạt " + count + " phiếu!");
     }
 
+    /**
+     * Mức phạt do người dùng set mặc định 5000đ
+     */
     private void updateRate() {
         try {
             double rate = Double.parseDouble(view.getPenaltyRateText().replaceAll("[^0-9]", ""));
@@ -500,10 +559,16 @@ public class BorrowManagementController {
         }
     }
 
+    /**
+     * Tạo View thêm phiếu mượn mới
+     */
     private void createSlip() {
         new AddBorrowSlipController(SessionId.getCurrentAccountId());
     }
 
+    /**
+     * Gửi email cho các phiếu phạt để thông báo trả sách + thanh toán phiếu
+     */
     private void sendEmailPP() {
         try {
             List<BorrowSlip_Entity> listBr = borrowDAO.findAll();
@@ -521,6 +586,4 @@ public class BorrowManagementController {
             view.showError("Gửi email thất bại: " + ex.getMessage());
         }
     }
-
-
 }

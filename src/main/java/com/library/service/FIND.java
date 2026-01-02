@@ -82,20 +82,20 @@ public class FIND implements FINDINFORMATION {
 
     @Override
     public String FindLocation(int book_id) {
-        copy_DAO dao = new copy_DAO();
+        Copy_DAO dao = new Copy_DAO();
 
-        Optional<copy_Entity> op = dao.findById(book_id);
-        copy_Entity copy= op.get();
+        Optional<Copy_Entity> op = dao.findById(book_id);
+        Copy_Entity copy= op.get();
         return copy.getLocation();
     }
 
 
     @Override
     public double FindCost(int book_id) {
-        copy_DAO dao = new copy_DAO();
+        Copy_DAO dao = new Copy_DAO();
 
         return dao.findById(book_id)
-                .map(copy_Entity::getCost)
+                .map(Copy_Entity::getCost)
                 .orElse(0);
     }
 
@@ -111,18 +111,18 @@ public class FIND implements FINDINFORMATION {
     }
 
     public int countBorrowed(){
-        List<copy_Entity> list=new copy_DAO().FindBorrow();
+        List<Copy_Entity> list=new Copy_DAO().FindBorrow();
         return list.size();
     }
     public int countCopy(int idBook){
-        List<copy_Entity> list = new copy_DAO().findByIdBook(idBook);
+        List<Copy_Entity> list = new Copy_DAO().findByIdBook(idBook);
         return list.size();
     }
 
     public int countBorrowByIdBook(int idBook){
-        List<copy_Entity> listC = new copy_DAO().findByIdBook(idBook);
+        List<Copy_Entity> listC = new Copy_DAO().findByIdBook(idBook);
         int count = 0;
-        for(copy_Entity c : listC){
+        for(Copy_Entity c : listC){
             List<Copy_BorrowSlip_Entity> listCB = new Copy_BorrowSlip_DAO().findByIdCopy(c.getCopy_id());
             count += listCB.size();
         }

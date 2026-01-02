@@ -13,7 +13,6 @@ public class AddBookController {
 
     private final AddBookFormView view;
 
-    // DAO
     private Category_DAO categoryDAO;
     private Author_DAO authorDAO;
     private Publisher_DAO publisherDAO;
@@ -22,6 +21,10 @@ public class AddBookController {
     private List<Author_Entity> listAuth = new ArrayList<>();
     private List<Publisher_Entity> listPub = new ArrayList<>();
 
+    /**
+     * Hàm Controller của Add Book
+     * Thực thi các danh sách công việc cứ thực thi
+     */
     public AddBookController(AddBookFormView view) {
         this.view = view;
         initDaos();
@@ -30,19 +33,28 @@ public class AddBookController {
         view.setVisible(true);
     }
 
+    /**
+     * Tạo các DAO
+     * Thừa mà thôi kệ =))
+     */
     private void initDaos() {
         categoryDAO = new Category_DAO();
         authorDAO = new Author_DAO();
         publisherDAO = new Publisher_DAO();
     }
 
+    /**
+     * Đăng ký các sự kiện ActionListener cho các Button ở View
+     */
     private void bindEvents() {
         view.getBtnSave().addActionListener(e -> saveBook());
         view.getBtnCancel().addActionListener(e -> cancel());
     }
 
+    /**
+     * Đưa các Option ở ComboBox để người dùng lựa chọn
+     */
     private void loadComboboxData() {
-        // categories
         List<String> categories = new ArrayList<>();
         categories.add("Chọn thể loại");
         try {
@@ -55,7 +67,6 @@ public class AddBookController {
         }
         view.setCategoryItems(categories);
 
-        // authors
         List<String> authors = new ArrayList<>();
         authors.add("Chọn tác giả");
         try {
@@ -68,7 +79,6 @@ public class AddBookController {
         }
         view.setAuthorItems(authors);
 
-        // publishers
         List<String> publishers = new ArrayList<>();
         publishers.add("Chọn nhà xuất bản");
         try {
@@ -83,11 +93,17 @@ public class AddBookController {
     }
 
 
+    /**
+     * Hủy phiếu thêm sách
+     */
     private void cancel() {
         boolean ok = view.confirm("Bạn có chắc chắn muốn hủy? Dữ liệu chưa lưu sẽ bị mất.");
         if (ok) view.dispose();
     }
 
+    /**
+     * Lưu sách từ dữ liệu người dùng nhập vào
+     */
     private void saveBook() {
         if (view.getBookName().isEmpty()) {
             view.showError("Vui lòng nhập tên sách!");
@@ -135,7 +151,6 @@ public class AddBookController {
             return;
         }
 
-        // 2) map index -> entity
         int cateIndex = view.getSelectedCategoryIndex();
         int authIndex = view.getSelectedAuthorIndex();
         int pubIndex  = view.getSelectedPublisherIndex();
@@ -161,25 +176,21 @@ public class AddBookController {
         int authorId    = selectedAuthor.getAuthor_id();
         int publisherId = selectedPublisher.getPublisher_id();
 
-        // 3) tạo Book entity
         Book_Entity book = new Book_Entity();
         book.setTitle(view.getBookName());
 
-        // Nếu DB là DATE: yyyy-01-01
         book.setPublishYear(Date.valueOf(publishYear + "-01-01"));
 
         book.setDescription(view.getDescription());
         book.setPublisher_id(publisherId);
         book.setLocation(view.ggetLocation());
-        // nếu có cột ảnh: book.setCoverImage(view.getSelectedImagePath());
 
         Book_DAO bookDao = new Book_DAO();
-        copy_DAO copyDao = new copy_DAO();
+        Copy_DAO copyDao = new Copy_DAO();
         Book_Category_DAO bookCategoryDao = new Book_Category_DAO();
         Author_Book_DAO authorBookDao = new Author_Book_DAO();
 
         try {
-            // Insert book
             bookDao.create(book);
             Optional<Book_Entity> optBook = bookDao.findByName(book.getTitle());
             if (optBook.isEmpty()) {
@@ -188,27 +199,17 @@ public class AddBookController {
             }
             int newBookId = optBook.get().getBook_id();
 
-            // Book_Category
             Book_Category_Entity bc = new Book_Category_Entity();
             bc.setBook_id(newBookId);
             bc.setCategory_id(categoryId);
             bookCategoryDao.create(bc);
 
-            // Author_Book
             Author_Book_Entity ab = new Author_Book_Entity();
             ab.setBook_id(newBookId);
             ab.setAuthor_id(authorId);
             authorBookDao.create(ab);
 
-            // Copies
-            for (int i = 0; i < copyCount; i++) {
-                copy_Entity cp = new copy_Entity();
-                cp.setBook_id(newBookId);
-                cp.setCost((int) copyPrice);
-                cp.setLocation(view.ggetLocation());
-                cp.setStatus("Available");
-                copyDao.create(cp);
-            }
+            createCopies(copyCount,newBookId,(int) copyPrice);
 
             view.showInfo("Đã thêm sách thành công!\nTên: " + view.getBookName());
             view.clearForm();
@@ -216,6 +217,20 @@ public class AddBookController {
         } catch (Exception ex) {
             ex.printStackTrace();
             view.showError("Lỗi khi lưu dữ liệu: " + ex.getMessage());
+        }
+    }
+
+    /**
+     * Tạo đúng số lượng bản copy mà người dùng nhập vào
+     */
+    private void createCopies(int copyCount, int newBookId, int copyPrice){
+        for (int i = 0; i < copyCount; i++) {
+            Copy_Entity cp = new Copy_Entity();
+            cp.setBook_id(newBookId);
+            cp.setCost(copyPrice);
+            cp.setLocation(view.ggetLocation());
+            cp.setStatus("Available");
+            new Copy_DAO().create(cp);
         }
     }
 }
