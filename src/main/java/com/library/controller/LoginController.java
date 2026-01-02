@@ -2,7 +2,7 @@ package com.library.controller;
 
 import com.library.dao.impl.Account_DAO;
 import com.library.model.Account_Entity;
-import com.library.service.SessionId;
+import com.library.service.SessionID;
 import com.library.view.HomeView;
 import com.library.view.LoginView;
 
@@ -117,7 +117,7 @@ public class LoginController {
      * Lưu Session (Lưu id nhân viên)
      */
     private void handleLoginSuccess(Account_Entity account) {
-        SessionId.setSession(account.getAccount_id());
+        SessionID.setSession(account.getAccount_id());
 
         view.closeFrame();
         new HomeController(new HomeView());

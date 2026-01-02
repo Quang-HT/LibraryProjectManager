@@ -5,7 +5,7 @@ import com.library.model.*;
 import com.library.model.display.BorrowSlipSummary;
 import com.library.model.display.BorrowSlipVM;
 import com.library.service.SendEmail;
-import com.library.service.SessionId;
+import com.library.service.SessionID;
 import com.library.view.*;
 
 import javax.swing.*;
@@ -563,7 +563,7 @@ public class BorrowManagementController {
      * Tạo View thêm phiếu mượn mới
      */
     private void createSlip() {
-        new AddBorrowSlipController(SessionId.getCurrentAccountId());
+        new AddBorrowSlipController(SessionID.getCurrentAccountId());
     }
 
     /**

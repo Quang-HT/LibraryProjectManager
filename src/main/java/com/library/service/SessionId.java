@@ -1,14 +1,14 @@
 package com.library.service;
 
-public class SessionId {
+import lombok.Getter;
+
+public class SessionID {
+    @Getter
     private static int currentAccountId = 0;
 
     public static void setSession(int id) {
         currentAccountId = id;
     }
 
-    public static int getCurrentAccountId() {
-        return currentAccountId;
-    }
 }
 

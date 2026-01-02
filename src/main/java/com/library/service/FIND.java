@@ -15,7 +15,6 @@ public class FIND implements FINDINFORMATION {
         Author_Book_DAO abDao = new Author_Book_DAO();
         Author_DAO authorDao = new Author_DAO();
 
-        // Lấy tất cả dòng Author_Book theo bookId
         List<Author_Book_Entity> list = abDao.findAuthors_BookByBookId(bookId);
 
         if (list == null || list.isEmpty()) {
@@ -32,7 +31,6 @@ public class FIND implements FINDINFORMATION {
 
         if (names.isEmpty()) return "Không rõ tác giả";
 
-        // Gộp nhiều tác giả lại thành 1 chuỗi
         return String.join(", ", names);
     }
 
@@ -42,7 +40,6 @@ public class FIND implements FINDINFORMATION {
         Book_Category_DAO Book_CategoryDao = new Book_Category_DAO();
         Category_DAO CategoryDao = new Category_DAO();
 
-        // Giả sử findById(book_id) trả về 1 dòng Book_Category theo book_id
         Optional<Book_Category_Entity> ttlOpt = Book_CategoryDao.findById(book_id);
         if (ttlOpt.isEmpty()) {
             return "Không rõ thể loại";
@@ -61,14 +58,13 @@ public class FIND implements FINDINFORMATION {
         Book_DAO BookDao = new Book_DAO();
         Publisher_DAO nxbDao = new Publisher_DAO();
 
-        // BƯỚC 1: tìm sách theo book_id
         Optional<Book_Entity> BookOpt = BookDao.findById(book_id);
         if (BookOpt.isEmpty()) {
             return "Không rõ Publisher";
         }
 
         Book_Entity Book = BookOpt.get();
-        Integer publisher_id = Book.getPublisher_id();  // nhớ trong entity phải có field này
+        Integer publisher_id = Book.getPublisher_id();
 
         if (publisher_id == null) {
             return "Không rõ Publisher";
@@ -99,6 +95,7 @@ public class FIND implements FINDINFORMATION {
                 .orElse(0);
     }
 
+    @Override
     public Optional<Account_Entity> findAccountByStaffEmail(String email) {
         Staff_DAO staffDao = new Staff_DAO();
         Account_DAO accountDao = new Account_DAO();
@@ -106,19 +103,23 @@ public class FIND implements FINDINFORMATION {
         if (staffOpt.isEmpty()) {
             return Optional.empty();
         }
-        Integer staffId = staffOpt.get().getStaff_id();  // account_id = staff_id
+        Integer staffId = staffOpt.get().getStaff_id();
         return accountDao.findById(staffId);
     }
 
+    @Override
     public int countBorrowed(){
         List<Copy_Entity> list=new Copy_DAO().FindBorrow();
         return list.size();
     }
+
+    @Override
     public int countCopy(int idBook){
         List<Copy_Entity> list = new Copy_DAO().findByIdBook(idBook);
         return list.size();
     }
 
+    @Override
     public int countBorrowByIdBook(int idBook){
         List<Copy_Entity> listC = new Copy_DAO().findByIdBook(idBook);
         int count = 0;

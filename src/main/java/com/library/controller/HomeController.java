@@ -3,7 +3,7 @@ package com.library.controller;
 import com.library.dao.impl.Account_DAO;
 import com.library.dao.impl.Staff_DAO;
 import com.library.model.Account_Entity;
-import com.library.service.SessionId;
+import com.library.service.SessionID;
 import com.library.view.*;
 
 import javax.swing.*;
@@ -29,7 +29,7 @@ public class HomeController {
      */
     public void getSessionAccount(){
         try {
-            int id = SessionId.getCurrentAccountId();
+            int id = SessionID.getCurrentAccountId();
             System.out.println(id);
             if (id == 0) {
                 return;
@@ -63,7 +63,7 @@ public class HomeController {
      * Tạo View để tạo phiếu mượn mới
      */
     public void createNewBorrowSlip() {
-        new AddBorrowSlipController(SessionId.getCurrentAccountId());
+        new AddBorrowSlipController(SessionID.getCurrentAccountId());
     }
 
     /**
@@ -109,7 +109,7 @@ public class HomeController {
      */
     public void logout() {
         if (JOptionPane.showConfirmDialog(this.homeView, "Đăng xuất?", "Xác nhận", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-            SessionId.setSession(0);
+            SessionID.setSession(0);
             new LoginView().setVisible(true);
             this.homeView.dispose();
         }
