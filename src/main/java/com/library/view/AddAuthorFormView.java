@@ -44,7 +44,7 @@ public class AddAuthorFormView extends JFrame {
         mainPanel.setBackground(BG_COLOR);
         mainPanel.setBorder(new EmptyBorder(30, 40, 30, 40));
 
-        JLabel titleLabel = new JLabel("➕ Thêm Tác giả Mới");
+        JLabel titleLabel = new JLabel(" Thêm Tác giả Mới");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 26));
         titleLabel.setForeground(TEXT_COLOR);
         titleLabel.setBounds(200, 20, 300, 35);
@@ -141,7 +141,7 @@ public class AddAuthorFormView extends JFrame {
         int centerX = 320;
 
         btnReset = new JButton("Làm mới");
-        btnReset.setBounds(centerX - 250, buttonY, buttonWidth, buttonHeight);
+        btnReset.setBounds(50, buttonY, buttonWidth, buttonHeight);
         btnReset.setFont(new Font("Segoe UI", Font.BOLD, 14));
         btnReset.setBackground(new Color(158, 158, 158));
         btnReset.setForeground(Color.WHITE);
@@ -150,7 +150,7 @@ public class AddAuthorFormView extends JFrame {
         parent.add(btnReset);
 
         btnSave = new JButton("Lưu");
-        btnSave.setBounds(centerX - 60, buttonY, buttonWidth, buttonHeight);
+        btnSave.setBounds(330, buttonY, buttonWidth, buttonHeight);
         btnSave.setFont(new Font("Segoe UI", Font.BOLD, 14));
         btnSave.setBackground(SUCCESS_COLOR);
         btnSave.setForeground(Color.WHITE);
@@ -159,7 +159,7 @@ public class AddAuthorFormView extends JFrame {
         parent.add(btnSave);
 
         btnCancel = new JButton("Hủy");
-        btnCancel.setBounds(centerX + 70, buttonY, buttonWidth, buttonHeight);
+        btnCancel.setBounds(480, buttonY, buttonWidth, buttonHeight);
         btnCancel.setFont(new Font("Segoe UI", Font.BOLD, 14));
         btnCancel.setBackground(new Color(200, 200, 200));
         btnCancel.setForeground(TEXT_COLOR);

@@ -130,17 +130,16 @@ public class BookManagerFrame extends JFrame {
         sidebarPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
         // Tìm kiếm theo từ khóa
-        JLabel searchLabel = new JLabel("Tìm kiếm (tên / tác giả):");
+        JLabel searchLabel = new JLabel("Tìm kiếm(tên/tác giả):");
         searchLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        searchLabel.setForeground(TEXT_PRIMARY);
+        searchLabel.setMaximumSize(new Dimension(220,35));
         searchLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        searchLabel.setBorder(new EmptyBorder(0, 0, 0, 25));
+        searchLabel.setBorder(new EmptyBorder(0, 0, 0, 0    ));
         sidebarPanel.add(searchLabel);
-
         sidebarPanel.add(Box.createRigidArea(new Dimension(0, 8)));
 
         searchField = new JTextField();
-        searchField.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        searchField.setPreferredSize(new Dimension(230,35));
         searchField.setMaximumSize(new Dimension(230, 900));
         searchField.setBorder(BorderFactory.createCompoundBorder(
                 new LineBorder(BORDER_COLOR, 1, true),
@@ -192,8 +191,8 @@ public class BookManagerFrame extends JFrame {
 
         sidebarPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
-        // ⭐ Nút Top sách mượn nhiều
-        topBorrowedButton = new JButton("⭐ Top sách mượn nhiều");
+        // Nút Top sách mượn nhiều
+        topBorrowedButton = new JButton("Top sách mượn nhiều");
         topBorrowedButton.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         topBorrowedButton.setFocusPainted(false);
         topBorrowedButton.setForeground(TEXT_PRIMARY);

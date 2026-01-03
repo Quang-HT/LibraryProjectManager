@@ -40,7 +40,7 @@ public class AccountDetailView extends JFrame {
     private void initializeFrame() {
         setTitle("Thông tin tài khoản");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(650, 600);
+        setSize(650, 650);
         setLocationRelativeTo(null);
         setResizable(false);
         getContentPane().setBackground(BG_COLOR);
@@ -52,7 +52,7 @@ public class AccountDetailView extends JFrame {
         mainPanel.setBackground(BG_COLOR);
         mainPanel.setBorder(new EmptyBorder(30, 40, 30, 40));
 
-        JLabel titleLabel = new JLabel("📋 Thông tin tài khoản");
+        JLabel titleLabel = new JLabel(" Thông tin tài khoản");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 24));
         titleLabel.setForeground(TEXT_COLOR);
         titleLabel.setBounds(200, 20, 300, 35);
@@ -143,9 +143,9 @@ public class AccountDetailView extends JFrame {
     private void createButtons(JPanel parent) {
         int buttonWidth = 120;
         int buttonHeight = 40;
-        int buttonY = 500;
+        int buttonY = 550;
 
-        btnEdit = new JButton("✏️ Chỉnh sửa");
+        btnEdit = new JButton(" Chỉnh sửa");
         btnEdit.setBounds(270, buttonY, buttonWidth, buttonHeight);
         btnEdit.setFont(new Font("Segoe UI", Font.BOLD, 14));
         btnEdit.setBackground(new Color(255, 152, 0));
@@ -154,7 +154,7 @@ public class AccountDetailView extends JFrame {
         btnEdit.setCursor(new Cursor(Cursor.HAND_CURSOR));
         parent.add(btnEdit);
 
-        btnSave = new JButton("💾 Lưu");
+        btnSave = new JButton(" Lưu");
         btnSave.setBounds(270, buttonY, buttonWidth, buttonHeight);
         btnSave.setFont(new Font("Segoe UI", Font.BOLD, 14));
         btnSave.setBackground(new Color(76, 175, 80));
@@ -179,7 +179,7 @@ public class AccountDetailView extends JFrame {
     public void setEditMode(boolean isEditMode) {
         btnEdit.setVisible(!isEditMode);
         btnSave.setVisible(isEditMode);
-        btnCancel.setText(isEditMode ? "❌ Hủy" : "Đóng");
+        btnCancel.setText(isEditMode ? " Hủy" : "Đóng");
         setFieldsEditable(isEditMode);
     }
 

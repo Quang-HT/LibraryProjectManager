@@ -76,7 +76,7 @@ public class HomeView extends JFrame {
         headerSection.setBackground(SIDEBAR_BG);
         headerSection.setBorder(new EmptyBorder(20, 20, 20, 20));
 
-        JLabel titleLabel = new JLabel("📖 Thư viện");
+        JLabel titleLabel = new JLabel(" Thư viện");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 20));
         titleLabel.setForeground(TEXT_WHITE);
         titleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -85,7 +85,7 @@ public class HomeView extends JFrame {
         if (currentAccount != null) {
             headerSection.add(Box.createRigidArea(new Dimension(0, 10)));
 
-            JLabel userLabel = new JLabel("👤 " + currentAccount.getUsername());
+            JLabel userLabel = new JLabel("" + currentAccount.getUsername());
             userLabel.setFont(new Font("Segoe UI", Font.PLAIN, 13));
             userLabel.setForeground(new Color(200, 230, 255));
             userLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -95,7 +95,7 @@ public class HomeView extends JFrame {
             if (isManager) {
                 headerSection.add(Box.createRigidArea(new Dimension(0, 5)));
 
-                JLabel roleLabel = new JLabel("⭐ Quản lý");
+                JLabel roleLabel = new JLabel(" Quản lý");
                 roleLabel.setFont(new Font("Segoe UI", Font.BOLD, 11));
                 roleLabel.setForeground(new Color(255, 235, 59));
                 roleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -107,27 +107,27 @@ public class HomeView extends JFrame {
         sidebarPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
         // Navigation
-        addNavButton("👤 Thông tin tài khoản", "Account", controller::openAccountInfo);
+        addNavButton(" Thông tin tài khoản", "Account", controller::openAccountInfo);
 
         sidebarPanel.add(Box.createRigidArea(new Dimension(0, 20)));
         addSeparator();
 
-        addNavButton("📚 Quản lý đầu sách", "Books", controller::openBookManagement);
-        addNavButton("✍️ Quản lý tác giả", "Authors", controller::openAuthorManagement);
-        addNavButton("👥 Quản lý độc giả", "Readers", controller::openReaderManagement);
-        addNavButton("📋 Quản lý mượn/trả", "Borrow", controller::openBorrowManagement);
+        addNavButton(" Quản lý đầu sách", "Books", controller::openBookManagement);
+        addNavButton(" Quản lý tác giả", "Authors", controller::openAuthorManagement);
+        addNavButton(" Quản lý độc giả", "Readers", controller::openReaderManagement);
+        addNavButton(" Quản lý mượn/trả", "Borrow", controller::openBorrowManagement);
 
         // Quyền manager: nên quyết định bằng biến isManager (đã có), tránh query DB trong UI
         if (isManager) {
             addSeparator();
-            addNavButton("👔 Quản lý nhân viên", "Staff", controller::openStaffManagement);
-            addNavButton("🔐 Quản lý tài khoản", "Accounts", controller::openAccountManagement);
+            addNavButton(" Quản lý nhân viên", "Staff", controller::openStaffManagement);
+            addNavButton(" Quản lý tài khoản", "Accounts", controller::openAccountManagement);
         }
 
         sidebarPanel.add(Box.createVerticalGlue());
         addSeparator();
 
-        SidebarButton logoutBtn = new SidebarButton("🚪 Đăng xuất");
+        SidebarButton logoutBtn = new SidebarButton(" Đăng xuất");
         logoutBtn.setBackground(new Color(13, 71, 161));
         logoutBtn.addActionListener(e -> controller.logout());
         sidebarPanel.add(logoutBtn);
@@ -173,25 +173,25 @@ public class HomeView extends JFrame {
         toolbarPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
         toolbarPanel.setBackground(new Color(245, 250, 255));
         toolbarPanel.setPreferredSize(new Dimension(getWidth(), 65));
-        toolbarPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(220, 230, 240)));
+        toolbarPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, new Color(220, 230, 240)));
 
         HomeController controller = new HomeController(this);
         // Quick action buttons
-        addToolbarButton("➕ Tạo phiếu mượn", "📋", controller::createNewBorrowSlip);
-        addToolbarButton("➕ Thêm đầu sách", "📚", controller::createNewBook);
-        addToolbarButton("➕ Thêm độc giả", "👥", controller::createNewReader);
-        addToolbarButton("➕ Thêm tác giả", "✍️", controller::createNewAuthor);
+        addToolbarButton("➕ Tạo phiếu mượn",  controller::createNewBorrowSlip);
+        addToolbarButton("➕ Thêm đầu sách",  controller::createNewBook);
+        addToolbarButton("➕ Thêm độc giả" ,controller::createNewReader);
+        addToolbarButton("➕ Thêm tác giả", controller::createNewAuthor);
 
         if (isManager) {
-            addToolbarButton("➕ Thêm nhân viên", "👔", controller::createNewStaff);
-            addToolbarButton("➕ Tạo tài khoản", "🔐", controller::createNewAccount);
+            addToolbarButton("➕ Thêm nhân viên", controller::createNewStaff);
+            addToolbarButton("➕ Tạo tài khoản", controller::createNewAccount);
         }
 
         add(toolbarPanel, BorderLayout.CENTER);
     }
 
-    private void addToolbarButton(String text, String icon, Runnable action) {
-        JButton btn = new JButton("<html><center>" + icon + "<br><small>" + text + "</small></center></html>");
+    private void addToolbarButton(String text, Runnable action) {
+        JButton btn = new JButton("<html><center>" + "<br><small>" + text + "</small></center></html>");
         btn.setPreferredSize(new Dimension(140, 45));
         btn.setBackground(SUCCESS_BG);
         btn.setForeground(TEXT_WHITE);
@@ -234,7 +234,7 @@ public class HomeView extends JFrame {
         defaultPanel.setLayout(new BoxLayout(defaultPanel, BoxLayout.Y_AXIS));
         defaultPanel.setBackground(SECONDARY_BG);
 
-        JLabel titleLabel = new JLabel("📊 Thống kê hệ thống");
+        JLabel titleLabel = new JLabel("     Thống kê hệ thống");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 24));
         titleLabel.setForeground(TEXT_PRIMARY);
         titleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -249,20 +249,20 @@ public class HomeView extends JFrame {
                     .findCountInMonth(LocalDate.now().getMonthValue(), LocalDate.now().getYear())
                     .size();
 
-            defaultPanel.add(createStatCard("📚 Tổng đầu sách", String.valueOf(totalBooks)));
+            defaultPanel.add(createStatCard(" Tổng đầu sách", String.valueOf(totalBooks)));
             defaultPanel.add(Box.createRigidArea(new Dimension(0, 15)));
-            defaultPanel.add(createStatCard("📖 Tổng bản sao", String.valueOf(totalCopies)));
+            defaultPanel.add(createStatCard(" Tổng bản sao", String.valueOf(totalCopies)));
             defaultPanel.add(Box.createRigidArea(new Dimension(0, 15)));
-            defaultPanel.add(createStatCard("📤 Sách đang cho mượn", String.valueOf(borrowedCount)));
+            defaultPanel.add(createStatCard(" Sách đang cho mượn", String.valueOf(borrowedCount)));
             defaultPanel.add(Box.createRigidArea(new Dimension(0, 15)));
             defaultPanel.add(createStatCard(
-                    "📅 Lượt mượn tháng " + LocalDate.now().getMonthValue() + "/" + LocalDate.now().getYear(),
+                    " Lượt mượn tháng " + LocalDate.now().getMonthValue() + "/" + LocalDate.now().getYear(),
                     String.valueOf(monthlyBorrows)
             ));
 
         } catch (Exception e) {
             e.printStackTrace();
-            JLabel errorLabel = new JLabel("⚠️ Không thể tải thống kê");
+            JLabel errorLabel = new JLabel(" Không thể tải thống kê");
             errorLabel.setFont(new Font("Segoe UI", Font.PLAIN, 16));
             errorLabel.setForeground(Color.RED);
             defaultPanel.add(errorLabel);

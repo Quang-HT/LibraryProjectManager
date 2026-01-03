@@ -43,7 +43,7 @@ public class BorrowManagementView extends JFrame {
     }
 
     private void initFrame() {
-        setTitle("Quản lý Phiếu mượn & Phạt - MVC");
+        setTitle("Quản lý Phiếu mượn & Phạt");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(1500, 900);
         setLocationRelativeTo(null);
@@ -71,7 +71,7 @@ public class BorrowManagementView extends JFrame {
         JPanel panel = new JPanel(new BorderLayout(15, 0));
         panel.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
 
-        JLabel lblTitle = new JLabel("📋 Quản lý Phiếu mượn & Phạt");
+        JLabel lblTitle = new JLabel("Quản lý Phiếu mượn & Phạt");
         lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 28));
         panel.add(lblTitle, BorderLayout.WEST);
 
@@ -100,12 +100,12 @@ public class BorrowManagementView extends JFrame {
         JPanel panel = new JPanel(new GridLayout(1, 6, 15, 0));
         panel.setBorder(BorderFactory.createEmptyBorder(0, 0, 15, 0));
 
-        lblTotalSlips    = addStatCard(panel, "📊 Tổng phiếu", "0", PRIMARY);
-        lblActiveSlips   = addStatCard(panel, "✅ Đang mượn", "0", SUCCESS);
-        lblExpiredSlips  = addStatCard(panel, "⚠️ Quá hạn", "0", DANGER);
-        lblReturnedSlips = addStatCard(panel, "📦 Đã trả", "0", new Color(96, 125, 139));
-        lblTotalPenalty  = addStatCard(panel, "💰 Tổng phạt", "0 VNĐ", WARNING);
-        lblUnpaidPenalty = addStatCard(panel, "❌ Chưa TT", "0 VNĐ", DANGER);
+        lblTotalSlips    = addStatCard(panel, "Tổng phiếu", "0", PRIMARY);
+        lblActiveSlips   = addStatCard(panel, "Đang mượn", "0", SUCCESS);
+        lblExpiredSlips  = addStatCard(panel, "Quá hạn", "0", DANGER);
+        lblReturnedSlips = addStatCard(panel, "Đã trả", "0", new Color(96, 125, 139));
+        lblTotalPenalty  = addStatCard(panel, "Tổng phạt", "0 VNĐ", WARNING);
+        lblUnpaidPenalty = addStatCard(panel, "Chưa TT", "0 VNĐ", DANGER);
 
         lblTotalPenalty.setFont(new Font("Segoe UI", Font.BOLD, 16));
         lblUnpaidPenalty.setFont(new Font("Segoe UI", Font.BOLD, 16));
@@ -153,8 +153,8 @@ public class BorrowManagementView extends JFrame {
         cmbStatus.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         cmbStatus.setPreferredSize(new Dimension(180, 30));
 
-        btnSearch = createStyledButton("🔍 Tìm kiếm", PRIMARY, 120, 30);
-        btnClear  = createStyledButton("✖ Xóa lọc", new Color(150, 150, 150), 100, 30);
+        btnSearch = createStyledButton("Tìm kiếm", PRIMARY, 120, 30);
+        btnClear  = createStyledButton("Xóa lọc", new Color(150, 150, 150), 100, 30);
 
         filterPanel.add(lblSearchReader);
         filterPanel.add(txtSearchReader);
@@ -170,9 +170,9 @@ public class BorrowManagementView extends JFrame {
         mainPanel.add(filterPanel, BorderLayout.NORTH);
 
         JPanel actionPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 5));
-        btnAutoGenerate = createStyledButton("⚡ Tạo phiếu phạt tự động", WARNING, 200, 35);
-        btnCreateSlip   = createStyledButton("+ Tạo phiếu mượn", SUCCESS, 160, 35);
-        btnSendEmail    = createStyledButton("📧 Gửi Email", new Color(33, 150, 243), 150, 35);
+        btnAutoGenerate = createStyledButton("Tạo phiếu phạt tự động", WARNING, 200, 35);
+        btnCreateSlip   = createStyledButton("Tạo phiếu mượn", SUCCESS, 160, 35);
+        btnSendEmail    = createStyledButton("Gửi Email", new Color(33, 150, 243), 150, 35);
 
         actionPanel.add(btnAutoGenerate);
         actionPanel.add(btnCreateSlip);
@@ -184,7 +184,7 @@ public class BorrowManagementView extends JFrame {
         tablePanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
         createTable(tablePanel);
 
-        JLabel lblInfo = new JLabel("💡 Nhấp đúp vào dòng để xem chi tiết phiếu mượn");
+        JLabel lblInfo = new JLabel("Nhấp đúp vào dòng để xem chi tiết phiếu mượn");
         lblInfo.setFont(new Font("Segoe UI", Font.ITALIC, 12));
         lblInfo.setForeground(Color.GRAY);
         tablePanel.add(lblInfo, BorderLayout.SOUTH);
@@ -235,10 +235,10 @@ public class BorrowManagementView extends JFrame {
                 l.setForeground(t.getSelectionForeground());
             } else {
                 String s = String.valueOf(v);
-                if (s.equals("✅ Đã TT")) {
+                if (s.equals("Đã TT")) {
                     l.setBackground(new Color(200, 250, 205));
                     l.setForeground(new Color(27, 94, 32));
-                } else if (s.equals("❌ Chưa TT")) {
+                } else if (s.equals("Chưa TT")) {
                     l.setBackground(new Color(255, 205, 210));
                     l.setForeground(new Color(183, 28, 28));
                 } else {
@@ -285,10 +285,10 @@ public class BorrowManagementView extends JFrame {
     private JPanel createBottomPanel() {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
 
-        btnViewDetails = createStyledButton("👁️ Xem chi tiết", PRIMARY, 140, 40);
-        btnReturn      = createStyledButton("📥 Trả sách", SUCCESS, 130, 40);
-        btnPayPenalty  = createStyledButton("💳 Thanh toán", WARNING, 140, 40);
-        btnRefresh     = createStyledButton("🔄 Làm mới", new Color(96, 125, 139), 120, 40);
+        btnViewDetails = createStyledButton("Xem chi tiết", PRIMARY, 140, 40);
+        btnReturn      = createStyledButton("Trả sách", SUCCESS, 130, 40);
+        btnPayPenalty  = createStyledButton("Thanh toán", WARNING, 140, 40);
+        btnRefresh     = createStyledButton("Làm mới", new Color(96, 125, 139), 120, 40);
         btnClose       = createStyledButton("Đóng", new Color(200, 200, 200), 100, 40);
 
         btnViewDetails.setEnabled(false);

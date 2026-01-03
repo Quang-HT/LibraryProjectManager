@@ -51,7 +51,7 @@ public class EditStaffForm extends JFrame {
         mainPanel.setBackground(BG_COLOR);
         mainPanel.setBorder(new EmptyBorder(30, 40, 30, 40));
 
-        JLabel titleLabel = new JLabel("✏️ Chỉnh sửa Nhân viên");
+        JLabel titleLabel = new JLabel("Chỉnh sửa Nhân viên");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 26));
         titleLabel.setForeground(TEXT_COLOR);
         titleLabel.setBounds(160, 20, 300, 35);
@@ -145,8 +145,8 @@ public class EditStaffForm extends JFrame {
         int buttonHeight = 42;
         int buttonY = 440;
 
-        btnSave = new JButton("💾 Lưu");
-        btnSave.setBounds(240, buttonY, buttonWidth, buttonHeight);
+        btnSave = new JButton("Lưu");
+        btnSave.setBounds(230, buttonY, buttonWidth, buttonHeight);
         btnSave.setFont(new Font("Segoe UI", Font.BOLD, 14));
         btnSave.setBackground(SUCCESS_COLOR);
         btnSave.setForeground(Color.WHITE);
@@ -155,8 +155,8 @@ public class EditStaffForm extends JFrame {
         btnSave.addActionListener(e -> saveStaff());
         parent.add(btnSave);
 
-        btnCancel = new JButton("❌ Hủy");
-        btnCancel.setBounds(380, buttonY, buttonWidth, buttonHeight);
+        btnCancel = new JButton("Hủy");
+        btnCancel.setBounds(370, buttonY, buttonWidth, buttonHeight);
         btnCancel.setFont(new Font("Segoe UI", Font.BOLD, 14));
         btnCancel.setBackground(new Color(200, 200, 200));
         btnCancel.setForeground(TEXT_COLOR);

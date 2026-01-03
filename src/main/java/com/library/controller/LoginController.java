@@ -40,8 +40,8 @@ public class LoginController {
      */
     public void handleLogin() {
         String username = view.getUsername();
-        char[] passwordChars = view.getPassword();
-        String password = new String(passwordChars);
+            char[] passwordChars = view.getPassword();
+            String password = new String(passwordChars);
 
         if (!validateInput(username, password)) {
             return;

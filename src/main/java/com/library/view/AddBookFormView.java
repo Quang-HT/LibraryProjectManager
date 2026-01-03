@@ -94,10 +94,6 @@ public class AddBookFormView extends JFrame {
         parent.add(createLabel("Tác giả:", labelX, startY + spacing * 3, labelWidth, height));
         cmbAuthor = createComboBox(List.of("Chọn tác giả"), fieldX, startY + spacing * 3, fieldWidth, height);
         parent.add(cmbAuthor);
-
-        parent.add(createLabel("Nhà xuất bản:", labelX, startY + spacing * 4, labelWidth, height));
-        cmbPublisher = createComboBox(List.of("Chọn nhà xuất bản"), fieldX, startY + spacing * 4, fieldWidth, height);
-        parent.add(cmbPublisher);
     }
 
     private void createRightColumn(JPanel parent) {
@@ -120,6 +116,10 @@ public class AddBookFormView extends JFrame {
         parent.add(createLabel("Số lượng bản sao:", labelX, startY + spacing * 2, labelWidth, height));
         txtCopyCount = createTextField(fieldX, startY + spacing * 2, fieldWidth, height);
         parent.add(txtCopyCount);
+
+        parent.add(createLabel("Nhà xuất bản:", labelX, startY + spacing * 3, labelWidth, height));
+        cmbPublisher = createComboBox(List.of("Chọn nhà xuất bản"), fieldX, startY + spacing * 3, fieldWidth, height);
+        parent.add(cmbPublisher);
     }
 
 
@@ -128,8 +128,8 @@ public class AddBookFormView extends JFrame {
         int fieldX = 220;
         int startY = 330;
         int labelWidth = 150;
-        int fieldWidth = 220;
-        int fieldHeight = 150;
+        int fieldWidth = 670;
+        int fieldHeight = 200;
 
         parent.add(createLabel("Mô tả:", labelX, startY, labelWidth, 30));
 

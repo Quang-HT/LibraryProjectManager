@@ -216,7 +216,7 @@ public class LoginView extends JFrame {
         panel.add(subtitleLabel, gbc);
 
         // Features
-        String[] features = {"📚 Quản lý sách và tài liệu", "👥 Quản lý độc giả", "📊 Thống kê và báo cáo"};
+        String[] features = {" Quản lý sách và tài liệu", " Quản lý độc giả", " Thống kê và báo cáo"};
         JPanel featuresPanel = new JPanel();
         featuresPanel.setLayout(new BoxLayout(featuresPanel, BoxLayout.Y_AXIS));
         featuresPanel.setOpaque(false);
@@ -369,7 +369,7 @@ public class LoginView extends JFrame {
         panel.add(loginButton, gbc);
 
         // Reader button
-        JButton readerButton = createStyledButton("🔍  Giao Diện Độc Giả", WHITE, PRIMARY_BLUE);
+        JButton readerButton = createStyledButton("Giao Diện Độc Giả", WHITE, PRIMARY_BLUE);
         readerButton.setBorder(BorderFactory.createCompoundBorder(
                 new LineBorder(PRIMARY_BLUE, 2, true),
                 BorderFactory.createEmptyBorder(10, 20, 10, 20)
@@ -385,7 +385,7 @@ public class LoginView extends JFrame {
         panel.add(readerButton, gbc);
 
         // Footer
-        JLabel footerLabel = new JLabel("© 2024 Library Management System");
+        JLabel footerLabel = new JLabel("© 2026 Library Management System");
         footerLabel.setFont(new Font("Segoe UI", Font.PLAIN, 11));
         footerLabel.setForeground(BORDER_GRAY);
         footerLabel.setHorizontalAlignment(SwingConstants.CENTER);

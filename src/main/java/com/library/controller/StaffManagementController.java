@@ -68,6 +68,7 @@ public class StaffManagementController {
             }
         });
 
+
         view.getBtnAddStaff().addActionListener(e -> openAddStaffForm());
         view.getBtnEdit().addActionListener(e -> openEditStaffForm());
         view.getBtnDelete().addActionListener(e -> deleteStaff());

@@ -83,7 +83,7 @@ public class AuthorListView extends JFrame {
         ));
         parent.add(txtSearch);
 
-        btnSearch = new JButton("🔍");
+        btnSearch = new JButton("Tìm");
         btnSearch.setBounds(530, sectionY, 50, 35);
         btnSearch.setFont(new Font("Segoe UI", Font.PLAIN, 18));
         btnSearch.setBackground(PRIMARY_COLOR);
@@ -132,7 +132,7 @@ public class AuthorListView extends JFrame {
         scrollPane.setBorder(BorderFactory.createLineBorder(BORDER_COLOR, 1));
         parent.add(scrollPane);
 
-        JLabel lblInfo = new JLabel("💡 Nhấp đúp vào tác giả để xem chi tiết");
+        JLabel lblInfo = new JLabel("Nhấp đúp vào tác giả để xem chi tiết");
         lblInfo.setFont(new Font("Segoe UI", Font.ITALIC, 12));
         lblInfo.setForeground(Color.GRAY);
         lblInfo.setBounds(30, tableY + tableHeight + 5, 400, 25);
@@ -143,7 +143,7 @@ public class AuthorListView extends JFrame {
     private void createButtonsSection(JPanel parent) {
         int buttonY = 560;
 
-        btnRefresh = new JButton("🔄 Làm mới");
+        btnRefresh = new JButton("Làm mới");
         btnRefresh.setBounds(550, buttonY, 130, 40);
         btnRefresh.setFont(new Font("Segoe UI", Font.BOLD, 14));
         btnRefresh.setBackground(new Color(96, 125, 139));

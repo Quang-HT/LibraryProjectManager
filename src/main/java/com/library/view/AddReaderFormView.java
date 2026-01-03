@@ -38,7 +38,7 @@ public class AddReaderFormView extends JFrame {
     private void initializeFrame() {
         setTitle("Đăng ký Độc giả mới");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(900, 700);
+        setSize(850, 700);
         setLocationRelativeTo(null);
         setResizable(false);
         getContentPane().setBackground(BG_COLOR);
@@ -50,7 +50,7 @@ public class AddReaderFormView extends JFrame {
         mainPanel.setBackground(BG_COLOR);
         mainPanel.setBorder(new EmptyBorder(30, 40, 30, 40));
 
-        JLabel titleLabel = new JLabel("📝 Đăng ký Độc giả mới");
+        JLabel titleLabel = new JLabel("Đăng ký Độc giả mới");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 26));
         titleLabel.setForeground(TEXT_COLOR);
         titleLabel.setBounds(280, 20, 400, 35);
@@ -163,8 +163,8 @@ public class AddReaderFormView extends JFrame {
         int buttonHeight = 42;
         int buttonY = 580;
 
-        btnSave = new JButton("💾 Lưu");
-        btnSave.setBounds(400, buttonY, buttonWidth, buttonHeight);
+        btnSave = new JButton("Lưu");
+        btnSave.setBounds(370, buttonY, buttonWidth, buttonHeight);
         btnSave.setFont(new Font("Segoe UI", Font.BOLD, 14));
         btnSave.setBackground(SUCCESS_COLOR);
         btnSave.setForeground(Color.WHITE);
@@ -172,8 +172,8 @@ public class AddReaderFormView extends JFrame {
         btnSave.setCursor(new Cursor(Cursor.HAND_CURSOR));
         parent.add(btnSave);
 
-        btnClear = new JButton("🔄 Xóa form");
-        btnClear.setBounds(540, buttonY, buttonWidth, buttonHeight);
+        btnClear = new JButton("Xóa form");
+        btnClear.setBounds(510, buttonY, buttonWidth, buttonHeight);
         btnClear.setFont(new Font("Segoe UI", Font.BOLD, 14));
         btnClear.setBackground(new Color(255, 193, 7));
         btnClear.setForeground(Color.WHITE);
@@ -181,8 +181,8 @@ public class AddReaderFormView extends JFrame {
         btnClear.setCursor(new Cursor(Cursor.HAND_CURSOR));
         parent.add(btnClear);
 
-        btnCancel = new JButton("❌ Hủy");
-        btnCancel.setBounds(680, buttonY, buttonWidth, buttonHeight);
+        btnCancel = new JButton("Hủy");
+        btnCancel.setBounds(650, buttonY, buttonWidth, buttonHeight);
         btnCancel.setFont(new Font("Segoe UI", Font.BOLD, 14));
         btnCancel.setBackground(new Color(200, 200, 200));
         btnCancel.setForeground(TEXT_COLOR);

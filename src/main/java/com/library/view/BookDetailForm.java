@@ -263,7 +263,7 @@ public class BookDetailForm extends JFrame {
         int fieldX = 220;
         int startY = 380;
         int labelWidth = 150;
-        int fieldWidth = 220;
+        int fieldWidth = 670;
         int fieldHeight = 100;
 
         parent.add(createLabel("Mô tả:", labelX, startY, labelWidth, 30));

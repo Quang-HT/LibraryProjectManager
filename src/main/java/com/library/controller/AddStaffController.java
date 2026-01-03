@@ -23,6 +23,7 @@ public class AddStaffController {
         this.dao = new Staff_DAO();
 
         bindEvents();
+        SwingUtilities.invokeLater(() -> view.setVisible(true));
     }
 
     /**

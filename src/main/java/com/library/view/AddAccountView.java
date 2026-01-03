@@ -43,7 +43,7 @@ public class AddAccountView extends JFrame {
         mainPanel.setBackground(BG_COLOR);
         mainPanel.setBorder(new EmptyBorder(30, 40, 30, 40));
 
-        JLabel titleLabel = new JLabel("🔐 Tạo Tài khoản mới");
+        JLabel titleLabel = new JLabel("Tạo Tài khoản mới");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 26));
         titleLabel.setForeground(TEXT_COLOR);
         titleLabel.setBounds(160, 20, 300, 35);
@@ -133,7 +133,7 @@ public class AddAccountView extends JFrame {
         });
         parent.add(cmbEmployee);
 
-        JLabel lblInfo = new JLabel("💡 Account ID sẽ tự động bằng Staff ID");
+        JLabel lblInfo = new JLabel("Account ID sẽ tự động bằng Staff ID");
         lblInfo.setFont(new Font("Segoe UI", Font.ITALIC, 12));
         lblInfo.setForeground(new Color(100, 100, 100));
         lblInfo.setBounds(fieldX, startY + spacing * 4, fieldWidth, 20);
@@ -145,8 +145,8 @@ public class AddAccountView extends JFrame {
         int buttonHeight = 42;
         int buttonY = 370;
 
-        btnSave = new JButton("💾 Tạo TK");
-        btnSave.setBounds(240, buttonY, buttonWidth, buttonHeight);
+        btnSave = new JButton("Tạo TK");
+        btnSave.setBounds(210   , buttonY, buttonWidth, buttonHeight);
         btnSave.setFont(new Font("Segoe UI", Font.BOLD, 14));
         btnSave.setBackground(SUCCESS_COLOR);
         btnSave.setForeground(Color.WHITE);
@@ -154,8 +154,8 @@ public class AddAccountView extends JFrame {
         btnSave.setCursor(new Cursor(Cursor.HAND_CURSOR));
         parent.add(btnSave);
 
-        btnCancel = new JButton("❌ Hủy");
-        btnCancel.setBounds(380, buttonY, buttonWidth, buttonHeight);
+        btnCancel = new JButton("Hủy");
+        btnCancel.setBounds(370, buttonY, buttonWidth, buttonHeight);
         btnCancel.setFont(new Font("Segoe UI", Font.BOLD, 14));
         btnCancel.setBackground(new Color(200, 200, 200));
         btnCancel.setForeground(TEXT_COLOR);

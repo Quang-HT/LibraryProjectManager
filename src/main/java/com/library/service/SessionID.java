@@ -1,6 +1,7 @@
 package com.library.service;
 
 import lombok.Getter;
+import lombok.Setter;
 
 public class SessionID {
     @Getter

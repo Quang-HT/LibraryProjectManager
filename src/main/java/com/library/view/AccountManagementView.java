@@ -58,7 +58,7 @@ public class AccountManagementView extends JFrame {
         mainPanel.setBorder(new EmptyBorder(20, 30, 20, 30));
 
         // Title
-        JLabel titleLabel = new JLabel("🔐 Quản lý Tài khoản");
+        JLabel titleLabel = new JLabel("Quản lý Tài khoản");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 28));
         titleLabel.setForeground(TEXT_COLOR);
         titleLabel.setBounds(30, 15, 350, 40);
@@ -89,7 +89,7 @@ public class AccountManagementView extends JFrame {
         ));
         parent.add(txtSearch);
 
-        btnSearch = new JButton("🔍");
+        btnSearch = new JButton("Tìm");
         btnSearch.setBounds(530, sectionY, 50, 35);
         btnSearch.setFont(new Font("Segoe UI", Font.PLAIN, 18));
         btnSearch.setBackground(PRIMARY_COLOR);
@@ -145,7 +145,7 @@ public class AccountManagementView extends JFrame {
         scrollPane.setBorder(BorderFactory.createLineBorder(BORDER_COLOR, 1));
         parent.add(scrollPane);
 
-        JLabel lblInfo = new JLabel("💡 Nhấp đúp vào tài khoản để xem chi tiết");
+        JLabel lblInfo = new JLabel("Nhấp đúp vào tài khoản để xem chi tiết");
         lblInfo.setFont(new Font("Segoe UI", Font.ITALIC, 12));
         lblInfo.setForeground(Color.GRAY);
         lblInfo.setBounds(30, tableY + tableHeight + 5, 400, 25);
@@ -155,7 +155,7 @@ public class AccountManagementView extends JFrame {
     private void createButtonsSection(JPanel parent) {
         int buttonY = 560;
 
-        btnDelete = new JButton("🗑️ Xóa TK");
+        btnDelete = new JButton("Xóa TK");
         btnDelete.setBounds(600, buttonY, 130, 40);
         btnDelete.setFont(new Font("Segoe UI", Font.BOLD, 14));
         btnDelete.setBackground(DANGER_COLOR);
@@ -165,7 +165,7 @@ public class AccountManagementView extends JFrame {
         btnDelete.setEnabled(false);
         parent.add(btnDelete);
 
-        btnRefresh = new JButton("🔄 Làm mới");
+        btnRefresh = new JButton("Làm mới");
         btnRefresh.setBounds(750, buttonY, 130, 40);
         btnRefresh.setFont(new Font("Segoe UI", Font.BOLD, 14));
         btnRefresh.setBackground(new Color(96, 125, 139));

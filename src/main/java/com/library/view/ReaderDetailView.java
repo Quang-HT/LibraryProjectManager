@@ -52,7 +52,7 @@ public class ReaderDetailView extends JFrame {
     private void initializeFrame() {
         setTitle("Chi tiết Độc giả");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(1000, 750);
+        setSize(1000, 800);
         setLocationRelativeTo(null);
         setResizable(false);
         getContentPane().setBackground(BG_COLOR);
@@ -172,7 +172,7 @@ public class ReaderDetailView extends JFrame {
         int sectionY = 390;
         int tableHeight = 250;
 
-        JLabel lblSlipsTitle = new JLabel("📋 Danh sách phiếu mượn");
+        JLabel lblSlipsTitle = new JLabel(" Danh sách phiếu mượn");
         lblSlipsTitle.setFont(new Font("Segoe UI", Font.BOLD, 16));
         lblSlipsTitle.setForeground(TEXT_COLOR);
         lblSlipsTitle.setBounds(50, sectionY, 400, 30);
@@ -194,11 +194,11 @@ public class ReaderDetailView extends JFrame {
         tblBorrowSlips.setGridColor(BORDER_COLOR);
 
         JScrollPane scrollPane = new JScrollPane(tblBorrowSlips);
-        scrollPane.setBounds(50, sectionY + 40, 840, tableHeight);
+        scrollPane.setBounds(50, sectionY + 40, 860, tableHeight);
         scrollPane.setBorder(BorderFactory.createLineBorder(BORDER_COLOR, 1));
         parent.add(scrollPane);
 
-        JLabel lblInfo = new JLabel("💡 Nhấp đúp vào phiếu mượn để xem chi tiết");
+        JLabel lblInfo = new JLabel(" Nhấp đúp vào phiếu mượn để xem chi tiết");
         lblInfo.setFont(new Font("Segoe UI", Font.ITALIC, 12));
         lblInfo.setForeground(Color.GRAY);
         lblInfo.setBounds(50, sectionY + tableHeight + 45, 400, 25);
@@ -208,7 +208,7 @@ public class ReaderDetailView extends JFrame {
     private void createButtons(JPanel parent) {
         int buttonWidth = 120;
         int buttonHeight = 40;
-        int buttonY = 660;
+        int buttonY = 700;
 
         btnEdit = new JButton("Chỉnh sửa");
         btnEdit.setBounds(630, buttonY, buttonWidth, buttonHeight);
@@ -220,7 +220,7 @@ public class ReaderDetailView extends JFrame {
         parent.add(btnEdit);
 
         btnSave = new JButton("Lưu");
-        btnSave.setBounds(630, buttonY, buttonWidth, buttonHeight);
+        btnSave.setBounds(660, buttonY, buttonWidth, buttonHeight);
         btnSave.setFont(new Font("Segoe UI", Font.BOLD, 14));
         btnSave.setBackground(PRIMARY_COLOR);
         btnSave.setForeground(Color.WHITE);
@@ -230,7 +230,7 @@ public class ReaderDetailView extends JFrame {
         parent.add(btnSave);
 
         btnCancel = new JButton("Đóng");
-        btnCancel.setBounds(760, buttonY, buttonWidth, buttonHeight);
+        btnCancel.setBounds(790, buttonY, buttonWidth, buttonHeight);
         btnCancel.setFont(new Font("Segoe UI", Font.BOLD, 14));
         btnCancel.setBackground(new Color(200, 200, 200));
         btnCancel.setForeground(TEXT_COLOR);

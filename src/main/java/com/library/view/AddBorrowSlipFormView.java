@@ -35,7 +35,7 @@ public class AddBorrowSlipFormView extends JFrame {
     }
 
     private void initFrame() {
-        setTitle("📝 Tạo Phiếu Mượn Sách Mới");
+        setTitle("Tạo Phiếu Mượn Sách Mới");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(1300, 850);
         setLocationRelativeTo(null);
@@ -47,7 +47,7 @@ public class AddBorrowSlipFormView extends JFrame {
         main.setBackground(Color.WHITE);
         main.setBorder(new EmptyBorder(20, 30, 20, 30));
 
-        addLabel(main, "📝 Tạo Phiếu Mượn Sách", 30, 10, 400, 40, 26, true, PRIMARY);
+        addLabel(main, "Tạo Phiếu Mượn Sách", 30, 10, 400, 40, 26, true, PRIMARY);
 
         createReaderSection(main);
         createBorrowInfoSection(main);
@@ -64,7 +64,7 @@ public class AddBorrowSlipFormView extends JFrame {
         panel.setBackground(new Color(245, 248, 250));
         panel.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createLineBorder(BORDER, 2),
-                "👤 Thông tin Độc giả",
+                "Thông tin Độc giả",
                 0, 0,
                 new Font("Segoe UI", Font.BOLD, 14),
                 PRIMARY
@@ -73,8 +73,8 @@ public class AddBorrowSlipFormView extends JFrame {
         addLabel(panel, "Mã độc giả:", 20, 35, 100, 25, 13, true, Color.BLACK);
         txtReaderId = addTextField(panel, "", 130, 35, 150, 30);
 
-        btnFindReader = addButton(panel, "🔍 Tìm", 290, 35, 80, 30, PRIMARY);
-        btnNewReader  = addButton(panel, "➕ Mới", 380, 35, 80, 30, SUCCESS);
+        btnFindReader = addButton(panel, "Tìm", 290, 35, 80, 30, PRIMARY);
+        btnNewReader  = addButton(panel, "Mới", 380, 35, 80, 30, SUCCESS);
 
         addLabel(panel, "Tên độc giả:", 20, 75, 100, 25, 13, true, Color.BLACK);
         txtReaderName = addTextField(panel, "", 130, 75, 330, 30);
@@ -97,7 +97,7 @@ public class AddBorrowSlipFormView extends JFrame {
         panel.setBackground(new Color(245, 248, 250));
         panel.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createLineBorder(BORDER, 2),
-                "📅 Thông tin Mượn",
+                "Thông tin Mượn",
                 0, 0,
                 new Font("Segoe UI", Font.BOLD, 14),
                 PRIMARY
@@ -123,7 +123,7 @@ public class AddBorrowSlipFormView extends JFrame {
                 BorderFactory.createEmptyBorder(5, 10, 5, 10)
         ));
 
-        JLabel note = new JLabel("ℹ️ Tối đa 5 cuốn/lần mượn");
+        JLabel note = new JLabel("ℹTối đa 5 cuốn/lần mượn");
         note.setFont(new Font("Segoe UI", Font.ITALIC, 12));
         note.setForeground(new Color(100, 100, 100));
         note.setBounds(350, 35, 200, 25);
@@ -137,7 +137,7 @@ public class AddBorrowSlipFormView extends JFrame {
         panel.setBounds(30, 260, 600, 440);
         panel.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createLineBorder(BORDER, 2),
-                "📚 Danh sách Sách có sẵn",
+                "Danh sách Sách có sẵn",
                 0, 0,
                 new Font("Segoe UI", Font.BOLD, 14),
                 PRIMARY
@@ -145,7 +145,7 @@ public class AddBorrowSlipFormView extends JFrame {
 
         addLabel(panel, "Tìm sách:", 15, 30, 80, 30, 13, true, Color.BLACK);
         txtBookSearch = addTextField(panel, "", 95, 30, 370, 30);
-        btnSearchBook = addButton(panel, "🔍", 475, 30, 50, 30, PRIMARY);
+        btnSearchBook = addButton(panel, "", 475, 30, 50, 30, PRIMARY);
 
         String[] cols = {"ID Bản sao", "Mã sách", "Tên sách", "Tác giả", "Thể loại"};
         availableModel = new DefaultTableModel(cols, 0) {
@@ -161,7 +161,7 @@ public class AddBorrowSlipFormView extends JFrame {
         sp.setBounds(15, 75, 570, 300);
         panel.add(sp);
 
-        btnAddBook = addButton(panel, "➡️ Thêm vào phiếu", 180, 390, 240, 35, SUCCESS);
+        btnAddBook = addButton(panel, "Thêm vào phiếu", 180, 390, 240, 35, SUCCESS);
         btnAddBook.setFont(new Font("Segoe UI", Font.BOLD, 14));
 
         parent.add(panel);
@@ -172,7 +172,7 @@ public class AddBorrowSlipFormView extends JFrame {
         panel.setBounds(650, 260, 590, 440);
         panel.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createLineBorder(BORDER, 2),
-                "✅ Sách đã chọn",
+                "Sách đã chọn",
                 0, 0,
                 new Font("Segoe UI", Font.BOLD, 14),
                 SUCCESS
@@ -192,18 +192,18 @@ public class AddBorrowSlipFormView extends JFrame {
         sp.setBounds(15, 30, 560, 345);
         panel.add(sp);
 
-        btnRemoveBook = addButton(panel, "❌ Xóa khỏi danh sách", 170, 390, 240, 35, DANGER);
+        btnRemoveBook = addButton(panel, "Xóa khỏi danh sách", 170, 390, 240, 35, DANGER);
         btnRemoveBook.setFont(new Font("Segoe UI", Font.BOLD, 14));
 
         parent.add(panel);
     }
 
     private void createActionButtons(JPanel parent) {
-        btnSave = addButton(parent, "💾 Lưu Phiếu Mượn", 850, 720, 200, 45, PRIMARY);
+        btnSave = addButton(parent, "Lưu Phiếu Mượn", 850, 720, 200, 45, PRIMARY);
         btnSave.setFont(new Font("Segoe UI", Font.BOLD, 16));
 
-        btnReset  = addButton(parent, "🔄 Làm mới", 1060, 720, 120, 45, WARNING);
-        btnCancel = addButton(parent, "❌ Hủy", 1190, 720, 80, 45, new Color(200, 200, 200));
+        btnReset  = addButton(parent, "Làm mới", 1060, 720, 120, 45, WARNING);
+        btnCancel = addButton(parent, "Hủy", 1190, 720, 80, 45, new Color(200, 200, 200));
     }
 
     private void lockField(JTextField tf) {

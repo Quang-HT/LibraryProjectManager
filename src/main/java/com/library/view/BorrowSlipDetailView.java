@@ -47,7 +47,7 @@ public class BorrowSlipDetailView extends JFrame {
         JPanel main = new JPanel(new BorderLayout(15, 15));
         main.setBorder(new EmptyBorder(20, 25, 20, 25));
 
-        lblTitle = new JLabel("📋 Chi tiết Phiếu mượn");
+        lblTitle = new JLabel("Chi tiết Phiếu mượn");
         lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 26));
         main.add(lblTitle, BorderLayout.NORTH);
 
@@ -61,7 +61,7 @@ public class BorrowSlipDetailView extends JFrame {
         penaltyPanel.setVisible(false); // default hide
 
         JPanel tablePanel = new JPanel(new BorderLayout());
-        JLabel lblBooks = new JLabel("📚 Danh sách sách mượn:");
+        JLabel lblBooks = new JLabel("Danh sách sách mượn:");
         lblBooks.setFont(new Font("Segoe UI", Font.BOLD, 15));
         lblBooks.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
         tablePanel.add(lblBooks, BorderLayout.NORTH);
@@ -76,7 +76,7 @@ public class BorrowSlipDetailView extends JFrame {
         main.add(centerPanel, BorderLayout.CENTER);
 
         JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
-        btnPrint = createButton("🖨️ In phiếu", PRIMARY);
+        btnPrint = createButton("In phiếu", PRIMARY);
         btnClose = createButton("Đóng", new Color(200, 200, 200));
         btnPanel.add(btnPrint);
         btnPanel.add(btnClose);
@@ -136,7 +136,7 @@ public class BorrowSlipDetailView extends JFrame {
                 BorderFactory.createEmptyBorder(20, 20, 20, 20)
         ));
 
-        JLabel lblTitle = new JLabel("⚠️ THÔNG TIN PHẠT");
+        JLabel lblTitle = new JLabel("THÔNG TIN PHẠT");
         lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 16));
         lblTitle.setForeground(DANGER);
         p.add(lblTitle);
@@ -183,7 +183,7 @@ public class BorrowSlipDetailView extends JFrame {
 
     public void setHeader(String slipId) {
         setTitle("Chi tiết Phiếu mượn #" + slipId);
-        lblTitle.setText("📋 Chi tiết Phiếu mượn #" + slipId);
+        lblTitle.setText("Chi tiết Phiếu mượn #" + slipId);
         valSlipId.setText(slipId);
     }
 

@@ -40,7 +40,7 @@ public class StaffDetailView extends JFrame {
         mainPanel.setBackground(BG_COLOR);
         mainPanel.setBorder(new EmptyBorder(30, 40, 30, 40));
 
-        JLabel titleLabel = new JLabel("📋 Thông tin Nhân viên");
+        JLabel titleLabel = new JLabel("Thông tin Nhân viên");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 24));
         titleLabel.setForeground(TEXT_COLOR);
         titleLabel.setBounds(170, 20, 300, 35);
