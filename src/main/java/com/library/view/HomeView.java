@@ -12,6 +12,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.time.LocalDate;
 
+import static com.library.service.ImagineApp.createBookIcon;
+
 public class HomeView extends JFrame {
 
     private static final Color PRIMARY_BG = new Color(230, 240, 250);
@@ -54,6 +56,11 @@ public class HomeView extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
         getContentPane().setBackground(PRIMARY_BG);
+        try {
+            setIconImage(createBookIcon());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void createComponents() {
@@ -85,7 +92,7 @@ public class HomeView extends JFrame {
         if (currentAccount != null) {
             headerSection.add(Box.createRigidArea(new Dimension(0, 10)));
 
-            JLabel userLabel = new JLabel("" + currentAccount.getUsername());
+            JLabel userLabel = new JLabel(" " + currentAccount.getUsername());
             userLabel.setFont(new Font("Segoe UI", Font.PLAIN, 13));
             userLabel.setForeground(new Color(200, 230, 255));
             userLabel.setAlignmentX(Component.LEFT_ALIGNMENT);

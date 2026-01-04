@@ -9,6 +9,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.time.LocalDate;
 
+import static com.library.service.ImagineApp.createBookIcon;
+
 public class AddBorrowSlipFormView extends JFrame {
 
     private static final Color PRIMARY = new Color(25, 118, 210);
@@ -61,6 +63,11 @@ public class AddBorrowSlipFormView extends JFrame {
         setSize(1300, 850);
         setLocationRelativeTo(null);
         setResizable(false);
+        try {
+            setIconImage(createBookIcon());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void createUI() {

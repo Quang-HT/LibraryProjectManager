@@ -12,6 +12,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.List;
 
+import static com.library.service.ImagineApp.createBookIcon;
+
 /**
  * Book Detail Form - View only (UI)
  */
@@ -163,6 +165,11 @@ public class BookDetailForm extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
         getContentPane().setBackground(BG_COLOR);
+        try {
+            setIconImage(createBookIcon());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void createComponents() {

@@ -10,6 +10,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
 
+import static com.library.service.ImagineApp.createBookIcon;
+
 public class BookManagerFrame extends JFrame {
     // Colors
     private static final Color PRIMARY = new Color(29, 92, 241);
@@ -50,6 +52,11 @@ public class BookManagerFrame extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(0, 0));
         getContentPane().setBackground(BG_MAIN);
+        try {
+            setIconImage(createBookIcon());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private JPanel createSidebar() {

@@ -9,6 +9,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
 
+import static com.library.service.ImagineApp.createBookIcon;
+
 
 public class ReaderView extends JFrame {
 
@@ -57,6 +59,11 @@ public class ReaderView extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
         getContentPane().setBackground(PRIMARY_BG);
+        try {
+            setIconImage(createBookIcon());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void createComponents() {

@@ -6,6 +6,8 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
+import static com.library.service.ImagineApp.createBookIcon;
+
 /**
  * VIEW: Forgot Password (UI only)
  * - Không gọi DAO
@@ -57,6 +59,11 @@ public class ForgotPasswordView extends JFrame {
         setMinimumSize(new Dimension(550, 600));
         setLocationRelativeTo(null);
         getContentPane().setBackground(BG_COLOR);
+        try {
+            setIconImage(createBookIcon());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void createComponents() {

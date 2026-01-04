@@ -9,6 +9,8 @@ import java.awt.*;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import static com.library.service.ImagineApp.createBookIcon;
+
 /**
  * VIEW: Chi tiết phiếu mượn (UI only)
  * - Không gọi DAO
@@ -46,6 +48,11 @@ public class BorrowSlipDetailView extends JFrame {
         setSize(950, 750);
         setLocationRelativeTo(null);
         setResizable(true);
+        try {
+            setIconImage(createBookIcon());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void createUI() {

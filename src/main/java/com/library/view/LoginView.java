@@ -9,9 +9,11 @@ import java.awt.geom.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
+import static com.library.service.ImagineApp.createBookIcon;
+
 public class LoginView extends JFrame {
 
-    private static final Color PRIMARY_BLUE = new Color(25, 118, 210);
+    public static final Color PRIMARY_BLUE = new Color(25, 118, 210);
     private static final Color DARK_BLUE = new Color(13, 71, 161);
     private static final Color LIGHT_BLUE = new Color(227, 242, 253);
     private static final Color ACCENT_BLUE = new Color(66, 165, 245);
@@ -24,8 +26,6 @@ public class LoginView extends JFrame {
     private JCheckBox rememberCheckbox;
 
     /**
-     * -- SETTER --
-     *
      * @param controller
      * Cài đặt LoginController cho view
      * Tác dụng: Để gọi Controller xử lý dữ liệu của phía View trả về
@@ -53,22 +53,6 @@ public class LoginView extends JFrame {
         }
     }
 
-    private Image createBookIcon() {
-        int size = 32;
-        java.awt.image.BufferedImage img = new java.awt.image.BufferedImage(
-                size, size, java.awt.image.BufferedImage.TYPE_INT_ARGB
-        );
-        Graphics2D g2 = img.createGraphics();
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setColor(PRIMARY_BLUE);
-        g2.fillRoundRect(4, 2, 24, 28, 4, 4);
-        g2.setColor(WHITE);
-        g2.fillRect(8, 6, 16, 2);
-        g2.fillRect(8, 12, 16, 2);
-        g2.fillRect(8, 18, 12, 2);
-        g2.dispose();
-        return img;
-    }
 
     private void createUI() {
         JPanel mainPanel = new JPanel(new GridBagLayout());
@@ -164,6 +148,7 @@ public class LoginView extends JFrame {
                 g2.drawLine(x + 25, y + 40, x + 65, y + 40);
                 g2.drawLine(x + 25, y + 55, x + 55, y + 55);
 
+                // Bookmark
                 g2.setColor(new Color(239, 83, 80));
                 int[] xPoints = {x + 60, x + 72, x + 66};
                 int[] yPoints = {y - 5, y - 5, y + 15};
@@ -183,6 +168,7 @@ public class LoginView extends JFrame {
         gbc.insets = new Insets(40, 30, 20, 30);
         panel.add(iconPanel, gbc);
 
+        // Title
         JLabel titleLabel = new JLabel("<html><center>HỆ THỐNG<br/>QUẢN LÝ THƯ VIỆN</center></html>");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 26));
         titleLabel.setForeground(WHITE);
@@ -192,6 +178,7 @@ public class LoginView extends JFrame {
         gbc.insets = new Insets(10, 30, 10, 30);
         panel.add(titleLabel, gbc);
 
+        // Subtitle
         JLabel subtitleLabel = new JLabel("<html><center>Giải pháp quản lý thư viện<br/>hiện đại và hiệu quả</center></html>");
         subtitleLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         subtitleLabel.setForeground(new Color(255, 255, 255, 200));
@@ -200,6 +187,7 @@ public class LoginView extends JFrame {
         gbc.gridy = 2;
         panel.add(subtitleLabel, gbc);
 
+        // Features
         String[] features = {" Quản lý sách và tài liệu", " Quản lý độc giả", " Thống kê và báo cáo"};
         JPanel featuresPanel = new JPanel();
         featuresPanel.setLayout(new BoxLayout(featuresPanel, BoxLayout.Y_AXIS));
@@ -240,6 +228,7 @@ public class LoginView extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(5, 60, 5, 60);
 
+        // Welcome text
         JLabel welcomeLabel = new JLabel("Chào mừng trở lại!");
         welcomeLabel.setFont(new Font("Segoe UI", Font.BOLD, 28));
         welcomeLabel.setForeground(DARK_BLUE);
@@ -256,6 +245,7 @@ public class LoginView extends JFrame {
         gbc.insets = new Insets(0, 60, 25, 60);
         panel.add(instructionLabel, gbc);
 
+        // Username field
         JLabel usernameLabel = new JLabel("Tên đăng nhập");
         usernameLabel.setFont(new Font("Segoe UI", Font.BOLD, 12));
         usernameLabel.setForeground(TEXT_GRAY);
@@ -269,6 +259,7 @@ public class LoginView extends JFrame {
         gbc.insets = new Insets(0, 60, 10, 60);
         panel.add(usernameField, gbc);
 
+        // Password field
         JLabel passwordLabel = new JLabel("Mật khẩu");
         passwordLabel.setFont(new Font("Segoe UI", Font.BOLD, 12));
         passwordLabel.setForeground(TEXT_GRAY);
@@ -279,6 +270,7 @@ public class LoginView extends JFrame {
 
         passwordField = createStyledPasswordField();
 
+        // Add Enter key listener to password field
         passwordField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -292,6 +284,7 @@ public class LoginView extends JFrame {
         gbc.insets = new Insets(0, 60, 10, 60);
         panel.add(passwordField, gbc);
 
+        // Remember & Forgot
         JPanel optionsPanel = new JPanel(new BorderLayout());
         optionsPanel.setOpaque(false);
 
@@ -335,6 +328,7 @@ public class LoginView extends JFrame {
         gbc.insets = new Insets(5, 60, 15, 60);
         panel.add(optionsPanel, gbc);
 
+        // Login button
         JButton loginButton = createStyledButton("ĐĂNG NHẬP", PRIMARY_BLUE, WHITE);
         loginButton.addActionListener(e -> {
             if (controller != null) {
@@ -346,6 +340,7 @@ public class LoginView extends JFrame {
         gbc.insets = new Insets(10, 60, 10, 60);
         panel.add(loginButton, gbc);
 
+        // Reader button
         JButton readerButton = createStyledButton("Giao Diện Độc Giả", WHITE, PRIMARY_BLUE);
         readerButton.setBorder(BorderFactory.createCompoundBorder(
                 new LineBorder(PRIMARY_BLUE, 2, true),
@@ -361,6 +356,7 @@ public class LoginView extends JFrame {
         gbc.insets = new Insets(5, 60, 30, 60);
         panel.add(readerButton, gbc);
 
+        // Footer
         JLabel footerLabel = new JLabel("© 2026 Library Management System");
         footerLabel.setFont(new Font("Segoe UI", Font.PLAIN, 11));
         footerLabel.setForeground(BORDER_GRAY);

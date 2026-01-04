@@ -33,10 +33,6 @@ public class LoginController {
 
     /**
      * Xử lý sự kiện đăng nhập
-     * 1. Kiểm tra người dùng đã nhập chưa
-     * 2. Tìm kiếm tài khoản từ DB
-     * 3. Kiểm tra xem tài khoản còn quyền hoạt động không
-     * 4. Xử lý đăng nhập thành công
      */
     public void handleLogin() {
         String username = view.getUsername();
@@ -75,9 +71,6 @@ public class LoginController {
 
     /**
      * Validate dữ liệu đầu vào
-     * Kiểm tra xem người dùng đã nhập thông tin chưa
-     * Nhập rồi trả về true
-     * Chưa nhập trả về false
      */
     private boolean validateInput(String username, String password) {
         if (username.isEmpty() || password.isEmpty()) {
@@ -101,7 +94,6 @@ public class LoginController {
 
     /**
      * Xử lý khi đăng nhập thất bại
-     * Hiển thị thông báo lỗi và xóa mật khẩu tại ô đăng nhập
      */
     private void handleLoginFailure(String message) {
         view.showMessage(

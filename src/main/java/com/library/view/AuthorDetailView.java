@@ -12,6 +12,8 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.library.service.ImagineApp.createBookIcon;
+
 public class AuthorDetailView extends JFrame {
 
     // Color Scheme
@@ -60,6 +62,11 @@ public class AuthorDetailView extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
         getContentPane().setBackground(BG_COLOR);
+        try {
+            setIconImage(createBookIcon());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void createComponents() {

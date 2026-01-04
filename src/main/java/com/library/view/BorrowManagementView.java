@@ -10,6 +10,8 @@ import java.awt.*;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import static com.library.service.ImagineApp.createBookIcon;
+
 /**
  * VIEW: Quản lý Phiếu mượn & Phạt (UI only)
  * - Không gọi DAO
@@ -72,6 +74,11 @@ public class BorrowManagementView extends JFrame {
         setLocationRelativeTo(null);
         setResizable(true);
         setMinimumSize(new Dimension(1400, 800));
+        try {
+            setIconImage(createBookIcon());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void createUI() {

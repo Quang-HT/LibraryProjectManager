@@ -11,6 +11,8 @@ import java.awt.*;
 import java.util.List;
 import java.util.Map;
 
+import static com.library.service.ImagineApp.createBookIcon;
+
 /**
  * VIEW: Quản lý Tài khoản (UI only)
  * - Không gọi DAO
@@ -47,6 +49,11 @@ public class AccountManagementView extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
         getContentPane().setBackground(BG_COLOR);
+        try {
+            setIconImage(createBookIcon());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void createComponents() {

@@ -8,6 +8,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
 
+import static com.library.service.ImagineApp.createBookIcon;
+
 @Getter
 public class StaffManagementView extends JFrame {
 
@@ -44,6 +46,11 @@ public class StaffManagementView extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
         getContentPane().setBackground(BG_COLOR);
+        try {
+            setIconImage(createBookIcon());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void createComponents() {

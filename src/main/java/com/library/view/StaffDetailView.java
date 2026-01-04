@@ -6,6 +6,8 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
+import static com.library.service.ImagineApp.createBookIcon;
+
 public class StaffDetailView extends JFrame {
 
     private static final Color BG_COLOR = Color.WHITE;
@@ -35,6 +37,11 @@ public class StaffDetailView extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
         getContentPane().setBackground(BG_COLOR);
+        try {
+            setIconImage(createBookIcon());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void createComponents() {
