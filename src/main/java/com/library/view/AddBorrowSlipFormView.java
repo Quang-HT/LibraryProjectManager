@@ -242,14 +242,10 @@ public class AddBorrowSlipFormView extends JFrame {
 
     public String getReaderIdText() { return txtReaderId.getText(); }
     public void setReaderIdText(String s) { txtReaderId.setText(s); }
-
     public String getBookSearchText() { return txtBookSearch.getText(); }
-
     public Integer getBorrowDays() { return (Integer) cmbBorrowDays.getSelectedItem(); }
-
     public String getBorrowDateText() { return lblBorrowDate.getText(); }
     public String getDueDateText() { return lblDueDate.getText(); }
-
     public void setBorrowDate(String s) { lblBorrowDate.setText(s); }
     public void setDueDate(String s) { lblDueDate.setText(s); }
 
@@ -285,7 +281,6 @@ public class AddBorrowSlipFormView extends JFrame {
         p.add(l);
         return l;
     }
-
     private JTextField addTextField(JPanel p, String txt, int x, int y, int w, int h) {
         JTextField tf = new JTextField(txt);
         tf.setBounds(x, y, w, h);
@@ -297,7 +292,6 @@ public class AddBorrowSlipFormView extends JFrame {
         p.add(tf);
         return tf;
     }
-
     private JButton addButton(JPanel p, String txt, int x, int y, int w, int h, Color c) {
         JButton b = new JButton(txt);
         b.setBounds(x, y, w, h);

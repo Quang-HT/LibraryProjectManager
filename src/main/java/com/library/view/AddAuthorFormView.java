@@ -216,7 +216,6 @@ public class AddAuthorFormView extends JFrame {
         );
         return confirm == JOptionPane.YES_OPTION;
     }
-
     public boolean confirmWarning(String msg, String title) {
         int confirm = JOptionPane.showConfirmDialog(
                 this,
@@ -227,15 +226,12 @@ public class AddAuthorFormView extends JFrame {
         );
         return confirm == JOptionPane.YES_OPTION;
     }
-
     public void showInfo(String msg) {
         JOptionPane.showMessageDialog(this, msg, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
     }
-
     public void showError(String msg) {
         JOptionPane.showMessageDialog(this, msg, "Lỗi", JOptionPane.ERROR_MESSAGE);
     }
-
     private JLabel createLabel(String text, int x, int y, int width, int height) {
         JLabel label = new JLabel(text);
         label.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -243,7 +239,6 @@ public class AddAuthorFormView extends JFrame {
         label.setBounds(x, y, width, height);
         return label;
     }
-
     private JTextField createTextField(int x, int y, int width, int height) {
         JTextField textField = new JTextField();
         textField.setFont(new Font("Segoe UI", Font.PLAIN, 14));

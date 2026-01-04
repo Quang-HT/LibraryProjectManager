@@ -346,7 +346,6 @@ public class BorrowManagementView extends JFrame {
         btn.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
         return btn;
     }
-
     private JLabel addStatCard(JPanel parent, String title, String value, Color color) {
         JPanel card = new JPanel(new BorderLayout(5, 5));
         card.setBackground(color);
@@ -382,18 +381,9 @@ public class BorrowManagementView extends JFrame {
     public String getSelectedMonth() { return String.valueOf(cmbMonth.getSelectedItem()); }
     public String getSelectedYear() { return String.valueOf(cmbYear.getSelectedItem()); }
     public String getSelectedStatus() { return String.valueOf(cmbStatus.getSelectedItem()); }
-
     public JTable getTable() { return tblBorrowSlips; }
 
-    /**
-     * Hàm này sẽ cho phép các phiếu mượn có các Option khác nhau
-     * @param viewDetails
-     * Cho phép xem chi tiết phiếu mượn
-     * @param canReturn
-     * Khi phiếu này chưa trả -> chọn vào sẽ có Option trả sách Can Return
-     * @param canPay
-     * Khi phiếu này chưa thanh toán -> chọn vào sẽ có Option thanh toán Can Pay
-     */
+
     public void setActionButtonsEnabled(boolean viewDetails, boolean canReturn, boolean canPay) {
         btnViewDetails.setEnabled(viewDetails);
         btnReturn.setEnabled(canReturn);
@@ -424,15 +414,13 @@ public class BorrowManagementView extends JFrame {
     public void showInfo(String msg) {
         JOptionPane.showMessageDialog(this, msg, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
     }
-
     public void showWarn(String msg) {
         JOptionPane.showMessageDialog(this, msg, "Cảnh báo", JOptionPane.WARNING_MESSAGE);
     }
-
     public void showError(String msg) {
+
         JOptionPane.showMessageDialog(this, msg, "Lỗi", JOptionPane.ERROR_MESSAGE);
     }
-
     public int askConfirm(String msg, String title) {
         return JOptionPane.showConfirmDialog(this, msg, title, JOptionPane.YES_NO_OPTION);
     }

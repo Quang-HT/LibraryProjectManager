@@ -34,7 +34,6 @@ public class AuthorListView extends JFrame {
     @Getter
     private JButton btnClose;
 
-    // Data currently displayed in table (để map selection -> entity chính xác khi lọc)
     private List<Author_Entity> displayedAuthors = new ArrayList<>();
 
     public AuthorListView() {
@@ -75,7 +74,6 @@ public class AuthorListView extends JFrame {
         add(mainPanel);
     }
 
-    // ============================== SEARCH SECTION ==============================
     private void createSearchSection(JPanel parent) {
         int sectionY = 70;
 
@@ -150,7 +148,7 @@ public class AuthorListView extends JFrame {
         parent.add(lblInfo);
     }
 
-    // ============================== BUTTONS SECTION ==============================
+
     private void createButtonsSection(JPanel parent) {
         int buttonY = 560;
 
@@ -193,16 +191,6 @@ public class AuthorListView extends JFrame {
         }
     }
 
-    public Integer getSelectedAuthorIdOrNull() {
-        int selectedRow = tblAuthors.getSelectedRow();
-        if (selectedRow < 0) return null;
-
-        Object val = tableModel.getValueAt(selectedRow, 0);
-        if (val == null) return null;
-
-        if (val instanceof Integer) return (Integer) val;
-        return Integer.parseInt(val.toString());
-    }
 
     public Author_Entity getSelectedAuthorEntityOrNull() {
         int selectedRow = tblAuthors.getSelectedRow();
@@ -214,11 +202,9 @@ public class AuthorListView extends JFrame {
     public void showError(String msg) {
         JOptionPane.showMessageDialog(this, msg, "Lỗi", JOptionPane.ERROR_MESSAGE);
     }
-
     public void showInfo(String msg) {
         JOptionPane.showMessageDialog(this, msg, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
     }
-
     public void closeWindow() {
         dispose();
     }

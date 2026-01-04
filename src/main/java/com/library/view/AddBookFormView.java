@@ -175,7 +175,6 @@ public class AddBookFormView extends JFrame {
         label.setBounds(x, y, width, height);
         return label;
     }
-
     private JTextField createTextField(int x, int y, int width, int height) {
         JTextField textField = new JTextField();
         textField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -186,7 +185,6 @@ public class AddBookFormView extends JFrame {
         ));
         return textField;
     }
-
     private JComboBox<String> createComboBox(List<String> items, int x, int y, int width, int height) {
         JComboBox<String> comboBox = new JComboBox<>(items.toArray(new String[0]));
         comboBox.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -222,15 +220,12 @@ public class AddBookFormView extends JFrame {
         cmbPublisher.setModel(new DefaultComboBoxModel<>(items.toArray(new String[0])));
         cmbPublisher.setSelectedIndex(0);
     }
-
     public void showError(String msg) {
         JOptionPane.showMessageDialog(this, msg, "Lỗi", JOptionPane.ERROR_MESSAGE);
     }
-
     public void showInfo(String msg) {
         JOptionPane.showMessageDialog(this, msg, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
     }
-
     public boolean confirm(String msg) {
         int confirm = JOptionPane.showConfirmDialog(this, msg, "Xác nhận", JOptionPane.YES_NO_OPTION);
         return confirm == JOptionPane.YES_OPTION;

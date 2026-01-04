@@ -124,7 +124,6 @@ public class ForgotPasswordView extends JFrame {
 
         return panel;
     }
-
     private JLabel createStepBadge(String number, boolean active) {
         JLabel label = new JLabel(number);
         label.setFont(new Font("Segoe UI", Font.BOLD, 16));
@@ -137,7 +136,6 @@ public class ForgotPasswordView extends JFrame {
         label.setBorder(BorderFactory.createLineBorder(active ? PRIMARY_COLOR : new Color(206, 212, 218), 2));
         return label;
     }
-
     private JPanel createContent() {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -164,7 +162,6 @@ public class ForgotPasswordView extends JFrame {
 
         return panel;
     }
-
     private JPanel createStep1Panel() {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.LINE_AXIS));
@@ -366,14 +363,12 @@ public class ForgotPasswordView extends JFrame {
 
         setStep2DoneStep3ActiveUI();
     }
-
     public void markStep3Done() {
         step3Num.setText("✓");
         step3Num.setBackground(SUCCESS_COLOR);
         step3Num.setForeground(Color.WHITE);
         step3Num.setBorder(BorderFactory.createLineBorder(SUCCESS_COLOR, 2));
     }
-
     private void setStep1ActiveUI() {
         // reset badges
         step1Num.setText("1");
@@ -391,7 +386,6 @@ public class ForgotPasswordView extends JFrame {
         step3Num.setForeground(TEXT_SECONDARY);
         step3Num.setBorder(BorderFactory.createLineBorder(new Color(206, 212, 218), 2));
     }
-
     private void setStep1DoneStep2ActiveUI() {
         step1Num.setText("✓");
         step1Num.setBackground(SUCCESS_COLOR);
@@ -402,7 +396,6 @@ public class ForgotPasswordView extends JFrame {
         step2Num.setForeground(Color.WHITE);
         step2Num.setBorder(BorderFactory.createLineBorder(PRIMARY_COLOR, 2));
     }
-
     private void setStep2DoneStep3ActiveUI() {
         step2Num.setText("✓");
         step2Num.setBackground(SUCCESS_COLOR);
@@ -413,8 +406,6 @@ public class ForgotPasswordView extends JFrame {
         step3Num.setForeground(Color.WHITE);
         step3Num.setBorder(BorderFactory.createLineBorder(PRIMARY_COLOR, 2));
     }
-
-
     private JButton createButton(String text, Color bgColor) {
         JButton button = new JButton(text);
         button.setFont(new Font("Segoe UI", Font.BOLD, 12));
@@ -435,11 +426,9 @@ public class ForgotPasswordView extends JFrame {
 
         return button;
     }
-
     public void showError(String message) {
         JOptionPane.showMessageDialog(this, message, "Lỗi", JOptionPane.ERROR_MESSAGE);
     }
-
     public void showSuccess(String message) {
         JOptionPane.showMessageDialog(this, message, "Thành công", JOptionPane.INFORMATION_MESSAGE);
     }

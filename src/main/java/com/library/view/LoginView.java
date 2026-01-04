@@ -23,13 +23,8 @@ public class LoginView extends JFrame {
 
     private JTextField usernameField;
     private JPasswordField passwordField;
-    private JCheckBox rememberCheckbox;
 
-    /**
-     * @param controller
-     * Cài đặt LoginController cho view
-     * Tác dụng: Để gọi Controller xử lý dữ liệu của phía View trả về
-     */
+
     @Setter
     private LoginController controller;
 
@@ -93,7 +88,6 @@ public class LoginView extends JFrame {
         mainPanel.add(contentPanel);
         add(mainPanel);
     }
-
     private JPanel createLeftPanel() {
         JPanel panel = new JPanel(new GridBagLayout()) {
             @Override
@@ -168,7 +162,6 @@ public class LoginView extends JFrame {
         gbc.insets = new Insets(40, 30, 20, 30);
         panel.add(iconPanel, gbc);
 
-        // Title
         JLabel titleLabel = new JLabel("<html><center>HỆ THỐNG<br/>QUẢN LÝ THƯ VIỆN</center></html>");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 26));
         titleLabel.setForeground(WHITE);
@@ -178,7 +171,6 @@ public class LoginView extends JFrame {
         gbc.insets = new Insets(10, 30, 10, 30);
         panel.add(titleLabel, gbc);
 
-        // Subtitle
         JLabel subtitleLabel = new JLabel("<html><center>Giải pháp quản lý thư viện<br/>hiện đại và hiệu quả</center></html>");
         subtitleLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         subtitleLabel.setForeground(new Color(255, 255, 255, 200));
@@ -208,7 +200,6 @@ public class LoginView extends JFrame {
 
         return panel;
     }
-
     private JPanel createRightPanel() {
         JPanel panel = new JPanel(new GridBagLayout()) {
             @Override
@@ -288,7 +279,7 @@ public class LoginView extends JFrame {
         JPanel optionsPanel = new JPanel(new BorderLayout());
         optionsPanel.setOpaque(false);
 
-        rememberCheckbox = new JCheckBox("Ghi nhớ đăng nhập");
+        JCheckBox rememberCheckbox = new JCheckBox("Ghi nhớ đăng nhập");
         rememberCheckbox.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         rememberCheckbox.setForeground(TEXT_GRAY);
         rememberCheckbox.setOpaque(false);

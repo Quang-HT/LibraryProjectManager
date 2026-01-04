@@ -158,7 +158,6 @@ public class HomeView extends JFrame {
         sidebarPanel.add(sep);
         sidebarPanel.add(Box.createRigidArea(new Dimension(0, 10)));
     }
-
     private void createHeader() {
         headerPanel = new JPanel(new BorderLayout());
         headerPanel.setBackground(SECONDARY_BG);
@@ -229,8 +228,6 @@ public class HomeView extends JFrame {
 
         add(wrapper, BorderLayout.CENTER);
     }
-
-
     private void showDefaultContent() {
         contentPanel.removeAll();
 
@@ -299,7 +296,6 @@ public class HomeView extends JFrame {
         card.add(valueLabel, BorderLayout.EAST);
         return card;
     }
-
     private class SidebarButton extends JButton {
         public SidebarButton(String text) {
             super(text);

@@ -233,7 +233,6 @@ public class EditStaffForm extends JFrame {
     private void showError(String message) {
         JOptionPane.showMessageDialog(this, message, "Lỗi", JOptionPane.ERROR_MESSAGE);
     }
-
     private void addRequiredMark(JPanel parent, JLabel label) {
         JLabel required = new JLabel("*");
         required.setFont(new Font("Segoe UI", Font.BOLD, 16));
@@ -241,7 +240,6 @@ public class EditStaffForm extends JFrame {
         required.setBounds(label.getX() + label.getWidth() - 15, label.getY(), 15, label.getHeight());
         parent.add(required);
     }
-
     private JLabel createLabel(String text, int x, int y, int width, int height) {
         JLabel label = new JLabel(text);
         label.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -249,7 +247,6 @@ public class EditStaffForm extends JFrame {
         label.setBounds(x, y, width, height);
         return label;
     }
-
     private JTextField createTextField(int x, int y, int width, int height) {
         JTextField textField = new JTextField();
         textField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -260,7 +257,6 @@ public class EditStaffForm extends JFrame {
         ));
         return textField;
     }
-
     private JComboBox<String> createComboBox(String[] items, int x, int y, int width, int height) {
         JComboBox<String> comboBox = new JComboBox<>(items);
         comboBox.setFont(new Font("Segoe UI", Font.PLAIN, 14));

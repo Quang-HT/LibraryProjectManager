@@ -162,7 +162,6 @@ public class BookManagerFrame extends JFrame {
         label.setAlignmentX(Component.LEFT_ALIGNMENT);
         return label;
     }
-
     private JButton createButton(String text, Color bg, Color fg, Color hoverBg) {
         JButton btn = new JButton(text);
         btn.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -181,7 +180,6 @@ public class BookManagerFrame extends JFrame {
         });
         return btn;
     }
-
     private JTextField createTextField() {
         JTextField field = new JTextField();
         field.setFont(new Font("Segoe UI", Font.PLAIN, 13));
@@ -215,7 +213,6 @@ public class BookManagerFrame extends JFrame {
         });
         return field;
     }
-
     private JComboBox<String> createComboBox() {
         JComboBox<String> combo = new JComboBox<>();
         combo.setFont(new Font("Segoe UI", Font.PLAIN, 13));
@@ -232,7 +229,6 @@ public class BookManagerFrame extends JFrame {
         });
         return combo;
     }
-
     private JSeparator createDivider() {
         JSeparator sep = new JSeparator();
         sep.setForeground(BORDER_LIGHT);

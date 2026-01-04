@@ -290,7 +290,6 @@ public class ReaderDetailView extends JFrame {
         txtCccd.setBackground(bgColor);
         txtNotes.setBackground(bgColor);
     }
-
     public void setBorrowSlips(List<BorrowSlip_Entity> slips, List<Object[]> rows) {
         displayedSlips = (slips != null) ? slips : new ArrayList<>();
         tableModel.setRowCount(0);
@@ -309,15 +308,12 @@ public class ReaderDetailView extends JFrame {
     public void showInfo(String msg) {
         JOptionPane.showMessageDialog(this, msg, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
     }
-
     public void showWarning(String msg) {
         JOptionPane.showMessageDialog(this, msg, "Thông báo", JOptionPane.WARNING_MESSAGE);
     }
-
     public void showError(String msg) {
         JOptionPane.showMessageDialog(this, msg, "Lỗi", JOptionPane.ERROR_MESSAGE);
     }
-
     private JLabel createLabel(String text, int x, int y, int width, int height) {
         JLabel label = new JLabel(text);
         label.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -325,7 +321,6 @@ public class ReaderDetailView extends JFrame {
         label.setBounds(x, y, width, height);
         return label;
     }
-
     private JTextField createTextField(int x, int y, int width, int height) {
         JTextField textField = new JTextField();
         textField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -336,7 +331,6 @@ public class ReaderDetailView extends JFrame {
         ));
         return textField;
     }
-
     private JComboBox<String> createComboBox(String[] items, int x, int y, int width, int height) {
         JComboBox<String> comboBox = new JComboBox<>(items);
         comboBox.setFont(new Font("Segoe UI", Font.PLAIN, 14));

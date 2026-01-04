@@ -243,12 +243,10 @@ public class AuthorDetailView extends JFrame {
         if (birthDate == null) { txtBirthYear.setText(""); return; }
         txtBirthYear.setText(String.valueOf(birthDate.toLocalDate().getYear()));
     }
-
     public void setDeathYearFromDate(Date deathDate) {
         if (deathDate == null) { txtDeathYear.setText(""); return; }
         txtDeathYear.setText(String.valueOf(deathDate.toLocalDate().getYear()));
     }
-
     public void setFieldsEditable(boolean editable) {
         txtAuthorName.setEditable(editable);
         txtBirthYear.setEditable(editable);
@@ -263,7 +261,6 @@ public class AuthorDetailView extends JFrame {
         txtCountry.setBackground(bgColor);
         txtDeathYear.setBackground(bgColor);
     }
-
     public void setEditMode(boolean editMode) {
         btnEdit.setVisible(!editMode);
         btnSave.setVisible(editMode);
@@ -281,26 +278,21 @@ public class AuthorDetailView extends JFrame {
     public Integer getSelectedBookIdOrNull() {
         int row = tblBooks.getSelectedRow();
         if (row < 0) return null;
-        // cột 0 là ID nên lấy luôn cũng được
         Object v = tableModel.getValueAt(row, 0);
         if (v == null) return null;
         if (v instanceof Integer) return (Integer) v;
         return Integer.parseInt(v.toString());
     }
-
     public boolean confirm(String msg) {
         int confirm = JOptionPane.showConfirmDialog(this, msg, "Xác nhận", JOptionPane.YES_NO_OPTION);
         return confirm == JOptionPane.YES_OPTION;
     }
-
     public void showError(String msg) {
         JOptionPane.showMessageDialog(this, msg, "Lỗi", JOptionPane.ERROR_MESSAGE);
     }
-
     public void showInfo(String msg) {
         JOptionPane.showMessageDialog(this, msg, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
     }
-
     private JLabel createLabel(String text, int x, int y, int width, int height) {
         JLabel label = new JLabel(text);
         label.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -308,7 +300,6 @@ public class AuthorDetailView extends JFrame {
         label.setBounds(x, y, width, height);
         return label;
     }
-
     private JTextField createTextField(int x, int y, int width, int height) {
         JTextField textField = new JTextField();
         textField.setFont(new Font("Segoe UI", Font.PLAIN, 14));

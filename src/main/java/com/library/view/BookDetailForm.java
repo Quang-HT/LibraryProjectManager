@@ -115,7 +115,6 @@ public class BookDetailForm extends JFrame {
     public void onEdit(Runnable action) { btnEdit.addActionListener(e -> action.run()); }
     public void onSave(Runnable action) { btnSave.addActionListener(e -> action.run()); }
     public void onCancel(Runnable action) { btnCancel.addActionListener(e -> action.run()); }
-
     public void setEditMode(boolean editable) {
         isEditMode = editable;
 
@@ -142,17 +141,13 @@ public class BookDetailForm extends JFrame {
         btnSave.setVisible(editable);
         btnCancel.setText(editable ? "Hủy" : "Đóng");
     }
-
     public void closeForm() { dispose(); }
-
     public void showError(String msg) {
         JOptionPane.showMessageDialog(this, msg, "Lỗi", JOptionPane.ERROR_MESSAGE);
     }
-
     public void showInfo(String msg) {
         JOptionPane.showMessageDialog(this, msg, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
     }
-
     public boolean confirm(String msg) {
         return JOptionPane.showConfirmDialog(this, msg, "Xác nhận", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
     }
@@ -319,7 +314,6 @@ public class BookDetailForm extends JFrame {
         label.setBounds(x, y, width, height);
         return label;
     }
-
     private JTextField createTextField(int x, int y, int width, int height) {
         JTextField textField = new JTextField();
         textField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -330,7 +324,6 @@ public class BookDetailForm extends JFrame {
         ));
         return textField;
     }
-
     private int parseIntSafe(String s) {
         try { return Integer.parseInt(s.trim()); }
         catch (Exception e) { return 0; }

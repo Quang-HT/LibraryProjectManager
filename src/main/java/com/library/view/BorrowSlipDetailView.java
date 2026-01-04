@@ -198,7 +198,6 @@ public class BorrowSlipDetailView extends JFrame {
         gbc.weightx = 0.35;
         p.add(lblLabel, gbc);
 
-        // cột 1: value
         gbc.gridx = 1;
         gbc.weightx = 0.65;
         p.add(lblValue, gbc);
@@ -259,7 +258,6 @@ public class BorrowSlipDetailView extends JFrame {
     public void showError(String msg) {
         JOptionPane.showMessageDialog(this, msg, "Lỗi", JOptionPane.ERROR_MESSAGE);
     }
-
     public void showPrintPreview(String text) {
         JTextArea ta = new JTextArea(text);
         ta.setFont(new Font("Monospaced", Font.PLAIN, 13));

@@ -189,7 +189,6 @@ public class AccountDetailView extends JFrame {
         btnCancel.setText(isEditMode ? " Hủy" : "Đóng");
         setFieldsEditable(isEditMode);
     }
-
     public void setFieldsEditable(boolean editable) {
         txtUsername.setEditable(editable);
         txtPassword.setEditable(editable);
@@ -231,7 +230,6 @@ public class AccountDetailView extends JFrame {
         label.setBounds(x, y, width, height);
         return label;
     }
-
     private JTextField createTextField(int x, int y, int width, int height) {
         JTextField textField = new JTextField();
         textField.setFont(new Font("Segoe UI", Font.PLAIN, 14));

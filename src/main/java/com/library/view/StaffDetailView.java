@@ -124,7 +124,6 @@ public class StaffDetailView extends JFrame {
         label.setBounds(x, y, width, height);
         return label;
     }
-
     private JTextField createTextField(int x, int y, int width, int height) {
         JTextField textField = new JTextField();
         textField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -135,12 +134,10 @@ public class StaffDetailView extends JFrame {
         ));
         return textField;
     }
-
     private void makeReadOnly(JTextField tf) {
         tf.setEditable(false);
         tf.setBackground(DISABLED_BG);
     }
-
     public void setStaffIdText(String v) { txtStaffId.setText(v); }
     public void setStaffNameText(String v) { txtStaffName.setText(v); }
     public void setPositionText(String v) { txtPosition.setText(v); }

@@ -225,7 +225,6 @@ public class ReaderView extends JFrame {
         comboPanel.add(comboBox);
         sidebarPanel.add(comboPanel);
     }
-
     private void addSeparator() {
         JSeparator sep = new JSeparator();
         sep.setMaximumSize(new Dimension(250, 1));
@@ -237,7 +236,6 @@ public class ReaderView extends JFrame {
         sepPanel.add(sep);
         sidebarPanel.add(sepPanel);
     }
-
     private void createContentArea() {
         contentPanel = new JPanel(new BorderLayout());
         contentPanel.setBackground(PRIMARY_BG);

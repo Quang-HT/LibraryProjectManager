@@ -31,7 +31,7 @@ public class AddReaderFormView extends JFrame {
     @Getter
     private JButton btnCancel;
 
-    private final String[] genders = {"Chọn giới tính", "Nam", "Nữ", "Khác"};
+    private final String[] genders = {"Chọn giới tính", "Nam", "Nữ", "Bê Đê"};
 
     public AddReaderFormView() {
         initializeFrame();
@@ -225,15 +225,9 @@ public class AddReaderFormView extends JFrame {
     public void showInfo(String msg) {
         JOptionPane.showMessageDialog(this, msg, "Thành công", JOptionPane.INFORMATION_MESSAGE);
     }
-
-    public void showWarning(String msg) {
-        JOptionPane.showMessageDialog(this, msg, "Thông báo", JOptionPane.WARNING_MESSAGE);
-    }
-
     public void showError(String msg) {
         JOptionPane.showMessageDialog(this, msg, "Lỗi", JOptionPane.ERROR_MESSAGE);
     }
-
     public boolean confirm(String msg) {
         return JOptionPane.showConfirmDialog(this, msg, "Xác nhận", JOptionPane.YES_NO_OPTION)
                 == JOptionPane.YES_OPTION;
@@ -246,7 +240,6 @@ public class AddReaderFormView extends JFrame {
         label.setBounds(x, y, width, height);
         return label;
     }
-
     private JTextField createTextField(int x, int y, int width, int height) {
         JTextField textField = new JTextField();
         textField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -257,7 +250,6 @@ public class AddReaderFormView extends JFrame {
         ));
         return textField;
     }
-
     private JComboBox<String> createComboBox(String[] items, int x, int y, int width, int height) {
         JComboBox<String> comboBox = new JComboBox<>(items);
         comboBox.setFont(new Font("Segoe UI", Font.PLAIN, 14));
