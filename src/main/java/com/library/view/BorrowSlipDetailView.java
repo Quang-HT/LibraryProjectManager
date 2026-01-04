@@ -1,5 +1,7 @@
 package com.library.view;
 
+import lombok.Getter;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -29,7 +31,10 @@ public class BorrowSlipDetailView extends JFrame {
     private JTable tblBooks;
     private DefaultTableModel bookModel;
 
-    private JButton btnPrint, btnClose;
+    @Getter
+    private JButton btnPrint;
+    @Getter
+    private JButton btnClose;
 
     public BorrowSlipDetailView() {
         initFrame();
@@ -51,7 +56,6 @@ public class BorrowSlipDetailView extends JFrame {
         lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 26));
         main.add(lblTitle, BorderLayout.NORTH);
 
-        // ====== CONTENT dọc (để không bị cắt) ======
         JPanel content = new JPanel();
         content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
         content.setOpaque(false);
@@ -78,12 +82,11 @@ public class BorrowSlipDetailView extends JFrame {
 
         tblBooks = createBooksTable();
         JScrollPane sp = new JScrollPane(tblBooks);
-        sp.setPreferredSize(new Dimension(0, 250)); // giữ cũng được
+        sp.setPreferredSize(new Dimension(0, 250));
         tablePanel.add(sp, BorderLayout.CENTER);
 
         content.add(tablePanel);
 
-        // ✅ Bọc content bằng scroll để không bao giờ bị “cắt chữ”
         JScrollPane contentScroll = new JScrollPane(content);
         contentScroll.setBorder(null);
         contentScroll.getVerticalScrollBar().setUnitIncrement(16);
@@ -152,13 +155,11 @@ public class BorrowSlipDetailView extends JFrame {
                 BorderFactory.createEmptyBorder(13, 18, 13, 18)
         ));
 
-        // Title
         JLabel lblTitle = new JLabel("THÔNG TIN PHẠT");
         lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 16));
         lblTitle.setForeground(DANGER);
         wrapper.add(lblTitle, BorderLayout.NORTH);
 
-        // Rows
         JPanel p = new JPanel(new GridBagLayout());
         p.setOpaque(false);
 
@@ -185,7 +186,6 @@ public class BorrowSlipDetailView extends JFrame {
         lblValue.setFont(new Font("Segoe UI", Font.BOLD, 15));
         lblValue.setForeground(valueColor);
 
-        // cột 0: label
         gbc.gridx = 0;
         gbc.gridy = row;
         gbc.weightx = 0.35;
@@ -214,9 +214,6 @@ public class BorrowSlipDetailView extends JFrame {
         return tbl;
     }
 
-
-    public JButton getBtnPrint() { return btnPrint; }
-    public JButton getBtnClose() { return btnClose; }
 
     public void setHeader(String slipId) {
         setTitle("Chi tiết Phiếu mượn #" + slipId);

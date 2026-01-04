@@ -1,6 +1,7 @@
 package com.library.view;
 
 import com.library.model.display.ReaderRow;
+import lombok.Getter;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -17,12 +18,18 @@ public class ReaderManagementView extends JFrame {
     private static final Color PRIMARY_COLOR = new Color(25, 118, 210);
     private static final Color SUCCESS_COLOR = new Color(76, 175, 80);
 
+    @Getter
     private JTextField txtSearch;
+    @Getter
     private JTable tblReaders;
     private DefaultTableModel tableModel;
+    @Getter
     private JButton btnAddReader;
+    @Getter
     private JButton btnRefresh;
+    @Getter
     private JButton btnSearch;
+    @Getter
     private JButton btnClose;
 
     private List<ReaderRow> displayedReaders = new ArrayList<>();
@@ -208,10 +215,4 @@ public class ReaderManagementView extends JFrame {
         JOptionPane.showMessageDialog(this, msg, "Lỗi", JOptionPane.ERROR_MESSAGE);
     }
 
-    public JTextField getTxtSearch() { return txtSearch; }
-    public JTable getTblReaders() { return tblReaders; }
-    public JButton getBtnAddReader() { return btnAddReader; }
-    public JButton getBtnRefresh() { return btnRefresh; }
-    public JButton getBtnSearch() { return btnSearch; }
-    public JButton getBtnClose() { return btnClose; }
 }

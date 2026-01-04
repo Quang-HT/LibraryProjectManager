@@ -1,6 +1,7 @@
 package com.library.view;
 
 import com.library.model.Reader_Entity;
+import lombok.Getter;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -18,15 +19,35 @@ public class AddBorrowSlipFormView extends JFrame {
 
     private JTextField txtReaderId, txtReaderName, txtPhone, txtEmail;
     private JTextField txtBookSearch;
+    @Getter
     private JComboBox<Integer> cmbBorrowDays;
     private JLabel lblBorrowDate, lblDueDate;
 
-    private JTable tblAvailableBooks, tblSelectedBooks;
-    private DefaultTableModel availableModel, selectedModel;
+    @Getter
+    private JTable tblAvailableBooks;
+    @Getter
+    private JTable tblSelectedBooks;
+    @Getter
+    private DefaultTableModel availableModel;
+    @Getter
+    private DefaultTableModel selectedModel;
 
-    private JButton btnFindReader, btnNewReader;
-    private JButton btnAddBook, btnRemoveBook;
-    private JButton btnSave, btnReset, btnCancel, btnSearchBook;
+    @Getter
+    private JButton btnFindReader;
+    @Getter
+    private JButton btnNewReader;
+    @Getter
+    private JButton btnAddBook;
+    @Getter
+    private JButton btnRemoveBook;
+    @Getter
+    private JButton btnSave;
+    @Getter
+    private JButton btnReset;
+    @Getter
+    private JButton btnCancel;
+    @Getter
+    private JButton btnSearchBook;
 
     public AddBorrowSlipFormView() {
         initFrame();
@@ -211,22 +232,6 @@ public class AddBorrowSlipFormView extends JFrame {
         tf.setBackground(new Color(240, 240, 240));
     }
 
-    // ==================== getters for Controller ====================
-
-    public JButton getBtnFindReader() { return btnFindReader; }
-    public JButton getBtnNewReader() { return btnNewReader; }
-    public JButton getBtnAddBook() { return btnAddBook; }
-    public JButton getBtnRemoveBook() { return btnRemoveBook; }
-    public JButton getBtnSave() { return btnSave; }
-    public JButton getBtnReset() { return btnReset; }
-    public JButton getBtnCancel() { return btnCancel; }
-    public JButton getBtnSearchBook() { return btnSearchBook; }
-
-    public JTable getTblAvailableBooks() { return tblAvailableBooks; }
-    public JTable getTblSelectedBooks() { return tblSelectedBooks; }
-
-    public DefaultTableModel getAvailableModel() { return availableModel; }
-    public DefaultTableModel getSelectedModel() { return selectedModel; }
 
     public String getReaderIdText() { return txtReaderId.getText(); }
     public void setReaderIdText(String s) { txtReaderId.setText(s); }
@@ -234,7 +239,6 @@ public class AddBorrowSlipFormView extends JFrame {
     public String getBookSearchText() { return txtBookSearch.getText(); }
 
     public Integer getBorrowDays() { return (Integer) cmbBorrowDays.getSelectedItem(); }
-    public JComboBox<Integer> getCmbBorrowDays() { return cmbBorrowDays; }
 
     public String getBorrowDateText() { return lblBorrowDate.getText(); }
     public String getDueDateText() { return lblDueDate.getText(); }
@@ -265,7 +269,6 @@ public class AddBorrowSlipFormView extends JFrame {
     public void showWarn(String msg) { JOptionPane.showMessageDialog(this, msg, "Cảnh báo", JOptionPane.WARNING_MESSAGE); }
     public void showError(String msg){ JOptionPane.showMessageDialog(this, msg, "Lỗi", JOptionPane.ERROR_MESSAGE); }
 
-    // ==================== small UI helpers ====================
 
     private JLabel addLabel(JPanel p, String txt, int x, int y, int w, int h, int size, boolean bold, Color color) {
         JLabel l = new JLabel(txt);

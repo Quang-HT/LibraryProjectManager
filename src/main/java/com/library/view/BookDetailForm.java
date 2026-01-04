@@ -1,6 +1,7 @@
 package com.library.view;
 
 import com.library.model.display.BookDisplayModel;
+import lombok.Getter;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -16,13 +17,11 @@ import java.util.List;
  */
 public class BookDetailForm extends JFrame {
 
-    // Color Scheme
     private static final Color BG_COLOR = Color.WHITE;
     private static final Color TEXT_COLOR = new Color(33, 33, 33);
     private static final Color BORDER_COLOR = new Color(180, 180, 180);
     private static final Color DISABLED_BG = new Color(245, 245, 245);
 
-    // Form components
     private JTextField txtBookId;
     private JTextField txtBookName;
     private JTextField txtPublishYear;
@@ -38,11 +37,7 @@ public class BookDetailForm extends JFrame {
     private JButton btnCancel;
     private JButton btnEdit;
 
-    // Image components
-    private JLabel lblImagePreview;
-    private String selectedImagePath;
-
-    // State
+    @Getter
     private boolean isEditMode = false;
 
     public BookDetailForm() {
@@ -51,7 +46,6 @@ public class BookDetailForm extends JFrame {
         setEditMode(false);
     }
 
-    // ===================== Public API for Controller =====================
 
     public void setBookDetail(BookDisplayModel dto) {
         txtBookId.setText(String.valueOf(dto.getBookId()));
@@ -147,8 +141,6 @@ public class BookDetailForm extends JFrame {
         btnCancel.setText(editable ? "Hủy" : "Đóng");
     }
 
-    public boolean isEditMode() { return isEditMode; }
-    public String getSelectedImagePath() { return selectedImagePath; }
     public void closeForm() { dispose(); }
 
     public void showError(String msg) {
@@ -163,7 +155,6 @@ public class BookDetailForm extends JFrame {
         return JOptionPane.showConfirmDialog(this, msg, "Xác nhận", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
     }
 
-    // ===================== UI building =====================
 
     private void initializeFrame() {
         setTitle("Chi tiết thông tin sách");

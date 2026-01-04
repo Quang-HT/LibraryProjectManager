@@ -72,7 +72,6 @@ public class EditStaffForm extends JFrame {
         int fieldWidth = 280;
         int height = 35;
 
-        // Staff ID
         JLabel lblStaffId = createLabel("ID Nhân viên:", labelX, startY, labelWidth, height);
         parent.add(lblStaffId);
 
@@ -81,7 +80,6 @@ public class EditStaffForm extends JFrame {
         txtStaffId.setBackground(new Color(245, 245, 245));
         parent.add(txtStaffId);
 
-        // Staff Name
         JLabel lblStaffName = createLabel("Tên nhân viên:", labelX, startY + spacing, labelWidth, height);
         addRequiredMark(parent, lblStaffName);
         parent.add(lblStaffName);
@@ -89,7 +87,6 @@ public class EditStaffForm extends JFrame {
         txtStaffName = createTextField(fieldX, startY + spacing, fieldWidth, height);
         parent.add(txtStaffName);
 
-        // Position
         JLabel lblPosition = createLabel("Chức vụ:", labelX, startY + spacing * 2, labelWidth, height);
         addRequiredMark(parent, lblPosition);
         parent.add(lblPosition);
@@ -97,7 +94,6 @@ public class EditStaffForm extends JFrame {
         cmbPosition = createComboBox(positions, fieldX, startY + spacing * 2, fieldWidth, height);
         parent.add(cmbPosition);
 
-        // Email
         JLabel lblEmail = createLabel("Email:", labelX, startY + spacing * 3, labelWidth, height);
         addRequiredMark(parent, lblEmail);
         parent.add(lblEmail);
@@ -105,14 +101,12 @@ public class EditStaffForm extends JFrame {
         txtEmail = createTextField(fieldX, startY + spacing * 3, fieldWidth, height);
         parent.add(txtEmail);
 
-        // Phone
         JLabel lblPhone = createLabel("Số điện thoại:", labelX, startY + spacing * 4, labelWidth, height);
         parent.add(lblPhone);
 
         txtPhone = createTextField(fieldX, startY + spacing * 4, fieldWidth, height);
         parent.add(txtPhone);
 
-        // Is Working
         JLabel lblIsWorking = createLabel("Trạng thái:", labelX, startY + spacing * 5, labelWidth, height);
         parent.add(lblIsWorking);
 
@@ -130,7 +124,6 @@ public class EditStaffForm extends JFrame {
         txtPhone.setText(staff.getPhone() != null ? staff.getPhone() : "");
         chkIsWorking.setSelected(staff.getIs_working() == 1);
 
-        // Set position
         String position = staff.getPosition();
         for (int i = 0; i < positions.length; i++) {
             if (positions[i].equals(position)) {
@@ -167,7 +160,6 @@ public class EditStaffForm extends JFrame {
     }
 
     private void saveStaff() {
-        // Validation
         if (txtStaffName.getText().trim().isEmpty()) {
             showError("Vui lòng nhập tên nhân viên!");
             txtStaffName.requestFocus();
@@ -197,7 +189,6 @@ public class EditStaffForm extends JFrame {
         try {
             Staff_DAO dao = new Staff_DAO();
 
-            // Check if email exists (for other staff)
             Staff_Entity existingStaff = dao.findEmail(email).orElse(null);
             if (existingStaff != null && existingStaff.getStaff_id() != staff.getStaff_id()) {
                 showError("Email đã được sử dụng bởi nhân viên khác!");

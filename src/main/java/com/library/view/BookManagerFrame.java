@@ -25,7 +25,7 @@ public class BookManagerFrame extends JFrame {
     private static final Color BORDER_LIGHT = new Color(229, 231, 235);
     private static final Color BORDER_DEFAULT = new Color(209, 213, 219);
 
-    // Components
+
     private JPanel booksContainer;
     private JTextField searchField;
     private JButton topBorrowedButton;
@@ -62,12 +62,10 @@ public class BookManagerFrame extends JFrame {
                 new EmptyBorder(30, 25, 30, 25)
         ));
 
-        // Logo
         sidebar.add(createLabel("Thư Viện", 28, Font.BOLD, PRIMARY));
         sidebar.add(createLabel("Hệ thống quản lý sách", 13, Font.PLAIN, TEXT_SECONDARY));
         sidebar.add(Box.createRigidArea(new Dimension(0, 35)));
 
-        // Add Book Button
         JButton addBtn = createButton("+ Thêm đầu sách mới", PRIMARY, Color.WHITE, PRIMARY_DARK);
         addBtn.addActionListener(e -> {
             if (bookManagerController != null) bookManagerController.handleAddBook();
@@ -75,29 +73,24 @@ public class BookManagerFrame extends JFrame {
         sidebar.add(addBtn);
         sidebar.add(Box.createRigidArea(new Dimension(0, 30)));
 
-        // Divider
         sidebar.add(createDivider());
         sidebar.add(Box.createRigidArea(new Dimension(0, 30)));
 
-        // Filters
         sidebar.add(createLabel("BỘ LỌC & TÌM KIẾM", 11, Font.BOLD, TEXT_MUTED));
         sidebar.add(Box.createRigidArea(new Dimension(0, 20)));
 
-        // Search
         sidebar.add(createLabel("Tìm kiếm", 13, Font.BOLD, TEXT_PRIMARY));
         sidebar.add(Box.createRigidArea(new Dimension(0, 8)));
         searchField = createTextField();
         sidebar.add(searchField);
         sidebar.add(Box.createRigidArea(new Dimension(0, 20)));
 
-        // Category
         sidebar.add(createLabel("Thể loại", 13, Font.BOLD, TEXT_PRIMARY));
         sidebar.add(Box.createRigidArea(new Dimension(0, 8)));
         categoryComboBox = createComboBox();
         sidebar.add(categoryComboBox);
         sidebar.add(Box.createRigidArea(new Dimension(0, 20)));
 
-        // Top Borrowed
         topBorrowedButton = createButton("Top sách mượn nhiều", BG_MAIN, TEXT_PRIMARY, BG_HOVER);
         topBorrowedButton.setHorizontalAlignment(SwingConstants.LEFT);
         topBorrowedButton.addActionListener(e -> {
@@ -106,7 +99,6 @@ public class BookManagerFrame extends JFrame {
         sidebar.add(topBorrowedButton);
         sidebar.add(Box.createRigidArea(new Dimension(0, 25)));
 
-        // Stats
         totalBooksLabel = new JLabel("Tổng số: 0 sách");
         totalBooksLabel.setFont(new Font("Segoe UI", Font.BOLD, 13));
         totalBooksLabel.setForeground(TEXT_SECONDARY);
@@ -121,7 +113,6 @@ public class BookManagerFrame extends JFrame {
 
         sidebar.add(Box.createVerticalGlue());
 
-        // Back Button
         JButton backBtn = createButton("Quay lại trang chủ", BG_MAIN, TEXT_SECONDARY, BG_HOVER);
         backBtn.setHorizontalAlignment(SwingConstants.LEFT);
         backBtn.addActionListener(e -> goHome());
@@ -135,7 +126,6 @@ public class BookManagerFrame extends JFrame {
         content.setBackground(BG_MAIN);
         content.setBorder(new EmptyBorder(40, 50, 40, 50));
 
-        // Header
         JPanel header = new JPanel();
         header.setLayout(new BoxLayout(header, BoxLayout.Y_AXIS));
         header.setBackground(BG_MAIN);
@@ -144,7 +134,6 @@ public class BookManagerFrame extends JFrame {
         header.add(createLabel("Khám phá kho tàng tri thức", 14, Font.PLAIN, TEXT_SECONDARY));
         content.add(header, BorderLayout.NORTH);
 
-        // Books Container
         booksContainer = new JPanel();
         booksContainer.setLayout(new BoxLayout(booksContainer, BoxLayout.Y_AXIS));
         booksContainer.setBackground(BG_MAIN);
@@ -245,7 +234,6 @@ public class BookManagerFrame extends JFrame {
         return sep;
     }
 
-    // Public Methods
     public void displayBooks(List<BookDisplayModel> books) {
         booksContainer.removeAll();
         if (books.isEmpty()) {
@@ -292,7 +280,6 @@ public class BookManagerFrame extends JFrame {
         card.setMaximumSize(new Dimension(Integer.MAX_VALUE, 160));
         card.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        // Info Panel
         JPanel info = new JPanel();
         info.setLayout(new BoxLayout(info, BoxLayout.Y_AXIS));
         info.setBackground(BG_CARD);
@@ -321,7 +308,6 @@ public class BookManagerFrame extends JFrame {
         info.add(Box.createRigidArea(new Dimension(0, 6)));
         info.add(borrowBadge);
 
-        // Price Panel
         JPanel pricePanel = new JPanel();
         pricePanel.setLayout(new BoxLayout(pricePanel, BoxLayout.Y_AXIS));
         pricePanel.setBackground(BG_CARD);
@@ -331,7 +317,6 @@ public class BookManagerFrame extends JFrame {
         card.add(info, BorderLayout.CENTER);
         card.add(pricePanel, BorderLayout.EAST);
 
-        // Hover Effect
         card.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent e) {
                 card.setBackground(PRIMARY_LIGHT);
@@ -393,7 +378,6 @@ public class BookManagerFrame extends JFrame {
         dispose();
     }
 
-    // Modern ScrollBar
     private class ModernScrollBarUI extends javax.swing.plaf.basic.BasicScrollBarUI {
         protected void configureScrollBarColors() {
             this.thumbColor = BORDER_DEFAULT;

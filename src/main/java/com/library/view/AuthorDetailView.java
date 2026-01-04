@@ -2,6 +2,7 @@ package com.library.view;
 
 import com.library.model.Author_Entity;
 import com.library.model.Book_Entity;
+import lombok.Getter;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -29,15 +30,20 @@ public class AuthorDetailView extends JFrame {
     private JTextArea txtBiography;
 
     // Table
+    // Table
+    @Getter
     private JTable tblBooks;
     private DefaultTableModel tableModel;
 
     // Buttons
+    // Buttons
+    @Getter
     private JButton btnEdit;
+    @Getter
     private JButton btnSave;
+    @Getter
     private JButton btnCancel;
 
-    // Data hiển thị trong bảng (để map row -> bookId)
     private List<Integer> displayedBookIds = new ArrayList<>();
 
     public AuthorDetailView() {
@@ -213,15 +219,6 @@ public class AuthorDetailView extends JFrame {
         parent.add(btnCancel);
     }
 
-    /* ====================== VIEW API ====================== */
-
-    // Buttons
-    public JButton getBtnEdit() { return btnEdit; }
-    public JButton getBtnSave() { return btnSave; }
-    public JButton getBtnCancel() { return btnCancel; }
-
-    // Table
-    public JTable getTblBooks() { return tblBooks; }
 
     // Get values
     public String getAuthorName() { return txtAuthorName.getText().trim(); }

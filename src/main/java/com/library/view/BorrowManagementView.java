@@ -1,5 +1,7 @@
 package com.library.view;
 
+import lombok.Getter;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -26,14 +28,35 @@ public class BorrowManagementView extends JFrame {
 
     private JTextField txtSearchReader, txtPenaltyRate;
     private JTable tblBorrowSlips;
+    @Getter
     private DefaultTableModel tableModel;
+    @Getter
     private TableRowSorter<DefaultTableModel> sorter;
 
     private JComboBox<String> cmbStatus, cmbMonth, cmbYear;
 
-    private JButton btnViewDetails, btnReturn, btnPayPenalty;
-    private JButton btnAutoGenerate, btnCreateSlip, btnSendEmail;
-    private JButton btnUpdateRate, btnSearch, btnClear, btnRefresh, btnClose;
+    @Getter
+    private JButton btnViewDetails;
+    @Getter
+    private JButton btnReturn;
+    @Getter
+    private JButton btnPayPenalty;
+    @Getter
+    private JButton btnAutoGenerate;
+    @Getter
+    private JButton btnCreateSlip;
+    @Getter
+    private JButton btnSendEmail;
+    @Getter
+    private JButton btnUpdateRate;
+    @Getter
+    private JButton btnSearch;
+    @Getter
+    private JButton btnClear;
+    @Getter
+    private JButton btnRefresh;
+    @Getter
+    private JButton btnClose;
 
     private JLabel lblTotalSlips, lblActiveSlips, lblExpiredSlips, lblReturnedSlips, lblTotalPenalty, lblUnpaidPenalty;
 
@@ -116,7 +139,6 @@ public class BorrowManagementView extends JFrame {
     private JPanel createSearchAndTablePanel() {
         JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
 
-        // ================= FILTER PANEL (NORTH) =================
         JPanel filterPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
         filterPanel.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createLineBorder(BORDER, 1),
@@ -169,10 +191,8 @@ public class BorrowManagementView extends JFrame {
 
         mainPanel.add(filterPanel, BorderLayout.NORTH);
 
-        // ================= TABLE CONTAINER (CENTER) =================
         JPanel tableContainer = new JPanel(new BorderLayout(10, 10));
 
-        // --- ACTION PANEL (luôn hiện, nằm trên bảng) ---
         JPanel actionPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 5));
 
         btnAutoGenerate = createStyledButton("Tạo phiếu phạt tự động", WARNING, 200, 35);
@@ -185,7 +205,6 @@ public class BorrowManagementView extends JFrame {
 
         tableContainer.add(actionPanel, BorderLayout.NORTH);
 
-        // --- TABLE PANEL ---
         JPanel tablePanel = new JPanel(new BorderLayout());
         createTable(tablePanel); // createTable() sẽ add JScrollPane vào CENTER của tablePanel
 
@@ -221,7 +240,6 @@ public class BorrowManagementView extends JFrame {
             tblBorrowSlips.getColumnModel().getColumn(i).setPreferredWidth(widths[i]);
         }
 
-        // Penalty renderer
         tblBorrowSlips.getColumnModel().getColumn(8).setCellRenderer((t, v, sel, foc, r, c) -> {
             JLabel l = new JLabel(String.valueOf(v), SwingConstants.RIGHT);
             l.setOpaque(true);
@@ -233,7 +251,6 @@ public class BorrowManagementView extends JFrame {
             return l;
         });
 
-        // Payment status renderer
         tblBorrowSlips.getColumnModel().getColumn(9).setCellRenderer((t, v, sel, foc, r, c) -> {
             JLabel l = new JLabel(String.valueOf(v), SwingConstants.CENTER);
             l.setOpaque(true);
@@ -257,7 +274,6 @@ public class BorrowManagementView extends JFrame {
             return l;
         });
 
-        // Status renderer
         tblBorrowSlips.getColumnModel().getColumn(10).setCellRenderer((t, v, sel, foc, r, c) -> {
             JLabel l = new JLabel(String.valueOf(v), SwingConstants.CENTER);
             l.setOpaque(true);
@@ -346,7 +362,6 @@ public class BorrowManagementView extends JFrame {
         return lblValue;
     }
 
-    // ========================= API cho Controller =========================
 
     public void setPenaltyRateText(String text) { txtPenaltyRate.setText(text); }
     public String getPenaltyRateText() { return txtPenaltyRate.getText(); }
@@ -362,21 +377,6 @@ public class BorrowManagementView extends JFrame {
     public String getSelectedStatus() { return String.valueOf(cmbStatus.getSelectedItem()); }
 
     public JTable getTable() { return tblBorrowSlips; }
-    public DefaultTableModel getTableModel() { return tableModel; }
-    public TableRowSorter<DefaultTableModel> getSorter() { return sorter; }
-
-    public JButton getBtnUpdateRate() { return btnUpdateRate; }
-    public JButton getBtnSearch() { return btnSearch; }
-    public JButton getBtnClear() { return btnClear; }
-    public JButton getBtnAutoGenerate() { return btnAutoGenerate; }
-    public JButton getBtnCreateSlip() { return btnCreateSlip; }
-    public JButton getBtnSendEmail() { return btnSendEmail; }
-
-    public JButton getBtnViewDetails() { return btnViewDetails; }
-    public JButton getBtnReturn() { return btnReturn; }
-    public JButton getBtnPayPenalty() { return btnPayPenalty; }
-    public JButton getBtnRefresh() { return btnRefresh; }
-    public JButton getBtnClose() { return btnClose; }
 
     /**
      * Hàm này sẽ cho phép các phiếu mượn có các Option khác nhau

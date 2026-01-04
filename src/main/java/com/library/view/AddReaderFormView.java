@@ -1,18 +1,18 @@
 package com.library.view;
 
+import lombok.Getter;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class AddReaderFormView extends JFrame {
 
-    // Color Scheme
     private static final Color BG_COLOR = Color.WHITE;
     private static final Color TEXT_COLOR = new Color(33, 33, 33);
     private static final Color BORDER_COLOR = new Color(180, 180, 180);
     private static final Color SUCCESS_COLOR = new Color(76, 175, 80);
 
-    // Form components
     private JTextField txtFullName;
     private JTextField txtPhoneNumber;
     private JTextField txtEmail;
@@ -22,12 +22,13 @@ public class AddReaderFormView extends JFrame {
     private JComboBox<String> cmbGender;
     private JTextArea txtNotes;
 
-    // Buttons
+    @Getter
     private JButton btnSave;
+    @Getter
     private JButton btnClear;
+    @Getter
     private JButton btnCancel;
 
-    // Data
     private final String[] genders = {"Chọn giới tính", "Nam", "Nữ", "Khác"};
 
     public AddReaderFormView() {
@@ -191,11 +192,6 @@ public class AddReaderFormView extends JFrame {
         parent.add(btnCancel);
     }
 
-    /* ===================== VIEW API ===================== */
-
-    public JButton getBtnSave() { return btnSave; }
-    public JButton getBtnClear() { return btnClear; }
-    public JButton getBtnCancel() { return btnCancel; }
 
     public String getFullName() { return txtFullName.getText().trim(); }
     public String getPhone() { return txtPhoneNumber.getText().trim(); }

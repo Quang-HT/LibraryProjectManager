@@ -1,5 +1,7 @@
 package com.library.view;
 
+import lombok.Getter;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -11,12 +13,19 @@ public class AddStaffFormView extends JFrame {
     private static final Color BORDER_COLOR = new Color(180, 180, 180);
     private static final Color SUCCESS_COLOR = new Color(76, 175, 80);
 
+    @Getter
     private JTextField txtStaffName;
+    @Getter
     private JTextField txtEmail;
+    @Getter
     private JTextField txtPhone;
+    @Getter
     private JComboBox<String> cmbPosition;
+    @Getter
     private JCheckBox chkIsWorking;
+    @Getter
     private JButton btnSave;
+    @Getter
     private JButton btnCancel;
 
     private final String[] positions = {"Chọn chức vụ", "Manager", "Staff", "Librarian"};
@@ -132,7 +141,6 @@ public class AddStaffFormView extends JFrame {
         parent.add(btnCancel);
     }
 
-    // ===== Helpers UI =====
     public void showError(String message) {
         JOptionPane.showMessageDialog(this, message, "Lỗi", JOptionPane.ERROR_MESSAGE);
     }
@@ -177,12 +185,4 @@ public class AddStaffFormView extends JFrame {
         return comboBox;
     }
 
-    public JTextField getTxtStaffName() { return txtStaffName; }
-    public JTextField getTxtEmail() { return txtEmail; }
-    public JTextField getTxtPhone() { return txtPhone; }
-    public JComboBox<String> getCmbPosition() { return cmbPosition; }
-    public JCheckBox getChkIsWorking() { return chkIsWorking; }
-
-    public JButton getBtnSave() { return btnSave; }
-    public JButton getBtnCancel() { return btnCancel; }
 }

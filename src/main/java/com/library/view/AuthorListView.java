@@ -1,6 +1,7 @@
 package com.library.view;
 
 import com.library.model.Author_Entity;
+import lombok.Getter;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -11,20 +12,24 @@ import java.util.List;
 
 public class AuthorListView extends JFrame {
 
-    // Color Scheme
     private static final Color BG_COLOR = Color.WHITE;
     private static final Color TEXT_COLOR = new Color(33, 33, 33);
     private static final Color BORDER_COLOR = new Color(180, 180, 180);
     private static final Color PRIMARY_COLOR = new Color(25, 118, 210);
     private static final Color SUCCESS_COLOR = new Color(76, 175, 80);
 
-    // Components
+    @Getter
     private JTextField txtSearch;
+    @Getter
     private JTable tblAuthors;
     private DefaultTableModel tableModel;
+    @Getter
     private JButton btnAddAuthor;
+    @Getter
     private JButton btnRefresh;
+    @Getter
     private JButton btnSearch;
+    @Getter
     private JButton btnClose;
 
     // Data currently displayed in table (để map selection -> entity chính xác khi lọc)
@@ -35,7 +40,6 @@ public class AuthorListView extends JFrame {
         createComponents();
     }
 
-    // ============================== FRAME SETUP ==============================
     private void initializeFrame() {
         setTitle("Danh sách Tác giả");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -162,21 +166,11 @@ public class AuthorListView extends JFrame {
         parent.add(btnClose);
     }
 
-    /* ============================== VIEW API ============================== */
-
-    public JButton getBtnAddAuthor() { return btnAddAuthor; }
-    public JButton getBtnRefresh() { return btnRefresh; }
-    public JButton getBtnSearch() { return btnSearch; }
-    public JButton getBtnClose() { return btnClose; }
-
-    public JTextField getTxtSearch() { return txtSearch; }
-    public JTable getTblAuthors() { return tblAuthors; }
 
     public void clearSearch() {
         txtSearch.setText("");
     }
 
-    // đổ dữ liệu lên bảng + lưu danh sách đang hiển thị
     public void setAuthors(List<Author_Entity> authors) {
         displayedAuthors = (authors != null) ? authors : new ArrayList<>();
         tableModel.setRowCount(0);
@@ -192,7 +186,6 @@ public class AuthorListView extends JFrame {
         }
     }
 
-    // Lấy authorId đang chọn từ bảng
     public Integer getSelectedAuthorIdOrNull() {
         int selectedRow = tblAuthors.getSelectedRow();
         if (selectedRow < 0) return null;
@@ -204,7 +197,6 @@ public class AuthorListView extends JFrame {
         return Integer.parseInt(val.toString());
     }
 
-    // Lấy entity đang chọn dựa trên row đang hiển thị (an toàn khi đã lọc)
     public Author_Entity getSelectedAuthorEntityOrNull() {
         int selectedRow = tblAuthors.getSelectedRow();
         if (selectedRow < 0) return null;

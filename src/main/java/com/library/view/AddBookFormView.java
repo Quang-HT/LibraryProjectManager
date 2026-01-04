@@ -1,22 +1,18 @@
 package com.library.view;
 
-import javax.imageio.ImageIO;
+import lombok.Getter;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.List;
 
 public class AddBookFormView extends JFrame {
 
-    // Color Scheme
     private static final Color BG_COLOR = Color.WHITE;
     private static final Color TEXT_COLOR = new Color(33, 33, 33);
     private static final Color BORDER_COLOR = new Color(180, 180, 180);
 
-    // Form components
     private JTextField txtBookName;
     private JTextField txtPublishYear;
     private JComboBox<String> cmbCategory;
@@ -26,15 +22,10 @@ public class AddBookFormView extends JFrame {
     private JTextField txtLocation;
     private JTextField txtCopyCount;
     private JTextArea txtDescription;
+    @Getter
     private JButton btnSave;
+    @Getter
     private JButton btnCancel;
-
-    // Image components
-    private JLabel lblImagePreview;
-    private JButton btnImportImage;
-
-    // Controller sẽ set
-    private String selectedImagePath;
 
     public AddBookFormView() {
         initializeFrame();
@@ -199,7 +190,6 @@ public class AddBookFormView extends JFrame {
     }
 
 
-    // --- getters dữ liệu ---
     public String getBookName() { return txtBookName.getText().trim(); }
     public String getPublishYearText() { return txtPublishYear.getText().trim(); }
     public String getCopyPriceText() { return txtCopyPrice.getText().trim(); }
@@ -211,11 +201,6 @@ public class AddBookFormView extends JFrame {
     public int getSelectedAuthorIndex() { return cmbAuthor.getSelectedIndex(); }
     public int getSelectedPublisherIndex() { return cmbPublisher.getSelectedIndex(); }
 
-    public JButton getBtnSave() { return btnSave; }
-    public JButton getBtnCancel() { return btnCancel; }
-    public JButton getBtnImportImage() { return btnImportImage; }
-
-    // --- set data cho combobox ---
     public void setCategoryItems(List<String> items) {
         cmbCategory.setModel(new DefaultComboBoxModel<>(items.toArray(new String[0])));
         cmbCategory.setSelectedIndex(0);
@@ -231,7 +216,6 @@ public class AddBookFormView extends JFrame {
         cmbPublisher.setSelectedIndex(0);
     }
 
-    // --- UI helpers ---
     public void showError(String msg) {
         JOptionPane.showMessageDialog(this, msg, "Lỗi", JOptionPane.ERROR_MESSAGE);
     }
@@ -260,8 +244,5 @@ public class AddBookFormView extends JFrame {
         txtLocation.setText("");
         txtCopyCount.setText("");
         txtDescription.setText("");
-        lblImagePreview.setIcon(null);
-        lblImagePreview.setText("Chưa có ảnh");
-        selectedImagePath = null;
     }
 }

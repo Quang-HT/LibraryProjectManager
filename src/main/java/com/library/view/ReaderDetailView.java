@@ -1,6 +1,7 @@
 package com.library.view;
 
 import com.library.model.BorrowSlip_Entity;
+import lombok.Getter;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -11,14 +12,12 @@ import java.util.List;
 
 public class ReaderDetailView extends JFrame {
 
-    // Color Scheme
     private static final Color BG_COLOR = Color.WHITE;
     private static final Color TEXT_COLOR = new Color(33, 33, 33);
     private static final Color BORDER_COLOR = new Color(180, 180, 180);
     private static final Color DISABLED_BG = new Color(245, 245, 245);
     private static final Color PRIMARY_COLOR = new Color(25, 118, 210);
 
-    // Form components
     private JTextField txtReaderId;
     private JTextField txtFullName;
     private JTextField txtPhoneNumber;
@@ -29,16 +28,17 @@ public class ReaderDetailView extends JFrame {
     private JComboBox<String> cmbStatus;
     private JTextArea txtNotes;
 
-    // Table
+    @Getter
     private JTable tblBorrowSlips;
     private DefaultTableModel tableModel;
 
-    // Buttons
+    @Getter
     private JButton btnEdit;
+    @Getter
     private JButton btnSave;
+    @Getter
     private JButton btnCancel;
 
-    // Data mapping (row -> slip)
     private List<BorrowSlip_Entity> displayedSlips = new ArrayList<>();
 
     private final String[] statuses = {"Hoạt động", "Tạm khóa", "Vi phạm"};
@@ -239,13 +239,6 @@ public class ReaderDetailView extends JFrame {
         parent.add(btnCancel);
     }
 
-    /* ===================== VIEW API ===================== */
-
-    public JButton getBtnEdit() { return btnEdit; }
-    public JButton getBtnSave() { return btnSave; }
-    public JButton getBtnCancel() { return btnCancel; }
-
-    public JTable getTblBorrowSlips() { return tblBorrowSlips; }
 
     public String getReaderIdText() { return txtReaderId.getText().trim(); }
     public String getFullNameText() { return txtFullName.getText().trim(); }
@@ -254,7 +247,6 @@ public class ReaderDetailView extends JFrame {
     public String getAddressText() { return txtAddress.getText().trim(); }
     public String getRegistrationDateText() { return txtRegistrationDate.getText().trim(); }
     public String getCccdText() { return txtCccd.getText().trim(); }
-    public int getStatusIndex() { return cmbStatus.getSelectedIndex(); }
     public String getNotesText() { return txtNotes.getText().trim(); }
 
     public void setReaderId(String v) { txtReaderId.setText(v); }

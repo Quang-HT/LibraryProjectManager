@@ -4,6 +4,8 @@ import com.library.controller.HomeController;
 import com.library.dao.impl.*;
 import com.library.model.Account_Entity;
 import com.library.service.FIND;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -12,7 +14,6 @@ import java.time.LocalDate;
 
 public class HomeView extends JFrame {
 
-    // Color Scheme
     private static final Color PRIMARY_BG = new Color(230, 240, 250);
     private static final Color SECONDARY_BG = Color.WHITE;
     private static final Color SIDEBAR_BG = new Color(25, 118, 210);
@@ -24,16 +25,17 @@ public class HomeView extends JFrame {
     private static final Color TEXT_WHITE = Color.WHITE;
     private static final Color BORDER_COLOR = new Color(200, 200, 200);
 
-    // Components
     private JPanel sidebarPanel;
     private JPanel contentPanel;
     private JPanel headerPanel;
     private JPanel toolbarPanel;
 
-    // Current logged-in account
+    @Getter
+    @Setter
     private Account_Entity currentAccount;
 
 
+    @Setter
     private boolean isManager = false;
     private String currentModule = "Dashboard";
 
@@ -67,10 +69,8 @@ public class HomeView extends JFrame {
         sidebarPanel.setBackground(SIDEBAR_BG);
         sidebarPanel.setPreferredSize(new Dimension(250, getHeight()));
 
-        // Controller tạo 1 lần
         HomeController controller = new HomeController(this);
 
-        // Header
         JPanel headerSection = new JPanel();
         headerSection.setLayout(new BoxLayout(headerSection, BoxLayout.Y_AXIS));
         headerSection.setBackground(SIDEBAR_BG);
@@ -106,7 +106,6 @@ public class HomeView extends JFrame {
         sidebarPanel.add(headerSection);
         sidebarPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
-        // Navigation
         addNavButton(" Thông tin tài khoản", "Account", controller::openAccountInfo);
 
         sidebarPanel.add(Box.createRigidArea(new Dimension(0, 20)));
@@ -117,7 +116,6 @@ public class HomeView extends JFrame {
         addNavButton(" Quản lý độc giả", "Readers", controller::openReaderManagement);
         addNavButton(" Quản lý mượn/trả", "Borrow", controller::openBorrowManagement);
 
-        // Quyền manager: nên quyết định bằng biến isManager (đã có), tránh query DB trong UI
         if (isManager) {
             addSeparator();
             addNavButton(" Quản lý nhân viên", "Staff", controller::openStaffManagement);
@@ -176,7 +174,6 @@ public class HomeView extends JFrame {
         toolbarPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, new Color(220, 230, 240)));
 
         HomeController controller = new HomeController(this);
-        // Quick action buttons
         addToolbarButton("➕ Tạo phiếu mượn",  controller::createNewBorrowSlip);
         addToolbarButton("➕ Thêm đầu sách",  controller::createNewBook);
         addToolbarButton("➕ Thêm độc giả" ,controller::createNewReader);
@@ -319,14 +316,5 @@ public class HomeView extends JFrame {
                 }
             });
         }
-    }
-    public void setCurrentAccount(Account_Entity accountEntity) {
-        currentAccount = accountEntity;
-    }
-    public Account_Entity getCurrentAccount() {
-        return currentAccount;
-    }
-    public void setManager(boolean manager) {
-        isManager = manager;
     }
 }

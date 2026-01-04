@@ -18,7 +18,6 @@ import java.util.Map;
  */
 public class AccountManagementView extends JFrame {
 
-    // Color Scheme
     private static final Color BG_COLOR = Color.WHITE;
     private static final Color TEXT_COLOR = new Color(33, 33, 33);
     private static final Color BORDER_COLOR = new Color(180, 180, 180);
@@ -26,7 +25,6 @@ public class AccountManagementView extends JFrame {
     private static final Color SUCCESS_COLOR = new Color(76, 175, 80);
     private static final Color DANGER_COLOR = new Color(220, 48, 35);
 
-    // Components
     private JTextField txtSearch;
     private JTable tblAccounts;
     private DefaultTableModel tableModel;
@@ -57,7 +55,6 @@ public class AccountManagementView extends JFrame {
         mainPanel.setBackground(BG_COLOR);
         mainPanel.setBorder(new EmptyBorder(20, 30, 20, 30));
 
-        // Title
         JLabel titleLabel = new JLabel("Quản lý Tài khoản");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 28));
         titleLabel.setForeground(TEXT_COLOR);
@@ -184,7 +181,6 @@ public class AccountManagementView extends JFrame {
         parent.add(btnClose);
     }
 
-    // ===================== VIEW HELPERS =====================
 
     public void setDeleteEnabled(boolean enabled) {
         btnDelete.setEnabled(enabled);
@@ -230,7 +226,6 @@ public class AccountManagementView extends JFrame {
         }
     }
 
-    // ===================== GETTERS =====================
 
     public JTextField getTxtSearch() { return txtSearch; }
     public JTable getTblAccounts() { return tblAccounts; }

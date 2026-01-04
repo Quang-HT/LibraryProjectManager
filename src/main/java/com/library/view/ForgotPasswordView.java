@@ -1,5 +1,7 @@
 package com.library.view;
 
+import lombok.Getter;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -11,7 +13,6 @@ import java.awt.*;
  */
 public class ForgotPasswordView extends JFrame {
 
-    // Modern Color Scheme
     private static final Color BG_COLOR = new Color(245, 247, 250);
     private static final Color CARD_BG = Color.WHITE;
     private static final Color TEXT_PRIMARY = new Color(33, 37, 41);
@@ -21,19 +22,26 @@ public class ForgotPasswordView extends JFrame {
     private static final Color WARNING_COLOR = new Color(207, 83, 141);
     private static final Color BORDER_COLOR = new Color(222, 226, 230);
 
-    // Components
+    @Getter
     private JTextField txtEmail;
+    @Getter
     private JTextField txtCode;
+    @Getter
     private JPasswordField txtNewPassword;
+    @Getter
     private JPasswordField txtConfirmPassword;
 
+    @Getter
     private JButton btnVerifyEmail;
+    @Getter
     private JButton btnSendCode;
+    @Getter
     private JButton btnVerifyCode;
+    @Getter
     private JButton btnChangePassword;
+    @Getter
     private JButton btnCancel;
 
-    // Step indicators
     private JLabel step1Num, step2Num, step3Num;
 
     public ForgotPasswordView() {
@@ -301,13 +309,10 @@ public class ForgotPasswordView extends JFrame {
         return separator;
     }
 
-    // ===================== VIEW STATE API =====================
 
     private void setInitialState() {
-        // Step 1 active
         setStep1ActiveUI();
 
-        // disable step2 / step3
         txtCode.setEnabled(false);
         btnSendCode.setEnabled(false);
         btnVerifyCode.setEnabled(false);
@@ -402,7 +407,6 @@ public class ForgotPasswordView extends JFrame {
         step3Num.setBorder(BorderFactory.createLineBorder(PRIMARY_COLOR, 2));
     }
 
-    // ===================== HELPERS =====================
 
     private JButton createButton(String text, Color bgColor) {
         JButton button = new JButton(text);
@@ -433,16 +437,4 @@ public class ForgotPasswordView extends JFrame {
         JOptionPane.showMessageDialog(this, message, "Thành công", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    // ===================== GETTERS =====================
-
-    public JTextField getTxtEmail() { return txtEmail; }
-    public JTextField getTxtCode() { return txtCode; }
-    public JPasswordField getTxtNewPassword() { return txtNewPassword; }
-    public JPasswordField getTxtConfirmPassword() { return txtConfirmPassword; }
-
-    public JButton getBtnVerifyEmail() { return btnVerifyEmail; }
-    public JButton getBtnSendCode() { return btnSendCode; }
-    public JButton getBtnVerifyCode() { return btnVerifyCode; }
-    public JButton getBtnChangePassword() { return btnChangePassword; }
-    public JButton getBtnCancel() { return btnCancel; }
 }

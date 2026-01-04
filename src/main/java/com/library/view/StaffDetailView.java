@@ -1,5 +1,7 @@
 package com.library.view;
 
+import lombok.Getter;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -18,6 +20,7 @@ public class StaffDetailView extends JFrame {
     private JTextField txtPhone;
     private JTextField txtStatus;
 
+    @Getter
     private JButton btnClose;
 
     public StaffDetailView() {
@@ -130,9 +133,6 @@ public class StaffDetailView extends JFrame {
         tf.setEditable(false);
         tf.setBackground(DISABLED_BG);
     }
-
-    // ===== API cho Controller =====
-    public JButton getBtnClose() { return btnClose; }
 
     public void setStaffIdText(String v) { txtStaffId.setText(v); }
     public void setStaffNameText(String v) { txtStaffName.setText(v); }

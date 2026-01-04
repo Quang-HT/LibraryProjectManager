@@ -1,5 +1,7 @@
 package com.library.view;
 
+import lombok.Getter;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -16,18 +18,26 @@ public class AccountDetailView extends JFrame {
     private static final Color BORDER_COLOR = new Color(180, 180, 180);
     private static final Color DISABLED_BG = new Color(245, 245, 245);
 
+    @Getter
     private JTextField txtAccountId;
+    @Getter
     private JTextField txtUsername;
+    @Getter
     private JPasswordField txtPassword;
     private JTextField txtStaffName;
+    @Getter
     private JTextField txtStaffId;
     private JTextField txtPosition;
     private JTextField txtEmail;
     private JTextField txtPhoneNumber;
+    @Getter
     private JCheckBox chkIsActive;
 
+    @Getter
     private JButton btnEdit;
+    @Getter
     private JButton btnSave;
+    @Getter
     private JButton btnCancel;
 
     public AccountDetailView() {
@@ -73,19 +83,16 @@ public class AccountDetailView extends JFrame {
         int fieldWidth = 320;
         int height = 30;
 
-        // Account ID
         parent.add(createLabel("ID Tài khoản:", labelX, startY, labelWidth, height));
         txtAccountId = createTextField(fieldX, startY, fieldWidth, height);
         txtAccountId.setEditable(false);
         txtAccountId.setBackground(DISABLED_BG);
         parent.add(txtAccountId);
 
-        // Username
         parent.add(createLabel("Username:", labelX, startY + spacing, labelWidth, height));
         txtUsername = createTextField(fieldX, startY + spacing, fieldWidth, height);
         parent.add(txtUsername);
 
-        // Password
         parent.add(createLabel("Password:", labelX, startY + spacing * 2, labelWidth, height));
         txtPassword = new JPasswordField();
         txtPassword.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -96,42 +103,36 @@ public class AccountDetailView extends JFrame {
         ));
         parent.add(txtPassword);
 
-        // Staff Name
         parent.add(createLabel("Tên nhân viên:", labelX, startY + spacing * 3, labelWidth, height));
         txtStaffName = createTextField(fieldX, startY + spacing * 3, fieldWidth, height);
         txtStaffName.setEditable(false);
         txtStaffName.setBackground(DISABLED_BG);
         parent.add(txtStaffName);
 
-        // Staff ID
         parent.add(createLabel("ID Nhân viên:", labelX, startY + spacing * 4, labelWidth, height));
         txtStaffId = createTextField(fieldX, startY + spacing * 4, fieldWidth, height);
         txtStaffId.setEditable(false);
         txtStaffId.setBackground(DISABLED_BG);
         parent.add(txtStaffId);
 
-        // Position
         parent.add(createLabel("Chức vụ:", labelX, startY + spacing * 5, labelWidth, height));
         txtPosition = createTextField(fieldX, startY + spacing * 5, fieldWidth, height);
         txtPosition.setEditable(false);
         txtPosition.setBackground(DISABLED_BG);
         parent.add(txtPosition);
 
-        // Email
         parent.add(createLabel("Email:", labelX, startY + spacing * 6, labelWidth, height));
         txtEmail = createTextField(fieldX, startY + spacing * 6, fieldWidth, height);
         txtEmail.setEditable(false);
         txtEmail.setBackground(DISABLED_BG);
         parent.add(txtEmail);
 
-        // Phone
         parent.add(createLabel("Số Điện Thoại:", labelX, startY + spacing * 7, labelWidth, height));
         txtPhoneNumber = createTextField(fieldX, startY + spacing * 7, fieldWidth, height);
         txtPhoneNumber.setEditable(false);
         txtPhoneNumber.setBackground(DISABLED_BG);
         parent.add(txtPhoneNumber);
 
-        // Status
         parent.add(createLabel("Trạng thái:", labelX, startY + spacing * 8, labelWidth, height));
         chkIsActive = new JCheckBox("Tài khoản hoạt động");
         chkIsActive.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -174,7 +175,6 @@ public class AccountDetailView extends JFrame {
         parent.add(btnCancel);
     }
 
-    // ================== VIEW API ==================
 
     public void setEditMode(boolean isEditMode) {
         btnEdit.setVisible(!isEditMode);
@@ -216,19 +216,6 @@ public class AccountDetailView extends JFrame {
         txtPhoneNumber.setText(phone != null ? phone : "N/A");
     }
 
-    // ================== Getters ==================
-
-    public JTextField getTxtAccountId() { return txtAccountId; }
-    public JTextField getTxtUsername() { return txtUsername; }
-    public JPasswordField getTxtPassword() { return txtPassword; }
-    public JTextField getTxtStaffId() { return txtStaffId; }
-    public JCheckBox getChkIsActive() { return chkIsActive; }
-
-    public JButton getBtnEdit() { return btnEdit; }
-    public JButton getBtnSave() { return btnSave; }
-    public JButton getBtnCancel() { return btnCancel; }
-
-    // ================== UI helpers ==================
 
     private JLabel createLabel(String text, int x, int y, int width, int height) {
         JLabel label = new JLabel(text);

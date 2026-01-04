@@ -1,6 +1,7 @@
 package com.library.view;
 
 import com.library.model.Staff_Entity;
+import lombok.Getter;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -9,6 +10,7 @@ import java.awt.*;
 /**
  * VIEW: Tạo tài khoản mới (UI only)
  */
+@Getter
 public class AddAccountView extends JFrame {
 
     private static final Color BG_COLOR = Color.WHITE;
@@ -70,7 +72,6 @@ public class AddAccountView extends JFrame {
         int fieldWidth = 280;
         int height = 35;
 
-        // Username
         JLabel lblUsername = createLabel("Username:", labelX, startY, labelWidth, height);
         addRequiredMark(parent, lblUsername);
         parent.add(lblUsername);
@@ -79,7 +80,6 @@ public class AddAccountView extends JFrame {
         txtUsername.setToolTipText("Tên đăng nhập (không dấu, không khoảng trắng)");
         parent.add(txtUsername);
 
-        // Password
         JLabel lblPassword = createLabel("Password:", labelX, startY + spacing, labelWidth, height);
         addRequiredMark(parent, lblPassword);
         parent.add(lblPassword);
@@ -94,7 +94,6 @@ public class AddAccountView extends JFrame {
         txtPassword.setToolTipText("Mật khẩu (tối thiểu 6 ký tự)");
         parent.add(txtPassword);
 
-        // Confirm Password
         JLabel lblConfirmPassword = createLabel("Xác nhận Password:", labelX, startY + spacing * 2, labelWidth, height);
         addRequiredMark(parent, lblConfirmPassword);
         parent.add(lblConfirmPassword);
@@ -108,7 +107,6 @@ public class AddAccountView extends JFrame {
         ));
         parent.add(txtConfirmPassword);
 
-        // Employee Selection
         JLabel lblEmployee = createLabel("Nhân viên:", labelX, startY + spacing * 3, labelWidth, height);
         addRequiredMark(parent, lblEmployee);
         parent.add(lblEmployee);
@@ -164,7 +162,6 @@ public class AddAccountView extends JFrame {
         parent.add(btnCancel);
     }
 
-    // ========= VIEW API =========
 
     public void setStaffList(java.util.List<Staff_Entity> staffs) {
         cmbEmployee.removeAllItems();
@@ -182,15 +179,6 @@ public class AddAccountView extends JFrame {
         JOptionPane.showMessageDialog(this, message, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    // ========= Getters =========
-    public JTextField getTxtUsername() { return txtUsername; }
-    public JPasswordField getTxtPassword() { return txtPassword; }
-    public JPasswordField getTxtConfirmPassword() { return txtConfirmPassword; }
-    public JComboBox<Staff_Entity> getCmbEmployee() { return cmbEmployee; }
-    public JButton getBtnSave() { return btnSave; }
-    public JButton getBtnCancel() { return btnCancel; }
-
-    // ========= UI helpers =========
     private void addRequiredMark(JPanel parent, JLabel label) {
         JLabel required = new JLabel("*");
         required.setFont(new Font("Segoe UI", Font.BOLD, 16));

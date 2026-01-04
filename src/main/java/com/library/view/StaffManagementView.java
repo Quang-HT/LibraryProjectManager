@@ -1,14 +1,16 @@
 package com.library.view;
 
+import lombok.Getter;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
 
+@Getter
 public class StaffManagementView extends JFrame {
 
-    // Color Scheme
     private static final Color BG_COLOR = Color.WHITE;
     private static final Color TEXT_COLOR = new Color(33, 33, 33);
     private static final Color BORDER_COLOR = new Color(180, 180, 180);
@@ -50,7 +52,6 @@ public class StaffManagementView extends JFrame {
         mainPanel.setBackground(BG_COLOR);
         mainPanel.setBorder(new EmptyBorder(20, 30, 20, 30));
 
-        // Title
         JLabel titleLabel = new JLabel(" Quản lý Nhân viên");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 28));
         titleLabel.setForeground(TEXT_COLOR);
@@ -187,16 +188,4 @@ public class StaffManagementView extends JFrame {
         parent.add(btnClose);
     }
 
-    // ===== Getters cho Controller =====
-    public JTextField getTxtSearch() { return txtSearch; }
-    public JTable getTblStaff() { return tblStaff; }
-    public DefaultTableModel getTableModel() { return tableModel; }
-    public TableRowSorter<DefaultTableModel> getSorter() { return sorter; }
-
-    public JButton getBtnAddStaff() { return btnAddStaff; }
-    public JButton getBtnEdit() { return btnEdit; }
-    public JButton getBtnDelete() { return btnDelete; }
-    public JButton getBtnRefresh() { return btnRefresh; }
-    public JButton getBtnClose() { return btnClose; }
-    public JButton getBtnSearch() { return btnSearch; }
 }

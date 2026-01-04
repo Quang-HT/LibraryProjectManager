@@ -1,6 +1,7 @@
 package com.library.view;
 
 import com.library.model.display.BookDisplayModel;
+import lombok.Getter;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -11,7 +12,6 @@ import java.util.List;
 
 public class ReaderView extends JFrame {
 
-    // Color Scheme - Modern & Friendly
     private static final Color PRIMARY_BG = new Color(240, 242, 245);
     private static final Color SECONDARY_BG = Color.WHITE;
     private static final Color SIDEBAR_BG = new Color(255, 255, 255);
@@ -22,21 +22,25 @@ public class ReaderView extends JFrame {
     private static final Color CARD_HOVER = new Color(248, 249, 250);
     private static final Color SUCCESS_COLOR = new Color(52, 168, 83);
 
-    // Components
     private JPanel sidebarPanel;
     private JPanel contentPanel;
     private JPanel booksGridPanel;
     private JScrollPane booksScrollPane;
 
+    @Getter
     private JTextField searchField;
+    @Getter
     private JComboBox<String> categoryComboBox;
+    @Getter
     private JComboBox<String> authorComboBox;
+    @Getter
     private JButton topBorrowedButton;
+    @Getter
     private JButton resetButton;
+    @Getter
     private JButton exitButton;
     private JLabel resultCountLabel;
 
-    // UI state
     private int columns = 3;
 
     private BookDisplayModel bookDisplayModel;
@@ -73,7 +77,6 @@ public class ReaderView extends JFrame {
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 22));
         titleLabel.setForeground(TEXT_PRIMARY);
 
-        // Search bar
         JPanel searchPanel = new JPanel(new BorderLayout());
         searchPanel.setBackground(SECONDARY_BG);
         searchPanel.setPreferredSize(new Dimension(500, 40));
@@ -93,7 +96,6 @@ public class ReaderView extends JFrame {
         topBar.add(titleLabel, BorderLayout.WEST);
         topBar.add(searchPanel, BorderLayout.CENTER);
 
-        // Exit button (controller sẽ gắn action)
         exitButton = new JButton("Thoát");
         exitButton.setFont(new Font("Segoe UI", Font.BOLD, 13));
         exitButton.setBackground(new Color(230, 57, 70));
@@ -184,7 +186,6 @@ public class ReaderView extends JFrame {
 
         add(sidebarPanel, BorderLayout.WEST);
 
-        // hover nhỏ cho top button
         topBorrowedButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -193,7 +194,6 @@ public class ReaderView extends JFrame {
 
             @Override
             public void mouseExited(MouseEvent e) {
-                // controller sẽ set lại đúng state, view không tự quyết
             }
         });
     }
@@ -247,15 +247,6 @@ public class ReaderView extends JFrame {
         contentPanel.add(booksScrollPane, BorderLayout.CENTER);
         add(contentPanel, BorderLayout.CENTER);
     }
-
-    // ===================== PUBLIC API cho Controller =====================
-
-    public JTextField getSearchField() { return searchField; }
-    public JComboBox<String> getCategoryComboBox() { return categoryComboBox; }
-    public JComboBox<String> getAuthorComboBox() { return authorComboBox; }
-    public JButton getTopBorrowedButton() { return topBorrowedButton; }
-    public JButton getResetButton() { return resetButton; }
-    public JButton getExitButton() { return exitButton; }
 
     public void setCategoryOptions(List<String> categories) {
         categoryComboBox.setModel(new DefaultComboBoxModel<>(categories.toArray(new String[0])));
@@ -316,7 +307,6 @@ public class ReaderView extends JFrame {
         booksGridPanel.repaint();
     }
 
-    // ===================== UI helpers =====================
 
     private JPanel createBookCard(BookDisplayModel book) {
         JPanel card = new JPanel();
