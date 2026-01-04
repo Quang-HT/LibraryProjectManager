@@ -110,7 +110,7 @@ public class HomeController {
     public void logout() {
         if (JOptionPane.showConfirmDialog(this.homeView, "Đăng xuất?", "Xác nhận", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             SessionID.setSession(0);
-            new LoginView().setVisible(true);
+            new LoginController();
             this.homeView.dispose();
         }
     }

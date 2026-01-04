@@ -17,6 +17,7 @@ public class Author_DAO extends AbstractDAO<Author_Entity, Integer> {
         Author.setBirth_date(rs.getDate("birth_date"));
         Author.setDescription(rs.getString("description"));
         Author.setDeath_date(rs.getDate("death_date"));
+        Author.setCountry(rs.getString("country"));
         return Author;
     }
 

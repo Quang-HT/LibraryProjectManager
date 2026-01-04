@@ -45,7 +45,7 @@ public class BorrowManagementView extends JFrame {
     private void initFrame() {
         setTitle("Quản lý Phiếu mượn & Phạt");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(1500, 900);
+        setSize(1500, 800);
         setLocationRelativeTo(null);
         setResizable(true);
         setMinimumSize(new Dimension(1400, 800));
@@ -116,6 +116,7 @@ public class BorrowManagementView extends JFrame {
     private JPanel createSearchAndTablePanel() {
         JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
 
+        // ================= FILTER PANEL (NORTH) =================
         JPanel filterPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
         filterPanel.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createLineBorder(BORDER, 1),
@@ -139,7 +140,6 @@ public class BorrowManagementView extends JFrame {
 
         JLabel lblYear = new JLabel("Năm:");
         lblYear.setFont(new Font("Segoe UI", Font.BOLD, 13));
-        // controller sẽ set model year cho phù hợp (view chỉ giữ combobox)
         cmbYear = new JComboBox<>(new String[]{"Tất cả"});
         cmbYear.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         cmbYear.setPreferredSize(new Dimension(90, 30));
@@ -169,7 +169,12 @@ public class BorrowManagementView extends JFrame {
 
         mainPanel.add(filterPanel, BorderLayout.NORTH);
 
+        // ================= TABLE CONTAINER (CENTER) =================
+        JPanel tableContainer = new JPanel(new BorderLayout(10, 10));
+
+        // --- ACTION PANEL (luôn hiện, nằm trên bảng) ---
         JPanel actionPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 5));
+
         btnAutoGenerate = createStyledButton("Tạo phiếu phạt tự động", WARNING, 200, 35);
         btnCreateSlip   = createStyledButton("Tạo phiếu mượn", SUCCESS, 160, 35);
         btnSendEmail    = createStyledButton("Gửi Email", new Color(33, 150, 243), 150, 35);
@@ -178,21 +183,24 @@ public class BorrowManagementView extends JFrame {
         actionPanel.add(btnCreateSlip);
         actionPanel.add(btnSendEmail);
 
-        mainPanel.add(actionPanel, BorderLayout.CENTER);
+        tableContainer.add(actionPanel, BorderLayout.NORTH);
 
+        // --- TABLE PANEL ---
         JPanel tablePanel = new JPanel(new BorderLayout());
-        tablePanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
-        createTable(tablePanel);
+        createTable(tablePanel); // createTable() sẽ add JScrollPane vào CENTER của tablePanel
 
         JLabel lblInfo = new JLabel("Nhấp đúp vào dòng để xem chi tiết phiếu mượn");
         lblInfo.setFont(new Font("Segoe UI", Font.ITALIC, 12));
         lblInfo.setForeground(Color.GRAY);
         tablePanel.add(lblInfo, BorderLayout.SOUTH);
 
-        mainPanel.add(tablePanel, BorderLayout.SOUTH);
+        tableContainer.add(tablePanel, BorderLayout.CENTER);
+
+        mainPanel.add(tableContainer, BorderLayout.CENTER);
 
         return mainPanel;
     }
+
 
     private void createTable(JPanel parent) {
         String[] cols = {"ID", "Mã ĐG", "Tên độc giả", "SL", "Ngày mượn", "Hạn trả", "Ngày trả", "Trễ", "Tiền phạt", "TT", "Trạng thái"};

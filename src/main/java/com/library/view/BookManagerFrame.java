@@ -10,413 +10,346 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
 
-/**
- * VIEW - Chỉ chịu trách nhiệm hiển thị UI và nhận input từ user
- * Không chứa logic xử lý dữ liệu
- */
 public class BookManagerFrame extends JFrame {
-
-    // Color Scheme
-    private static final Color PRIMARY_BG   = new Color(245, 245, 245);
-    private static final Color SECONDARY_BG = Color.WHITE;
-    private static final Color SIDEBAR_BG   = new Color(250, 250, 250);
-    private static final Color BUTTON_BG    = new Color(240, 240, 240);
-    private static final Color BUTTON_HOVER = new Color(220, 220, 220);
-    private static final Color SELECTED_BG  = new Color(25, 118, 210);
-    private static final Color TEXT_PRIMARY = new Color(33, 33, 33);
-    private static final Color BORDER_COLOR = new Color(200, 200, 200);
-    private static final Color CARD_HOVER   = new Color(240, 245, 250);
+    // Colors
+    private static final Color PRIMARY = new Color(29, 92, 241);
+    private static final Color PRIMARY_DARK = new Color(33, 44, 142);
+    private static final Color PRIMARY_LIGHT = new Color(238, 242, 255);
+    private static final Color WARNING = new Color(251, 146, 60);
+    private static final Color BG_MAIN = new Color(249, 250, 251);
+    private static final Color BG_CARD = Color.WHITE;
+    private static final Color BG_HOVER = new Color(243, 244, 246);
+    private static final Color TEXT_PRIMARY = new Color(17, 24, 39);
+    private static final Color TEXT_SECONDARY = new Color(107, 114, 128);
+    private static final Color TEXT_MUTED = new Color(156, 163, 175);
+    private static final Color BORDER_LIGHT = new Color(229, 231, 235);
+    private static final Color BORDER_DEFAULT = new Color(209, 213, 219);
 
     // Components
-    private JPanel sidebarPanel;
-    private JPanel contentPanel;
     private JPanel booksContainer;
-    private JScrollPane booksScrollPane;
     private JTextField searchField;
     private JButton topBorrowedButton;
     private JComboBox<String> categoryComboBox;
     private JLabel totalBooksLabel;
-
-    // Controller reference
     private BookManagerController bookManagerController;
 
     public BookManagerFrame() {
-        initializeFrame();
-        createComponents();
+        initFrame();
+        add(createSidebar(), BorderLayout.WEST);
+        add(createContent(), BorderLayout.CENTER);
     }
 
-    /**
-     * Thiết lập controller cho view này
-     */
     public void setController(BookManagerController controller) {
         this.bookManagerController = controller;
     }
 
-    private void initializeFrame() {
-        setTitle("Danh mục sách");
+    private void initFrame() {
+        setTitle("Quản lý Thư viện");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(1400, 800);
+        setSize(1500, 800);
         setLocationRelativeTo(null);
-        setLayout(new BorderLayout());
-        getContentPane().setBackground(PRIMARY_BG);
+        setLayout(new BorderLayout(0, 0));
+        getContentPane().setBackground(BG_MAIN);
     }
 
-    private void createComponents() {
-        createSidebar();
-        createContentArea();
-    }
-
-    private void createSidebar() {
-        sidebarPanel = new JPanel();
-        sidebarPanel.setLayout(new BoxLayout(sidebarPanel, BoxLayout.Y_AXIS));
-        sidebarPanel.setBackground(SIDEBAR_BG);
-        sidebarPanel.setPreferredSize(new Dimension(280, getHeight()));
-        sidebarPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, BORDER_COLOR));
-
-        sidebarPanel.add(Box.createRigidArea(new Dimension(0, 30)));
-
-        // ====== THAO TÁC ======================================================
-        JLabel actionsLabel = new JLabel("Thao tác");
-        actionsLabel.setFont(new Font("Segoe UI", Font.BOLD, 18));
-        actionsLabel.setForeground(TEXT_PRIMARY);
-        actionsLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        actionsLabel.setBorder(new EmptyBorder(0, 25, 0, 25));
-        sidebarPanel.add(actionsLabel);
-
-        sidebarPanel.add(Box.createRigidArea(new Dimension(0, 15)));
-
-        // Nút thêm sách
-        SidebarButton addBookBtn = new SidebarButton("+ Thêm đầu sách");
-        addBookBtn.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        addBookBtn.setBackground(new Color(25, 118, 210));
-        addBookBtn.setForeground(Color.WHITE);
-        addBookBtn.addActionListener(e -> {
-            if (bookManagerController != null) {
-                bookManagerController.handleAddBook();
-            }
-        });
-        addBookBtn.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent evt) {
-                addBookBtn.setBackground(new Color(21, 101, 192));
-            }
-            public void mouseExited(MouseEvent evt) {
-                addBookBtn.setBackground(new Color(25, 118, 210));
-            }
-        });
-        sidebarPanel.add(addBookBtn);
-
-        sidebarPanel.add(Box.createRigidArea(new Dimension(0, 25)));
-
-        // Separator
-        JSeparator separator = new JSeparator();
-        separator.setMaximumSize(new Dimension(230, 1));
-        separator.setForeground(BORDER_COLOR);
-        JPanel sepPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 25, 0));
-        sepPanel.setBackground(SIDEBAR_BG);
-        sepPanel.setMaximumSize(new Dimension(280, 10));
-        sepPanel.add(separator);
-        sidebarPanel.add(sepPanel);
-
-        sidebarPanel.add(Box.createRigidArea(new Dimension(0, 20)));
-
-        // ====== BỘ LỌC ========================================================
-        JLabel filterLabel = new JLabel("Bộ lọc");
-        filterLabel.setFont(new Font("Segoe UI", Font.BOLD, 18));
-        filterLabel.setForeground(TEXT_PRIMARY);
-        filterLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        filterLabel.setBorder(new EmptyBorder(0, 25, 0, 25));
-        sidebarPanel.add(filterLabel);
-
-        sidebarPanel.add(Box.createRigidArea(new Dimension(0, 15)));
-
-        // Tìm kiếm theo từ khóa
-        JLabel searchLabel = new JLabel("Tìm kiếm(tên/tác giả):");
-        searchLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        searchLabel.setMaximumSize(new Dimension(220,35));
-        searchLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        searchLabel.setBorder(new EmptyBorder(0, 0, 0, 0    ));
-        sidebarPanel.add(searchLabel);
-        sidebarPanel.add(Box.createRigidArea(new Dimension(0, 8)));
-
-        searchField = new JTextField();
-        searchField.setPreferredSize(new Dimension(230,35));
-        searchField.setMaximumSize(new Dimension(230, 900));
-        searchField.setBorder(BorderFactory.createCompoundBorder(
-                new LineBorder(BORDER_COLOR, 1, true),
-                new EmptyBorder(5, 8, 5, 8)
+    private JPanel createSidebar() {
+        JPanel sidebar = new JPanel();
+        sidebar.setLayout(new BoxLayout(sidebar, BoxLayout.Y_AXIS));
+        sidebar.setBackground(Color.WHITE);
+        sidebar.setPreferredSize(new Dimension(320, getHeight()));
+        sidebar.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createMatteBorder(0, 0, 0, 1, BORDER_LIGHT),
+                new EmptyBorder(30, 25, 30, 25)
         ));
-        searchField.setAlignmentX(Component.LEFT_ALIGNMENT);
-        searchField.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyReleased(KeyEvent e) {
-                if (bookManagerController != null) {
-                    bookManagerController.handleSearchTextChanged(searchField.getText().trim());
-                }
-            }
+
+        // Logo
+        sidebar.add(createLabel("Thư Viện", 28, Font.BOLD, PRIMARY));
+        sidebar.add(createLabel("Hệ thống quản lý sách", 13, Font.PLAIN, TEXT_SECONDARY));
+        sidebar.add(Box.createRigidArea(new Dimension(0, 35)));
+
+        // Add Book Button
+        JButton addBtn = createButton("+ Thêm đầu sách mới", PRIMARY, Color.WHITE, PRIMARY_DARK);
+        addBtn.addActionListener(e -> {
+            if (bookManagerController != null) bookManagerController.handleAddBook();
         });
+        sidebar.add(addBtn);
+        sidebar.add(Box.createRigidArea(new Dimension(0, 30)));
 
-        JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 25, 0));
-        searchPanel.setBackground(SIDEBAR_BG);
-        searchPanel.setMaximumSize(new Dimension(280, 40));
-        searchPanel.add(searchField);
-        sidebarPanel.add(searchPanel);
+        // Divider
+        sidebar.add(createDivider());
+        sidebar.add(Box.createRigidArea(new Dimension(0, 30)));
 
-        sidebarPanel.add(Box.createRigidArea(new Dimension(0, 15)));
+        // Filters
+        sidebar.add(createLabel("BỘ LỌC & TÌM KIẾM", 11, Font.BOLD, TEXT_MUTED));
+        sidebar.add(Box.createRigidArea(new Dimension(0, 20)));
 
-        // Thể loại
-        JLabel categoryLabel = new JLabel("Thể loại:");
-        categoryLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        categoryLabel.setForeground(TEXT_PRIMARY);
-        categoryLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        categoryLabel.setBorder(new EmptyBorder(0, 25, 0, 25));
-        sidebarPanel.add(categoryLabel);
+        // Search
+        sidebar.add(createLabel("Tìm kiếm", 13, Font.BOLD, TEXT_PRIMARY));
+        sidebar.add(Box.createRigidArea(new Dimension(0, 8)));
+        searchField = createTextField();
+        sidebar.add(searchField);
+        sidebar.add(Box.createRigidArea(new Dimension(0, 20)));
 
-        sidebarPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        // Category
+        sidebar.add(createLabel("Thể loại", 13, Font.BOLD, TEXT_PRIMARY));
+        sidebar.add(Box.createRigidArea(new Dimension(0, 8)));
+        categoryComboBox = createComboBox();
+        sidebar.add(categoryComboBox);
+        sidebar.add(Box.createRigidArea(new Dimension(0, 20)));
 
-        categoryComboBox = new JComboBox<>();
-        categoryComboBox.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        categoryComboBox.setMaximumSize(new Dimension(230, 35));
-        categoryComboBox.setAlignmentX(Component.LEFT_ALIGNMENT);
-        categoryComboBox.addActionListener(e -> {
-            if (bookManagerController != null) {
-                bookManagerController.handleCategoryChanged((String) categoryComboBox.getSelectedItem());
-            }
-        });
-
-        JPanel comboPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 25, 0));
-        comboPanel.setBackground(SIDEBAR_BG);
-        comboPanel.setMaximumSize(new Dimension(280, 40));
-        comboPanel.add(categoryComboBox);
-        sidebarPanel.add(comboPanel);
-
-        sidebarPanel.add(Box.createRigidArea(new Dimension(0, 15)));
-
-        // Nút Top sách mượn nhiều
-        topBorrowedButton = new JButton("Top sách mượn nhiều");
-        topBorrowedButton.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        topBorrowedButton.setFocusPainted(false);
-        topBorrowedButton.setForeground(TEXT_PRIMARY);
-        topBorrowedButton.setBackground(BUTTON_BG);
-        topBorrowedButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        topBorrowedButton.setBorder(new EmptyBorder(10, 20, 10, 20));
-
+        // Top Borrowed
+        topBorrowedButton = createButton("Top sách mượn nhiều", BG_MAIN, TEXT_PRIMARY, BG_HOVER);
+        topBorrowedButton.setHorizontalAlignment(SwingConstants.LEFT);
         topBorrowedButton.addActionListener(e -> {
-            if (bookManagerController != null) {
-                bookManagerController.handleToggleTopBorrowed();
-            }
+            if (bookManagerController != null) bookManagerController.handleToggleTopBorrowed();
         });
-        topBorrowedButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                if (topBorrowedButton.getBackground().equals(BUTTON_BG)) {
-                    topBorrowedButton.setBackground(BUTTON_HOVER);
-                }
-            }
-            @Override
-            public void mouseExited(MouseEvent e) {
-                if (topBorrowedButton.getBackground().equals(BUTTON_HOVER)) {
-                    topBorrowedButton.setBackground(BUTTON_BG);
-                }
-            }
-        });
+        sidebar.add(topBorrowedButton);
+        sidebar.add(Box.createRigidArea(new Dimension(0, 25)));
 
-        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 25, 0));
-        topPanel.setBackground(SIDEBAR_BG);
-        topPanel.setMaximumSize(new Dimension(280, 45));
-        topPanel.add(topBorrowedButton);
-        sidebarPanel.add(topPanel);
-
-        sidebarPanel.add(Box.createRigidArea(new Dimension(0, 20)));
-
-        // Tổng số sách
+        // Stats
         totalBooksLabel = new JLabel("Tổng số: 0 sách");
-        totalBooksLabel.setFont(new Font("Segoe UI", Font.ITALIC, 13));
-        totalBooksLabel.setForeground(new Color(100, 100, 100));
+        totalBooksLabel.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        totalBooksLabel.setForeground(TEXT_SECONDARY);
+        totalBooksLabel.setBorder(BorderFactory.createCompoundBorder(
+                new LineBorder(BORDER_LIGHT, 1, true), new EmptyBorder(12, 16, 12, 16)
+        ));
+        totalBooksLabel.setMaximumSize(new Dimension(270, 44));
+        totalBooksLabel.setOpaque(true);
+        totalBooksLabel.setBackground(PRIMARY_LIGHT);
         totalBooksLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        totalBooksLabel.setBorder(new EmptyBorder(0, 25, 0, 25));
-        sidebarPanel.add(totalBooksLabel);
+        sidebar.add(totalBooksLabel);
 
-        sidebarPanel.add(Box.createVerticalGlue());
+        sidebar.add(Box.createVerticalGlue());
 
-        // Nút quay lại
-        SidebarButton homeBtn = new SidebarButton("← Quay lại");
-        homeBtn.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        homeBtn.addActionListener(e -> goHome());
-        sidebarPanel.add(homeBtn);
-        sidebarPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        // Back Button
+        JButton backBtn = createButton("Quay lại trang chủ", BG_MAIN, TEXT_SECONDARY, BG_HOVER);
+        backBtn.setHorizontalAlignment(SwingConstants.LEFT);
+        backBtn.addActionListener(e -> goHome());
+        sidebar.add(backBtn);
 
-        add(sidebarPanel, BorderLayout.WEST);
+        return sidebar;
     }
 
-    private void createContentArea() {
-        contentPanel = new JPanel(new BorderLayout());
-        contentPanel.setBackground(PRIMARY_BG);
-        contentPanel.setBorder(new EmptyBorder(30, 40, 30, 40));
+    private JPanel createContent() {
+        JPanel content = new JPanel(new BorderLayout());
+        content.setBackground(BG_MAIN);
+        content.setBorder(new EmptyBorder(40, 50, 40, 50));
 
         // Header
-        JPanel headerPanel = new JPanel(new BorderLayout());
-        headerPanel.setBackground(PRIMARY_BG);
-        headerPanel.setBorder(new EmptyBorder(0, 0, 20, 0));
-
-        JLabel headerLabel = new JLabel("Danh mục sách");
-        headerLabel.setFont(new Font("Segoe UI", Font.BOLD, 24));
-        headerLabel.setForeground(TEXT_PRIMARY);
-        headerPanel.add(headerLabel, BorderLayout.WEST);
-
-        contentPanel.add(headerPanel, BorderLayout.NORTH);
+        JPanel header = new JPanel();
+        header.setLayout(new BoxLayout(header, BoxLayout.Y_AXIS));
+        header.setBackground(BG_MAIN);
+        header.setBorder(new EmptyBorder(0, 0, 30, 0));
+        header.add(createLabel("Danh mục sách", 32, Font.BOLD, TEXT_PRIMARY));
+        header.add(createLabel("Khám phá kho tàng tri thức", 14, Font.PLAIN, TEXT_SECONDARY));
+        content.add(header, BorderLayout.NORTH);
 
         // Books Container
         booksContainer = new JPanel();
         booksContainer.setLayout(new BoxLayout(booksContainer, BoxLayout.Y_AXIS));
-        booksContainer.setBackground(PRIMARY_BG);
+        booksContainer.setBackground(BG_MAIN);
 
-        booksScrollPane = new JScrollPane(booksContainer);
-        booksScrollPane.setBorder(null);
-        booksScrollPane.getVerticalScrollBar().setUnitIncrement(16);
-        booksScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollPane scroll = new JScrollPane(booksContainer);
+        scroll.setBorder(null);
+        scroll.getVerticalScrollBar().setUnitIncrement(16);
+        scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scroll.getVerticalScrollBar().setUI(new ModernScrollBarUI());
 
-        contentPanel.add(booksScrollPane, BorderLayout.CENTER);
-
-        add(contentPanel, BorderLayout.CENTER);
+        content.add(scroll, BorderLayout.CENTER);
+        return content;
     }
 
-    /**
-     * PUBLIC METHODS - Interface cho Controller
-     */
+    private JLabel createLabel(String text, int size, int style, Color color) {
+        JLabel label = new JLabel(text);
+        label.setFont(new Font("Segoe UI", style, size));
+        label.setForeground(color);
+        label.setAlignmentX(Component.LEFT_ALIGNMENT);
+        return label;
+    }
 
+    private JButton createButton(String text, Color bg, Color fg, Color hoverBg) {
+        JButton btn = new JButton(text);
+        btn.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        btn.setForeground(fg);
+        btn.setBackground(bg);
+        btn.setFocusPainted(false);
+        btn.setBorderPainted(false);
+        btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btn.setBorder(new EmptyBorder(14, 20, 14, 20));
+        btn.setMaximumSize(new Dimension(270, 48));
+        btn.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        btn.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) { btn.setBackground(hoverBg); }
+            public void mouseExited(MouseEvent e) { btn.setBackground(bg); }
+        });
+        return btn;
+    }
+
+    private JTextField createTextField() {
+        JTextField field = new JTextField();
+        field.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        field.setForeground(TEXT_PRIMARY);
+        field.setBackground(BG_MAIN);
+        field.setBorder(BorderFactory.createCompoundBorder(
+                new LineBorder(BORDER_DEFAULT, 1, true), new EmptyBorder(10, 12, 10, 12)
+        ));
+        field.setMaximumSize(new Dimension(270, 42));
+        field.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        field.addKeyListener(new KeyAdapter() {
+            public void keyReleased(KeyEvent e) {
+                if (bookManagerController != null) {
+                    bookManagerController.handleSearchTextChanged(field.getText().trim());
+                }
+            }
+        });
+
+        field.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent e) {
+                field.setBorder(BorderFactory.createCompoundBorder(
+                        new LineBorder(PRIMARY, 2, true), new EmptyBorder(10, 12, 10, 12)
+                ));
+            }
+            public void focusLost(FocusEvent e) {
+                field.setBorder(BorderFactory.createCompoundBorder(
+                        new LineBorder(BORDER_DEFAULT, 1, true), new EmptyBorder(10, 12, 10, 12)
+                ));
+            }
+        });
+        return field;
+    }
+
+    private JComboBox<String> createComboBox() {
+        JComboBox<String> combo = new JComboBox<>();
+        combo.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        combo.setBackground(BG_MAIN);
+        combo.setForeground(TEXT_PRIMARY);
+        combo.setBorder(new EmptyBorder(8, 8, 8, 8));
+        combo.setMaximumSize(new Dimension(270, 42));
+        combo.setAlignmentX(Component.LEFT_ALIGNMENT);
+        combo.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        combo.addActionListener(e -> {
+            if (bookManagerController != null) {
+                bookManagerController.handleCategoryChanged((String) combo.getSelectedItem());
+            }
+        });
+        return combo;
+    }
+
+    private JSeparator createDivider() {
+        JSeparator sep = new JSeparator();
+        sep.setForeground(BORDER_LIGHT);
+        sep.setMaximumSize(new Dimension(270, 1));
+        sep.setAlignmentX(Component.LEFT_ALIGNMENT);
+        return sep;
+    }
+
+    // Public Methods
     public void displayBooks(List<BookDisplayModel> books) {
         booksContainer.removeAll();
-
         if (books.isEmpty()) {
-            JLabel noResultLabel = new JLabel("Không có sách phù hợp với bộ lọc hiện tại");
-            noResultLabel.setFont(new Font("Segoe UI", Font.ITALIC, 16));
-            noResultLabel.setForeground(Color.GRAY);
-            noResultLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-            booksContainer.add(Box.createRigidArea(new Dimension(0, 50)));
-            booksContainer.add(noResultLabel);
+            booksContainer.add(createEmptyState());
         } else {
             for (BookDisplayModel book : books) {
-                JPanel bookCard = createBookCard(book);
-                booksContainer.add(bookCard);
-                booksContainer.add(Box.createRigidArea(new Dimension(0, 15)));
+                booksContainer.add(createBookCard(book));
+                booksContainer.add(Box.createRigidArea(new Dimension(0, 16)));
             }
         }
-
         booksContainer.revalidate();
         booksContainer.repaint();
     }
 
-    public void updateTotalBooksLabel(int count) {
-        totalBooksLabel.setText("Tổng số: " + count + " sách");
-    }
+    private JPanel createEmptyState() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBackground(BG_MAIN);
+        panel.setBorder(new EmptyBorder(100, 0, 0, 0));
 
-    public void updateTopBorrowedButton(boolean isActive) {
-        if (isActive) {
-            topBorrowedButton.setBackground(SELECTED_BG);
-            topBorrowedButton.setForeground(Color.WHITE);
-            topBorrowedButton.setText("✓ Đang xem Top mượn");
-        } else {
-            topBorrowedButton.setBackground(BUTTON_BG);
-            topBorrowedButton.setForeground(TEXT_PRIMARY);
-            topBorrowedButton.setText("⭐ Top sách mượn nhiều");
-        }
-    }
+        JLabel icon = new JLabel("📭");
+        icon.setFont(new Font("Segoe UI", Font.PLAIN, 64));
+        icon.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-    public void updateCategoryComboBox(String[] categories, String selectedCategory) {
-        categoryComboBox.removeAllItems();
-        for (String category : categories) {
-            categoryComboBox.addItem(category);
-        }
-        if (selectedCategory != null) {
-            categoryComboBox.setSelectedItem(selectedCategory);
-        }
+        JLabel text = createLabel("Không tìm thấy sách phù hợp", 18, Font.BOLD, TEXT_SECONDARY);
+        text.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel sub = createLabel("Hãy thử thay đổi bộ lọc hoặc từ khóa tìm kiếm", 13, Font.PLAIN, TEXT_MUTED);
+        sub.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        panel.add(icon);
+        panel.add(Box.createRigidArea(new Dimension(0, 16)));
+        panel.add(text);
+        panel.add(sub);
+        return panel;
     }
 
     private JPanel createBookCard(BookDisplayModel book) {
-        JPanel card = new JPanel(new BorderLayout());
-        card.setBackground(SECONDARY_BG);
+        JPanel card = new JPanel(new BorderLayout(20, 0));
+        card.setBackground(BG_CARD);
         card.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(BORDER_COLOR, 1),
-                new EmptyBorder(10, 25, 10, 25)
+                new LineBorder(BORDER_LIGHT, 1, true), new EmptyBorder(20, 25, 20, 25)
         ));
-        card.setMaximumSize(new Dimension(Integer.MAX_VALUE, 130));
+        card.setMaximumSize(new Dimension(Integer.MAX_VALUE, 160));
         card.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        // Left side - Book info
-        JPanel infoPanel = new JPanel();
-        infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
-        infoPanel.setBackground(SECONDARY_BG);
+        // Info Panel
+        JPanel info = new JPanel();
+        info.setLayout(new BoxLayout(info, BoxLayout.Y_AXIS));
+        info.setBackground(BG_CARD);
 
-        JLabel titleLabel = new JLabel(book.getTitle());
-        titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
-        titleLabel.setForeground(TEXT_PRIMARY);
-        titleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        JLabel title = createLabel(book.getTitle(), 17, Font.BOLD, TEXT_PRIMARY);
+        JLabel author = createLabel("Tác giả: " + book.getAuthor(), 13, Font.PLAIN, TEXT_SECONDARY);
+        JLabel category = createLabel("Thuộc loại: " + book.getCategory() + " || Năm: " + book.getYear(), 13, Font.PLAIN, TEXT_MUTED);
+        String loca = book.getLocation() == null ? "Không xác định":book.getLocation();
+        JLabel location = createLabel("Vị trí: " + loca, 13, Font.PLAIN, TEXT_MUTED);
 
-        JLabel authorLabel = new JLabel("Tác giả: " + book.getAuthor());
-        authorLabel.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        authorLabel.setForeground(new Color(100, 100, 100));
-        authorLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        authorLabel.setBorder(new EmptyBorder(5, 0, 0, 0));
+        JLabel borrowBadge = new JLabel("" + book.getBorrowCount() + " lượt mượn ");
+        borrowBadge.setFont(new Font("Segoe UI", Font.BOLD, 11));
+        borrowBadge.setForeground(WARNING);
+        borrowBadge.setOpaque(true);
+        borrowBadge.setBackground(new Color(255, 247, 237));
+        borrowBadge.setBorder(new EmptyBorder(4, 8, 4, 8));
+        borrowBadge.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        JLabel categoryLabel = new JLabel("Thể loại: " + book.getCategory() + " | Năm: " + book.getYear());
-        categoryLabel.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        categoryLabel.setForeground(new Color(100, 100, 100));
-        categoryLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        categoryLabel.setBorder(new EmptyBorder(3, 0, 0, 0));
+        info.add(title);
+        info.add(Box.createRigidArea(new Dimension(0, 7)));
+        info.add(author);
+        info.add(Box.createRigidArea(new Dimension(0, 4)));
+        info.add(category);
+        info.add(Box.createRigidArea(new Dimension(0, 4)));
+        info.add(location);
+        info.add(Box.createRigidArea(new Dimension(0, 6)));
+        info.add(borrowBadge);
 
-        JLabel locationLabel = new JLabel("Vị trí: " + book.getLocation());
-        locationLabel.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        locationLabel.setForeground(new Color(100, 100, 100));
-        locationLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        locationLabel.setBorder(new EmptyBorder(3, 0, 0, 0));
+        // Price Panel
+        JPanel pricePanel = new JPanel();
+        pricePanel.setLayout(new BoxLayout(pricePanel, BoxLayout.Y_AXIS));
+        pricePanel.setBackground(BG_CARD);
+        pricePanel.add(createLabel(String.format("%,d đ", book.getCost()), 20, Font.BOLD, PRIMARY));
+        pricePanel.add(createLabel("Giá trị", 11, Font.PLAIN, TEXT_MUTED));
 
-        JLabel borrowLabel = new JLabel("Lượt mượn: " + book.getBorrowCount());
-        borrowLabel.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        borrowLabel.setForeground(new Color(255, 140, 0));
-        borrowLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        borrowLabel.setBorder(new EmptyBorder(3, 0, 0, 0));
-
-        infoPanel.add(titleLabel);
-        infoPanel.add(authorLabel);
-        infoPanel.add(categoryLabel);
-        infoPanel.add(locationLabel);
-        infoPanel.add(borrowLabel);
-
-        // Right side - Price
-        JPanel pricePanel = new JPanel(new BorderLayout());
-        pricePanel.setBackground(SECONDARY_BG);
-
-        JLabel priceLabel = new JLabel(String.format("%,d VNĐ", book.getCost()));
-        priceLabel.setFont(new Font("Segoe UI", Font.BOLD, 15));
-        priceLabel.setForeground(new Color(25, 118, 210));
-        priceLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        priceLabel.setBorder(new EmptyBorder(5, 0, 0, 0));
-        pricePanel.add(priceLabel, BorderLayout.NORTH);
-
-        card.add(infoPanel, BorderLayout.CENTER);
+        card.add(info, BorderLayout.CENTER);
         card.add(pricePanel, BorderLayout.EAST);
 
-        // Hover effect
+        // Hover Effect
         card.addMouseListener(new MouseAdapter() {
-            @Override
             public void mouseEntered(MouseEvent e) {
-                card.setBackground(CARD_HOVER);
-                infoPanel.setBackground(CARD_HOVER);
-                pricePanel.setBackground(CARD_HOVER);
+                card.setBackground(PRIMARY_LIGHT);
+                card.setBorder(BorderFactory.createCompoundBorder(
+                        new LineBorder(PRIMARY, 1, true), new EmptyBorder(20, 25, 20, 25)
+                ));
+                updateBg(card, PRIMARY_LIGHT);
             }
-
-            @Override
             public void mouseExited(MouseEvent e) {
-                card.setBackground(SECONDARY_BG);
-                infoPanel.setBackground(SECONDARY_BG);
-                pricePanel.setBackground(SECONDARY_BG);
+                card.setBackground(BG_CARD);
+                card.setBorder(BorderFactory.createCompoundBorder(
+                        new LineBorder(BORDER_LIGHT, 1, true), new EmptyBorder(20, 25, 20, 25)
+                ));
+                updateBg(card, BG_CARD);
             }
-
-            @Override
             public void mouseClicked(MouseEvent e) {
                 if (bookManagerController != null) {
                     bookManagerController.handleBookClicked(book.getBookId());
-                    System.out.println(book.getBookId());
                 }
             }
         });
@@ -424,35 +357,68 @@ public class BookManagerFrame extends JFrame {
         return card;
     }
 
-    private void goHome() {
-        HomeView mf = new HomeView();
-        mf.setVisible(true);
-        this.dispose();
-    }
-
-    // Custom Sidebar Button
-    private class SidebarButton extends JButton {
-        public SidebarButton(String text) {
-            super(text);
-            setMaximumSize(new Dimension(280, 45));
-            setAlignmentX(Component.LEFT_ALIGNMENT);
-            setBackground(BUTTON_BG);
-            setForeground(TEXT_PRIMARY);
-            setFont(new Font("Segoe UI", Font.PLAIN, 14));
-            setFocusPainted(false);
-            setBorderPainted(false);
-            setHorizontalAlignment(SwingConstants.LEFT);
-            setBorder(new EmptyBorder(12, 25, 12, 25));
-            setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-            addMouseListener(new MouseAdapter() {
-                public void mouseEntered(MouseEvent evt) {
-                    setBackground(BUTTON_HOVER);
-                }
-                public void mouseExited(MouseEvent evt) {
-                    setBackground(BUTTON_BG);
-                }
-            });
+    private void updateBg(Container c, Color color) {
+        for (Component comp : c.getComponents()) {
+            if (comp instanceof JPanel) {
+                comp.setBackground(color);
+                if (comp instanceof Container) updateBg((Container) comp, color);
+            }
         }
     }
+
+    public void updateTotalBooksLabel(int count) {
+        totalBooksLabel.setText("Tổng số đầu sách: " + count + " sách");
+    }
+
+    public void updateTopBorrowedButton(boolean isActive) {
+        if (isActive) {
+            topBorrowedButton.setBackground(PRIMARY);
+            topBorrowedButton.setForeground(Color.WHITE);
+            topBorrowedButton.setText("Đang xem Top mượn");
+        } else {
+            topBorrowedButton.setBackground(BG_MAIN);
+            topBorrowedButton.setForeground(TEXT_PRIMARY);
+            topBorrowedButton.setText("Top sách mượn nhiều");
+        }
+    }
+
+    public void updateCategoryComboBox(String[] categories, String selectedCategory) {
+        categoryComboBox.removeAllItems();
+        for (String cat : categories) categoryComboBox.addItem(cat);
+        if (selectedCategory != null) categoryComboBox.setSelectedItem(selectedCategory);
+    }
+
+    private void goHome() {
+        new HomeView().setVisible(true);
+        dispose();
+    }
+
+    // Modern ScrollBar
+    private class ModernScrollBarUI extends javax.swing.plaf.basic.BasicScrollBarUI {
+        protected void configureScrollBarColors() {
+            this.thumbColor = BORDER_DEFAULT;
+            this.trackColor = BG_MAIN;
+        }
+
+        protected JButton createDecreaseButton(int o) {
+            JButton btn = new JButton();
+            btn.setPreferredSize(new Dimension(0, 0));
+            return btn;
+        }
+
+        protected JButton createIncreaseButton(int o) {
+            JButton btn = new JButton();
+            btn.setPreferredSize(new Dimension(0, 0));
+            return btn;
+        }
+
+        protected void paintThumb(Graphics g, JComponent c, Rectangle r) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.setColor(thumbColor);
+            g2.fillRoundRect(r.x + 2, r.y, r.width - 4, r.height, 6, 6);
+            g2.dispose();
+        }
+    }
+
 }

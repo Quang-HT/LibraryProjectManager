@@ -79,6 +79,7 @@ public class AuthorDetailController {
             view.setDeathYearFromDate(author.getDeath_date());
             view.setCountry(author.getCountry());
             view.setBiography(author.getDescription());
+            System.out.println(author.getCountry());
 
             loadAuthorBooks(authorId);
 
@@ -177,14 +178,14 @@ public class AuthorDetailController {
 
             Author_Entity author = opt.get();
             author.setAuthor_name(view.getAuthorName());
-            author.setBirth_date(Date.valueOf(birthYear + "-01-01"));
+            author.setBirth_date(Date.valueOf(String.valueOf(birthYear)));
             author.setDescription(view.getBiography());
             author.setCountry(view.getCountry());
 
             if (deathYear == null) {
                 author.setDeath_date(null);
             } else {
-                author.setDeath_date(Date.valueOf(deathYear + "-01-01"));
+                author.setDeath_date(Date.valueOf(String.valueOf(deathYear)));
             }
 
             authorDAO.update(author);

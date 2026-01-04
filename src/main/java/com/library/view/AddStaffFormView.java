@@ -19,7 +19,7 @@ public class AddStaffFormView extends JFrame {
     private JButton btnSave;
     private JButton btnCancel;
 
-    private final String[] positions = {"Chọn chức vụ", "Quản lý", "Nhân viên", "Thủ thư"};
+    private final String[] positions = {"Chọn chức vụ", "Manager", "Staff", "Librarian"};
 
     public AddStaffFormView() {
         initializeFrame();

@@ -56,8 +56,11 @@ public class BookManagerController {
         for (Book_Entity book : listBook) {
             String author = findService.FindNameAuthor(book.getBook_id());
             String category = findService.FindNameCategory(book.getBook_id());
+            System.out.println(author + "   "+category);
+
             int year = book.getPublish_year();
             int cost = (int) findService.FindCost(book.getBook_id());
+            System.out.println(cost);
             String location = book.getLocation();
             int borrowCount = findService.countBorrowByIdBook(book.getBook_id());
 

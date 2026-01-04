@@ -51,29 +51,44 @@ public class BorrowSlipDetailView extends JFrame {
         lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 26));
         main.add(lblTitle, BorderLayout.NORTH);
 
-        JPanel centerPanel = new JPanel(new BorderLayout(10, 10));
+        // ====== CONTENT dọc (để không bị cắt) ======
+        JPanel content = new JPanel();
+        content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
+        content.setOpaque(false);
 
         JPanel info = createInfoPanel();
-        centerPanel.add(info, BorderLayout.NORTH);
+        info.setAlignmentX(Component.LEFT_ALIGNMENT);
+        content.add(info);
+        content.add(Box.createRigidArea(new Dimension(0, 12)));
 
         penaltyPanel = createPenaltyPanel();
-        centerPanel.add(penaltyPanel, BorderLayout.CENTER);
-        penaltyPanel.setVisible(false); // default hide
+        penaltyPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        penaltyPanel.setVisible(false);
+        content.add(penaltyPanel);
+        content.add(Box.createRigidArea(new Dimension(0, 12)));
 
         JPanel tablePanel = new JPanel(new BorderLayout());
+        tablePanel.setOpaque(false);
+        tablePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
         JLabel lblBooks = new JLabel("Danh sách sách mượn:");
         lblBooks.setFont(new Font("Segoe UI", Font.BOLD, 15));
-        lblBooks.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+        lblBooks.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
         tablePanel.add(lblBooks, BorderLayout.NORTH);
 
         tblBooks = createBooksTable();
         JScrollPane sp = new JScrollPane(tblBooks);
-        sp.setPreferredSize(new Dimension(0, 250));
+        sp.setPreferredSize(new Dimension(0, 250)); // giữ cũng được
         tablePanel.add(sp, BorderLayout.CENTER);
 
-        centerPanel.add(tablePanel, BorderLayout.SOUTH);
+        content.add(tablePanel);
 
-        main.add(centerPanel, BorderLayout.CENTER);
+        // ✅ Bọc content bằng scroll để không bao giờ bị “cắt chữ”
+        JScrollPane contentScroll = new JScrollPane(content);
+        contentScroll.setBorder(null);
+        contentScroll.getVerticalScrollBar().setUnitIncrement(16);
+
+        main.add(contentScroll, BorderLayout.CENTER);
 
         JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
         btnPrint = createButton("In phiếu", PRIMARY);
@@ -85,6 +100,7 @@ public class BorrowSlipDetailView extends JFrame {
 
         add(main);
     }
+
 
     private JButton createButton(String text, Color color) {
         JButton btn = new JButton(text);
@@ -129,28 +145,39 @@ public class BorrowSlipDetailView extends JFrame {
     }
 
     private JPanel createPenaltyPanel() {
-        JPanel p = new JPanel(new GridLayout(5, 2, 15, 10));
-        p.setBackground(new Color(255, 248, 225));
-        p.setBorder(BorderFactory.createCompoundBorder(
+        JPanel wrapper = new JPanel(new BorderLayout(0, 12));
+        wrapper.setBackground(new Color(255, 248, 225));
+        wrapper.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(WARNING, 2),
-                BorderFactory.createEmptyBorder(20, 20, 20, 20)
+                BorderFactory.createEmptyBorder(13, 18, 13, 18)
         ));
 
+        // Title
         JLabel lblTitle = new JLabel("THÔNG TIN PHẠT");
         lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 16));
         lblTitle.setForeground(DANGER);
-        p.add(lblTitle);
-        p.add(new JLabel(""));
+        wrapper.add(lblTitle, BorderLayout.NORTH);
 
-        valOverdueDays = addPenaltyRow(p, "Số ngày trễ:", "-", DANGER);
-        valRatePerDay  = addPenaltyRow(p, "Mức phạt/ngày:", "-", Color.BLACK);
-        valTotalPenalty= addPenaltyRow(p, "Tổng tiền phạt:", "-", DANGER);
-        valPaidStatus  = addPenaltyRow(p, "Thanh toán:", "-", Color.BLACK);
+        // Rows
+        JPanel p = new JPanel(new GridBagLayout());
+        p.setOpaque(false);
 
-        return p;
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(3, 0, 3, 0);
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        valOverdueDays  = addPenaltyRow(p, gbc, 0, "Số ngày trễ:", "-", DANGER);
+        valRatePerDay   = addPenaltyRow(p, gbc, 1, "Mức phạt/ngày:", "-", Color.BLACK);
+        valTotalPenalty = addPenaltyRow(p, gbc, 2, "Tổng tiền phạt:", "-", DANGER);
+        valPaidStatus   = addPenaltyRow(p, gbc, 3, "Thanh toán:", "-", Color.BLACK);
+
+        wrapper.add(p, BorderLayout.CENTER);
+        return wrapper;
     }
 
-    private JLabel addPenaltyRow(JPanel p, String label, String value, Color valueColor) {
+    private JLabel addPenaltyRow(JPanel p, GridBagConstraints gbc, int row,
+                                 String label, String value, Color valueColor) {
         JLabel lblLabel = new JLabel(label);
         lblLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
 
@@ -158,10 +185,20 @@ public class BorrowSlipDetailView extends JFrame {
         lblValue.setFont(new Font("Segoe UI", Font.BOLD, 15));
         lblValue.setForeground(valueColor);
 
-        p.add(lblLabel);
-        p.add(lblValue);
+        // cột 0: label
+        gbc.gridx = 0;
+        gbc.gridy = row;
+        gbc.weightx = 0.35;
+        p.add(lblLabel, gbc);
+
+        // cột 1: value
+        gbc.gridx = 1;
+        gbc.weightx = 0.65;
+        p.add(lblValue, gbc);
+
         return lblValue;
     }
+
 
     private JTable createBooksTable() {
         String[] cols = {"ID Bản sao", "Mã sách", "Tên sách", "Tác giả", "Thể loại", "Trạng thái"};
@@ -197,9 +234,11 @@ public class BorrowSlipDetailView extends JFrame {
 
     public void setPenaltyVisible(boolean visible) {
         penaltyPanel.setVisible(visible);
-        // resize theo có phạt hay không
-        setSize(950, visible ? 850 : 750);
+        penaltyPanel.revalidate();
+        penaltyPanel.repaint();
+
     }
+
 
     public void setPenalty(int overdueDays, double rate, double totalPenalty, boolean paid) {
         valOverdueDays.setText(overdueDays + " ngày");

@@ -18,7 +18,7 @@ public class FIND implements FINDINFORMATION {
         List<Author_Book_Entity> list = abDao.findAuthors_BookByBookId(bookId);
 
         if (list == null || list.isEmpty()) {
-            return "Không rõ tác giả";
+            return "Không rõ tác giả------------";
         }
 
         List<String> names = new ArrayList<>();
@@ -89,10 +89,14 @@ public class FIND implements FINDINFORMATION {
     @Override
     public double FindCost(int book_id) {
         Copy_DAO dao = new Copy_DAO();
-
-        return dao.findById(book_id)
-                .map(Copy_Entity::getCost)
-                .orElse(0);
+        List<Copy_Entity> copyEntityList = dao.findByIdBook(book_id);
+        double cost;
+        try {
+           cost = copyEntityList.get(0) == null ? 0.0 : copyEntityList.get(0).getCost();
+        }catch (Exception ex){
+            return cost=0.0;
+        }
+        return cost;
     }
 
     @Override

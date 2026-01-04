@@ -80,7 +80,7 @@ public class Book_DAO extends AbstractDAO<Book_Entity, Integer> {
 
 
     public List<Book_Entity> findAuthorsById(int id){
-        List<Author_Book_Entity> listAB = new Author_Book_DAO().findAuthors_BookById(id);
+        List<Author_Book_Entity> listAB = new Author_Book_DAO().findAuthors_BookByAuthorId(id);
         List<Book_Entity> listb = new ArrayList<>();
         for(Author_Book_Entity e : listAB){
             Optional<Book_Entity> op = new Book_DAO().findById(e.getBook_id());

@@ -23,7 +23,7 @@ public class EditStaffForm extends JFrame {
     private JButton btnSave;
     private JButton btnCancel;
 
-    private final String[] positions = {"Quản lý", "Nhân viên", "Thủ thư"};
+    private final String[] positions = {"Manager", "Staff", "Librarian"};
 
     private final Staff_Entity staff;
     private final StaffManagementView parent;

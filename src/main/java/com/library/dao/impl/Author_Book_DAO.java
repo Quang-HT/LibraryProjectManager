@@ -44,7 +44,7 @@ public class Author_Book_DAO extends AbstractDAO<Author_Book_Entity, Integer> {
     public Optional<Author_Book_Entity> findById(Integer id) {
         return querySingle("SELECT * FROM Author_Book WHERE author_id = ?", id);
     }
-    public List<Author_Book_Entity> findAuthors_BookById(int id){
+    public List<Author_Book_Entity> findAuthors_BookByAuthorId(int id){
         return query("SELECT * FROM author_book WHERE author_id = ?", id);
     }
     public List<Author_Book_Entity> findAuthors_BookByBookId(int id){
